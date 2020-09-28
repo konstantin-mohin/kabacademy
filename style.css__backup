@@ -1,0 +1,833 @@
+/*!
+Theme Name: kabacedemy
+Theme URI: http://dev.kabacedemy.com
+Author: OnePix.net
+Author URI: http://onepix.net/
+Description: Description
+Version: 1.0.0
+Tested up to: 5.4
+Requires PHP: 5.6
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: kabacedemy
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
+b, strong {
+	font-weight: 600;
+}
+
+a:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.btn:disabled {
+	background-color: #a7a7a7;
+}
+
+.page-numbers {
+	display: inline-block;
+	vertical-align: middle;
+	font-weight: 300;
+	font-size: 28px;
+	line-height: 1.78571;
+	letter-spacing: -0.05em;
+	color: #3C5D90;
+}
+
+.page-numbers:not(:last-child) {
+	margin-right: 40px;
+}
+
+.page-numbers.current {
+	color: #000;
+}
+
+.eb-my-course {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 50px;
+}
+
+@media (max-width: 1024px) {
+	.eb-my-course {
+		transform: translateX(-50px);
+		width: 100vw;
+		padding: 0 10px;
+		margin-top: 40px;
+	}
+}
+
+@media (max-width: 599px) {
+	.eb-my-course {
+		display: block;
+		transform: none;
+		width: 100%;
+		padding: 0;
+		margin-top: 30px;
+	}
+}
+
+.broadcast__time-left.intro-timer {
+	position: unset;
+	display: block;
+	align-items: unset;
+	padding: unset;
+}
+
+.cell-order-actions {
+	display: flex;
+	justify-content: center;
+	font-size: 14px;
+}
+
+.cell-order-actions a {
+	margin-right: 5px;
+}
+
+.cell-order-actions a:last-child {
+	margin-right: 0;
+}
+
+.cabinet-complete__block a {
+	margin-left: auto;
+}
+
+#wi-thanq-wrapper {
+	display: flex;
+	align-items: center;
+	margin-bottom: 23px;
+	border: 2px solid #98DEFF;
+	padding: 56px;
+}
+
+#wi-thanq-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#wi-thanq-wrapper .msg {
+	font-weight: normal;
+}
+
+#wi-cancel-redirect {
+	margin-left: 245px;
+	padding: 20px 65px;
+	color: #fff !important;
+	background-color: #A42BB9;
+}
+
+/*.bbp-reply-to-link {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: block;
+	font-family: "Open Sans", sans-serif;
+	font-size: 11px;
+	font-weight: 700;
+	color: #fff !important;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 7px 46px;
+	background-color: #98DEFF;
+	opacity: 0;
+	transition: .15s ease;
+}*/
+
+.broadcast__comments .comment_author {
+    width: 26px;
+    border-radius: 100%;
+    overflow: hidden;
+    height: 26px;
+    min-width: 26px;
+    margin-right: 15px;
+    margin-top: -7px;
+}
+
+.broadcast__comments .comment_author_name strong {
+    color: #6f6f6f;
+    margin-right: 7px;
+    font-weight: 500;
+}
+
+.broadcast__comments .comment_author_name {
+    font-weight: 600;
+    box-sizing: border-box;
+    border-radius: 2px;
+    color: var(--yt-live-chat-secondary-text-color);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.broadcast__comments .comment {
+    margin: 16px 0;
+    clear: both;
+    display: flex;
+}
+
+.broadcast__comments {
+    background-color: transparent;
+}
+
+.forum-comment__main:hover .bbp-reply-to-link {
+	opacity: 1;
+}
+
+.cart-promo__text .woocommerce-message {
+	font-size: 14px;
+	line-height: 160%;
+	color: #2C2C2C;
+}
+
+textarea#bbp_forum_content,
+textarea#bbp_reply_content,
+textarea#bbp_topic_content {
+	width: 100%;
+}
+
+.modal-notification {
+	max-width: 616px;
+	position: relative;
+	z-index: 100;
+	padding: 62px 56px;
+	background-color: #fff;
+}
+
+.modal-notification::before,
+.modal-notification::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+}
+
+.modal-notification::before {
+	z-index: -2;
+	background-color: rgba(55, 174, 221, 0.15);
+}
+
+.modal-notification .modal__form__title {
+	text-align: center;
+}
+
+.modal-notification .modal__form-content {
+	margin-bottom: 20px;
+}
+
+.modal-notification .modal__form-link {
+
+}
+
+.empty-cart-title {
+	position: relative;
+	margin-bottom: 20px;
+	font-size: 32px;
+	line-height: 1.1875;
+	letter-spacing: -0.05em;
+	font-weight: 300;
+	flex: 1 1 0;
+	margin-right: 30px;
+}
+
+/*.woocommerce-notices-wrapper*/
+
+.woocommerce-NoticeGroup {
+	border: 10px solid #f56a6a;
+	padding: 27px;
+	margin-bottom: 20px;
+	font-size: 17px;
+}
+
+.woocommerce-NoticeGroup .woocommerce-error li {
+	margin-bottom: 7px;
+}
+
+.woocommerce-NoticeGroup .woocommerce-error li:last-child {
+	margin-bottom: 0;
+}
+
+.cart .woocommerce-message {
+	margin-bottom: 7px;
+}
+
+.modal__form-link {
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	padding: 5px 10px;
+	width: 100%;
+	max-width: 345px;
+	text-align: center;
+	color: #A42BB9;
+	white-space: nowrap;
+	border-radius: 4px;
+	border: 1px solid #A42BB9;
+	background-color: transparent;
+
+	transition: all 0.3s ease-in;
+}
+
+.modal__form-link:hover {
+	color: #ffffff;
+	background-color: #A42BB9;
+}
+
+.form-top {
+	margin-bottom: 55px;
+}
+
+.form-label--full-width {
+	flex-basis: 100% !important;
+	max-width: 100% !important;
+}
+
+.broadcast__comments {
+	overflow-y: hidden;
+}
+
+.broadcast__comments .broadcast__comments {
+    overflow: scroll;
+}
+
+.cabinet__form__password__title {
+	cursor: pointer;
+}
+
+.cabinet__form span.select2 {
+	top: 4px;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 2px solid #98DEFF !important;
+	border-radius: unset;
+}
+
+.select2-container .select2-selection--single {
+	height: auto;
+	padding: 10px;
+}
+
+.form-label-select {
+	flex: 0 0 50%;
+	padding: 0 15px;
+	max-width: 50%;
+}
+
+.form-label-select-badge {
+	top: 5px;
+	font-size: 12px;
+	line-height: 1;
+	transform: none;
+	color: #3CA7DB !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+	border-width: 10px 7px 0 7px;
+	border-color: #2C2C2C transparent transparent transparent;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top: 8px;
+	right: 8px;
+}
+
+.select2-dropdown {
+	background: #E0EFFA;
+	border: 2px solid #98DEFF;
+	border-radius: unset;
+}
+
+.notification-link {
+	color: #f56a6a;
+}
+
+.wdm-flash-error {
+	background: transparent;
+	line-height: 22px;
+}
+
+.wdm-flash-error span a {
+	color: #FF7979;
+}
+
+.basic-sidebar__product__discount {
+	font-family: "Open Sans", sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.eb-my-courses-wrapper {
+	margin-top: 20px;
+}
+
+.basic-content__item ul li:before {
+	content: unset;
+}
+
+.shop_table {
+	width: 100%;
+	max-width: 100%;
+	background-color: transparent;
+}
+
+.shop_table_responsive {
+	/*display: block;*/
+	padding: 27px 0 10px;
+	width: 100%;
+}
+
+.shop_table_responsive .swiper-slide:last-child {
+	width: 0 !important;
+}
+
+.shop_table_responsive .slider-scrollbar {
+	margin-top: -20px;
+	margin-bottom: 35px;
+}
+
+.shop_table,
+.shop_table > th,
+.shop_table > td {
+	background-color: #F5FAFD;
+}
+
+.shop_table th,
+.shop_table td {
+	border: 0;
+	font-weight: 300;
+	color: #2C2C2C;
+	padding: 20px 30px;
+	vertical-align: middle;
+	min-width: 168px;
+}
+
+.shop_table thead {
+	background-color: #CEE4F1;
+}
+
+.shop_table thead th {
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 1.16667;
+	letter-spacing: -0.05em;
+	text-align: left;
+	text-transform: uppercase;
+	vertical-align: bottom;
+	color: #fff;
+	white-space: nowrap;
+}
+
+.shop_table tbody tr:nth-of-type(even) {
+	background-color: #F0F5F8;
+}
+
+.shop_table tbody td {
+	font-family: "Open Sans", sans-serif;
+}
+
+.shop_table tbody td:first-of-type {
+	font-weight: 400;
+}
+
+.shop_table tbody td:nth-of-type(odd) {
+	background-color: rgba(180, 212, 232, 0.075);
+}
+
+.shop_table {
+	color: #3BA9DC !important;
+}
+
+.cabinet__form__password__title::before {
+	right: calc(-100vw - 280px + 100%);
+}
+
+@media (max-width: 599px) {
+	.cart-promo__content {
+		display: none;
+	}
+}
+
+/*.course__slider .club-course {*/
+/*	margin: 0 15px;*/
+/*	min-height: 224px;*/
+/*	min-width: 300px;*/
+/*	width: auto;*/
+/*}*/
+
+.card__item {
+	background: unset;
+}
+
+.basic-content__item__text ol,
+.basic-content__item__text ul {
+	padding: 18px 0;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 1.57143;
+	color: #2C2C2C;
+}
+
+.basic-content__item__text ol li,
+.basic-content__item__text ul li {
+	position: relative;
+	padding-left: 40px;
+}
+
+.basic-content__item__text ol li:not(:last-child),
+.basic-content__item__text ul li:not(:last-child) {
+	margin-bottom: 24px;
+}
+
+.basic-content__item__text ul li::before,
+.basic-content__item__text ol li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 22px;
+	height: 22px;
+	background-image: url('./static/img/minified-svg/icon-arrow-right-small.svg');
+	background-position: 50%;
+	background-size: 8px;
+	background-repeat: no-repeat;
+	background-color: #E5F2F8;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 22px;
+	text-align: center;
+	letter-spacing: -0.05em;
+	color: #3CA7DB;
+}
+
+.basic-content__item__text ol {
+	counter-reset: list;
+}
+
+.basic-content__item__text ol li::before {
+	counter-increment: list;
+	content: "0" counter(list);
+	background-image: none;
+}
+
+
+.basic-content__item__text h2 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 1.21429;
+	letter-spacing: -0.05em;
+	color: #3C5D90;
+}
+
+@media (max-width: 1024px) {
+	.basic-content__item__text h2 {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+}
+
+@media (max-width: 599px) {
+	.basic-content__item__text h2 {
+		margin-top: 15px;
+		font-size: 26px;
+		line-height: 1.19231;
+	}
+}
+
+.basic-content__item__text h3 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 1.18182;
+	letter-spacing: -0.05em;
+	color: #A42BB9;
+}
+
+@media (max-width: 1024px) {
+	.basic-content__item__text h3 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+@media (max-width: 599px) {
+	.basic-content__item__text h3 {
+		margin-top: 15px;
+	}
+}
+
+.basic-sidebar__product__members {
+	font-size: 15px;
+	text-align: center;
+}
+
+.woocommerce-error,
+.login-errors {
+	display: none;
+}
+
+.swal2-html-container a {
+	color: #f27474;
+	font-weight: 500;
+}
+
+.cart-final__button {
+	text-transform: lowercase;
+}
+
+.club-course__subtitle {
+	margin-bottom: 10px;
+}
+
+.basic-sidebar__form__button--disabled {
+	background-color: #a7a7a7;
+	border-radius: 6px;
+}
+
+.basic-sidebar__form__button--disabled:hover {
+	background-color: #a7a7a7;
+}
+
+.cell-order-status {
+	text-transform: lowercase;
+}
+
+.woocommerce-orders-table__row--status-pending .cell-order-status {
+	color: #A42BB9 !important;
+}
+
+#new-topic-0 {
+    background: #f0f8ff;
+    margin-top: 30px;
+}
+
+#bbpress-forums fieldset.bbp-form {
+    background: #f0f8ff;
+}
+
+textarea.bbp-the-content {
+    background: #fff;
+    border: 1px solid #98DEFF;
+}
+
+#bbp_topic_tags,
+#bbp_topic_title,
+#bbp_topic_edit_reason {
+    background-color: #fff;
+    border: 1px solid #98DEFF;
+    padding: 3px 10px !important;
+    height: 32px !important;
+}
+
+.forum-answer__form textarea {
+    border: 1px solid #98DEFF;
+}
+
+.bbp_dropdown {
+    appearance: auto;
+    width: 200px;
+    height: 32px !important;
+    padding: 3px 10px;
+    border: 1px solid #98DEFF;
+    background-color: #fff;
+}
+
+div.bbp-submit-wrapper {
+    float: left;
+}
+
+#bbp_topic_submit {
+    display: block;
+    padding: 13px 50px;
+    font-size: 16px;
+    line-height: 180%;
+    letter-spacing: -0.05em;
+    text-align: center;
+    color: #fff;
+    background-color: #A42BB9;
+    border: 1px solid #A42BB9;
+    border-radius: 8px;
+}
+
+#bbp_topic_submit:hover {
+    background-color: #872398;
+}
+
+.woocommerce-NoticeGroup-checkout .woocommerce-error {
+	display: block !important;
+}
+
+
+/*Orders Woocommerce Page AddStyle*/
+
+.table thead th:nth-child(even) {
+    background: #cee4f1;
+}
+
+.table thead {
+    background-color: #cbe2f0;
+}
+
+.woocommerce table.table.table-blue thead th:first-child {
+    padding-left: 40px;
+}
+
+.woocommerce-orders-table__row--status-pending.order td.cell-order-actions a {
+    color: #A42BB9 !important;
+}
+
+.woocommerce-orders-table__row--status-pending.order td.cell-order-actions a:nth-child(2) {
+    display: none;
+}
+
+.woocommerce-orders-table__row.order span.woocommerce-Price-currencySymbol {
+    margin-right: 1px!important;
+    display: inline-block;
+    font-size: 18px;
+    margin-top: -4.5px;
+    vertical-align: middle;
+}
+
+.woocommerce-orders-table__row.order .cell-order-actions.table-text-big.table-text-blue a {
+    color: #3BA9DC;
+    font-weight: normal;
+}
+
+.woocommerce-orders-table__row.order.woocommerce-orders-table__row--status-pending .cell-order-status {
+    color: #A42BB9 !important;
+    white-space: nowrap;
+    font-weight: 400!important;
+}
+
+.woocommerce-orders-table__row--status-pending.order td.cell-order-actions a:nth-child(1) {
+    font-weight: 600!important;
+}
+
+.woocommerce-orders-table__row.order .table-button-remove svg {
+    width: 11px;
+    height: 11px;
+}
+
+.woocommerce-orders-table__row.order .table-button-remove {
+    margin-left: 30px;
+    margin-right: -5px!important;
+}
+
+.cell-order-actions {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 14px;
+}
+
+.comment-metadata, .comment-body .reply, .comment-respond .logged-in-as, .akismet_comment_form_privacy_notice {
+    display: none!important;
+}
+
+.comment-body {
+    border-bottom: 1px solid #e5ebf0;
+}
+
+.mak-comments-clist.comment-list .comment-author.vcard {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.mak-comments-clist.comment-list .comment-author.vcard * {
+    font-size: 14px;
+    color: #000;
+}
+
+.mak-comments-clist.comment-list .comment-author.vcard img {
+    margin-right: 10px;
+}
+
+.comment-body {
+    border-bottom: 1px solid rgb(196 196 196 / 19%);
+}
+
+.comment-content p {
+    font-size: 15px!important;
+}
+
+.comment-content {
+    margin: -8px 20px 0;
+    font-size: 15px!important;
+}
+
+.comment-respond {
+    margin: 0 20px;
+}
+
+.comments-area textarea {
+    background: #fff;
+    border: 1px solid rgb(164 43 185 / 15%);
+    margin: 10px 0 0;
+    max-height: 110px;
+    padding: 10px;
+    width: 100%;
+}
+
+.comments-area input#submit {
+    background: #3ca7db;
+    padding: 14px 36px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    width: 100%;
+    transition: 400ms;
+}
+
+.comments-area input#submit:hover {
+    background: #3594c1;
+}
+
+.comments-area textarea.comment--error {
+    border: 1px solid rgb(185 43 43 / 52%);
+}
+
+.mak-comments-clist-blank {
+    min-height: 250px;
+    display: flex;
+    align-items: flex-start;
+    color: #aaa;
+    padding: 50px 20px 30px;
+    font-size: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.no---scroll.broadcast__comments {
+    overflow-y: hidden!important;
+    height: 100%!important;
+}
+
+#comments {
+    display: none;
+}
+
+.intro.front---page .intro__background img {
+    max-width: 1016px; 
+}
+
+@media (max-width: 1024px) {
+    .admin-bar .header__burger.is-active {
+        padding-top: 40px;
+    }
+    .comments-area input#submit {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}
