@@ -243,41 +243,43 @@ function showVideoMakClub( $id, $title ) {
 	$html .= '<ul class="online-club__list online-club-list">';
 
 	$videos = get_field( 'mak_archive_webinars', $id );
-    
-    if ($videos) {
-        foreach ( $videos as $video ) {
-            $video_info = getYoutubeVideoInfo( $video['mak_archive_webinar_id'] );
 
-            $html .= '<li class="online-club-list__item">
+	if ( $videos ) {
+		foreach ( $videos as $video ) {
+			$video_info = getYoutubeVideoInfo( $video['mak_archive_webinar_id'] );
+
+			$html .= '<li class="online-club-list__item">
                     <svg class="icon__icon-comment" width="21" height="20">
                     <use href="/svg-symbols.svg#icon-comment"></use>
                   </svg> ';
-            $html .= '<a href="' . get_the_permalink( $id ) . '?video=' . $video['mak_archive_webinar_id'] . '">' . $video_info->snippet->title . '</a></li>';
-        }
-    } else {
-        $html .= '<span style="font-size: 13px; color: #ccc; text-align: center; width: 100%; display: inline-block;">Записей трансляций пока нет</span>';
-    }
-    
+			$html .= '<a href="' . get_the_permalink( $id ) . '?video=' . $video['mak_archive_webinar_id'] . '">' . $video_info->snippet->title . '</a></li>';
+		}
+	} else {
+		$html .= '<span style="font-size: 13px; color: #ccc; text-align: center; width: 100%; display: inline-block;">Записей трансляций пока нет</span>';
+	}
+
 	$html .= '</ul>';
 
 	return $html;
 }
 
-function has_bought_items( $user_id = 0,  $product_ids = 0 ) {
-    global $wpdb;
-    $customer_id = $user_id == 0 || $user_id == '' ? get_current_user_id() : $user_id;
-    $statuses      = array_map( 'esc_sql', wc_get_is_paid_statuses() );
+function has_bought_items( $user_id = 0, $product_ids = 0 ) {
+	global $wpdb;
+	$customer_id = $user_id == 0 || $user_id == '' ? get_current_user_id() : $user_id;
+	$statuses    = array_map( 'esc_sql', wc_get_is_paid_statuses() );
 
-    if ( is_array( $product_ids ) )
-        $product_ids = implode(',', $product_ids);
+	if ( is_array( $product_ids ) ) {
+		$product_ids = implode( ',', $product_ids );
+	}
 
-    if ( $product_ids !=  ( 0 || '' ) )
-        $query_line = "AND woim.meta_value IN ($product_ids)";
-    else
-        $query_line = "AND woim.meta_value != 0";
+	if ( $product_ids != ( 0 || '' ) ) {
+		$query_line = "AND woim.meta_value IN ($product_ids)";
+	} else {
+		$query_line = "AND woim.meta_value != 0";
+	}
 
-    // Count the number of products
-    $product_count_query = $wpdb->get_var( "
+	// Count the number of products
+	$product_count_query = $wpdb->get_var( "
         SELECT COUNT(p.ID) FROM {$wpdb->prefix}posts AS p
         INNER JOIN {$wpdb->prefix}postmeta AS pm ON p.ID = pm.post_id
         INNER JOIN {$wpdb->prefix}woocommerce_order_items AS woi ON p.ID = woi.order_id
@@ -289,8 +291,8 @@ function has_bought_items( $user_id = 0,  $product_ids = 0 ) {
         $query_line
     " );
 
-    // Return a boolean value if count is higher than 0
-    return $product_count_query > 0 ? true : false;
+	// Return a boolean value if count is higher than 0
+	return $product_count_query > 0 ? true : false;
 }
 
 function showForumMakClub( $id ) {
@@ -298,33 +300,33 @@ function showForumMakClub( $id ) {
 	$html = '<div class="online-club__label">Последние обсуждаемые темы:</div>';
 	$html .= '<ul class="online-club__list online-club-list-forum">';
 
-	$args = array(
-        'post_type' => 'topic',
-        'posts_per_page' => -1,
-        'meta_key' => '_bbp_last_active_time', // Make sure topic has some last activity time
-        'orderby' => 'meta_value',
-        
-    );
-    $query = new WP_Query( $args );
-    
-    if ( $query->have_posts() ) {
-        
-        $i = 0;
-        
-        while ($query->have_posts() && ($i < 3)) {
-            $query->the_post();
-            $posturl = get_the_permalink( $guid );            
-                
-            $html .= '<li class="online-club-list__item ' . get_the_id() . '">
+	$args  = array(
+		'post_type'      => 'topic',
+		'posts_per_page' => - 1,
+		'meta_key'       => '_bbp_last_active_time', // Make sure topic has some last activity time
+		'orderby'        => 'meta_value',
+
+	);
+	$query = new WP_Query( $args );
+
+	if ( $query->have_posts() ) {
+
+		$i = 0;
+
+		while ( $query->have_posts() && ( $i < 3 ) ) {
+			$query->the_post();
+			$posturl = get_the_permalink( $guid );
+
+			$html .= '<li class="online-club-list__item ' . get_the_id() . '">
                     <svg class="icon__icon-comment" width="21" height="20">
                     <use href="/svg-symbols.svg#icon-comment"></use>
                     </svg> ';
-            $html .= '<a href="' . $posturl . '">' . get_the_title() . '</a></li>';
-            
-            $i = $i + 1;
-        }     
-    } 
-    
+			$html .= '<a href="' . $posturl . '">' . get_the_title() . '</a></li>';
+
+			$i = $i + 1;
+		}
+	}
+
 	$html .= '</ul>';
 
 	return $html;
@@ -371,27 +373,33 @@ function showGalleryMakClub( $id ) {
 add_action( 'woocommerce_before_calculate_totals', 'one_subcategory_cart_item', 10, 1 );
 function one_subcategory_cart_item( $cart ) {
 
-    if ( is_admin() && ! defined( 'DOING_AJAX' ) )
-        return;
-    
-    foreach ( $cart->get_cart() as $cart_item )
-        if ($cart_item["quantity"] > 1) {
-            $cart->set_quantity( $cart_item["key"]);            
-        }    
+	if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+		return;
+	}
+
+	foreach ( $cart->get_cart() as $cart_item ) {
+		if ( $cart_item["quantity"] > 1 ) {
+			$cart->set_quantity( $cart_item["key"] );
+		}
+	}
 }
 
 
 add_action( 'woocommerce_checkout_update_user_meta', 'myplugin_user_register', 10, 2 );
 
 function myplugin_user_register( $customer_id, $data ) {
-	
-	customDebug( '==============  END =============' );
-	customDebug( '==============  BEGIN =============' );
+
+	customDebug( '==============  BEGIN ===========' );
 
 	customDebug( "Create user WP user_id = $customer_id" );
 
 	// Default last_name
-	update_user_meta( $customer_id , 'last_name', '-');
+	update_user_meta( $customer_id, 'last_name', '-' );
+	// добавление сохранения страны
+	if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
+		$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
+		update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
+	}
 
 	if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
 
@@ -482,7 +490,7 @@ function woocommerce_discount_cart( $fragments ) {
 }
 
 function get_tv_page_variables( $page_id ) {
-	
+
 
 	$field_date     = get_field( 'mak_date' );
 	$player_type    = get_field( 'mak_type_video' );
@@ -495,8 +503,8 @@ function get_tv_page_variables( $page_id ) {
 	} else {
 		$video_id = get_field( 'mak_id_video' );
 	}
-    
-    if ( isset( $_GET['video'] ) && ! empty( $_GET['video'] ) ) {
+
+	if ( isset( $_GET['video'] ) && ! empty( $_GET['video'] ) ) {
 		$video_id = $_GET['video'];
 	}
 
@@ -517,7 +525,7 @@ function get_script_tv_page( $player_type ) {
 			function onPlayerReady(event) {
 				const videoId = document.getElementById('player').dataset.video;
 
-		  <?php if (( $player_type === 'playlist' ) && (( !isset( $_GET['video'] ) || empty( $_GET['video'] ) ))) { ?>
+		  <?php if (( $player_type === 'playlist' ) && ( ( ! isset( $_GET['video'] ) || empty( $_GET['video'] ) ) )) { ?>
 				event.target.loadPlaylist({
 					listType: 'playlist',
 					list: videoId,
@@ -584,12 +592,13 @@ function sv_wc_memberships_member_discount_product_notice( $product_id ) {
 		return;
 	}
 
-	$users_discount_on_product = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( get_current_user_id(), $product_id );
+	$users_discount_on_product = wc_memberships()->get_rules_instance()->get_user_product_purchasing_discount_rules( get_current_user_id(),
+		$product_id );
 
 	foreach ( $users_discount_on_product as $membership ) {
 		$membership_name = get_the_title( $membership->get_membership_plan_id() );
-		$discount = $membership->get_discount();
-		$discount_type = $membership->get_discount_type();
+		$discount        = $membership->get_discount();
+		$discount_type   = $membership->get_discount_type();
 	}
 
 	if ( $discount_type === 'amount' ) {
@@ -598,7 +607,8 @@ function sv_wc_memberships_member_discount_product_notice( $product_id ) {
 
 	if ( wc_memberships_user_has_member_discount( $product_id ) ) {
 		echo '<div class="basic-sidebar__product__discount">';
-		echo sprintf( 'Скидка на курс <strong>%s</strong> в рамках подписки клуба - "%s"', $discount, $membership_name );
+		echo sprintf( 'Скидка на курс <strong>%s</strong> в рамках подписки клуба - "%s"', $discount,
+			$membership_name );
 		echo '</div>';
 	}
 }
@@ -615,6 +625,8 @@ function phone_moodle_user_profile_details( $user_data, $update ) {
 
 	if ( $update ) {
 		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
+	} else {
+		$user_data['country'] = get_user_meta( $current_user->ID, 'country', true );
 	}
 
 	return $user_data;
