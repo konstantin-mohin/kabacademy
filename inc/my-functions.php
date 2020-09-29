@@ -625,8 +625,12 @@ function phone_moodle_user_profile_details( $user_data, $update ) {
 
 	if ( $update ) {
 		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
-	} else {
-		$user_data['country'] = get_user_meta( $current_user->ID, 'country', true );
+	}
+
+	$user_country = get_user_meta( $current_user->ID, 'country', true );
+
+	if ( ! empty( $user_country ) ) {
+		$user_data['country'] = $user_country;
 	}
 
 	return $user_data;
