@@ -170,7 +170,7 @@ $(document).ready(function () {
 					opts: {
 						afterShow: function (instance, current) {
 							console.info('Set cookie');
-							setCookie('user_details_fill', 'timeout', {secure: true, 'max-age': 600});
+							setCookie('user_details_fill', 'timeout', {secure: true, 'max-age': 100});
 						}
 					}
 				});
