@@ -19,35 +19,46 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_reset_password_form' );
 ?>
+    <form method="post" class="woocommerce-ResetPassword lost_reset_password modal__form">
 
-<form method="post" class="woocommerce-ResetPassword lost_reset_password">
+        <div class="modal__form__title"><?php echo apply_filters( 'woocommerce_reset_password_message',
+				esc_html__( 'Enter a new password below.', 'woocommerce' ) ); ?></div>
+<!-- class="woocommerce-Input woocommerce-Input--text input-text"-->
+        <div class="form-group">
+            <label class="form-label form-label--full-width">
+                <input type="password"
+                       name="password_1"
+                       id="password_1"
+                       autocomplete="new-password"/>
+                <span><?php esc_html_e( 'New password', 'woocommerce' ); ?>&nbsp;</span>
+            </label>
+        </div>
 
-	<p><?php echo apply_filters( 'woocommerce_reset_password_message', esc_html__( 'Enter a new password below.', 'woocommerce' ) ); ?></p><?php // @codingStandardsIgnoreLine ?>
+        <div class="form-group">
+            <label class="form-label form-label--full-width">
+                <input type="password"
+                       name="password_2"
+                       id="password_2" autocomplete="new-password"/>
+                <span><?php esc_html_e( 'Re-enter new password', 'woocommerce' ); ?></span>
+            </label>
+        </div>
+        <input type="hidden" name="reset_key" value="<?php echo esc_attr( $args['key'] ); ?>"/>
+        <input type="hidden" name="reset_login" value="<?php echo esc_attr( $args['login'] ); ?>"/>
 
-	<p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
-		<label for="password_1"><?php esc_html_e( 'New password', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
-		<input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password_1" id="password_1" autocomplete="new-password" />
-	</p>
-	<p class="woocommerce-form-row woocommerce-form-row--last form-row form-row-last">
-		<label for="password_2"><?php esc_html_e( 'Re-enter new password', 'woocommerce' ); ?>&nbsp;<span class="required">*</span></label>
-		<input type="password" class="woocommerce-Input woocommerce-Input--text input-text" name="password_2" id="password_2" autocomplete="new-password" />
-	</p>
+        <div class="clear"></div>
 
-	<input type="hidden" name="reset_key" value="<?php echo esc_attr( $args['key'] ); ?>" />
-	<input type="hidden" name="reset_login" value="<?php echo esc_attr( $args['login'] ); ?>" />
+		<?php do_action( 'woocommerce_resetpassword_form' ); ?>
 
-	<div class="clear"></div>
+        <p class="woocommerce-form-row form-row">
+            <input type="hidden" name="wc_reset_password" value="true"/>
+<!--            <button type="submit" class="woocommerce-Button button btn modal__form__button"-->
+<!--                    value="--><?php //esc_attr_e( 'Save', 'woocommerce' ); ?><!--">--><?php //esc_html_e( 'Save',
+//					'woocommerce' ); ?><!--</button>-->
+            <input type="submit" class="woocommerce-Button button btn modal__form__button" value="<?php esc_attr_e( 'Save', 'woocommerce' ); ?>" />
+        </p>
 
-	<?php do_action( 'woocommerce_resetpassword_form' ); ?>
+		<?php wp_nonce_field( 'reset_password', 'woocommerce-reset-password-nonce' ); ?>
 
-	<p class="woocommerce-form-row form-row">
-		<input type="hidden" name="wc_reset_password" value="true" />
-		<button type="submit" class="woocommerce-Button button" value="<?php esc_attr_e( 'Save', 'woocommerce' ); ?>"><?php esc_html_e( 'Save', 'woocommerce' ); ?></button>
-	</p>
-
-	<?php wp_nonce_field( 'reset_password', 'woocommerce-reset-password-nonce' ); ?>
-
-</form>
+    </form>
 <?php
 do_action( 'woocommerce_after_reset_password_form' );
-
