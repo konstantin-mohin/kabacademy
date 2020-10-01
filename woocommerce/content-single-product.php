@@ -80,8 +80,8 @@ global $product;
 
 $mak_product_show = get_field( 'product_mak_show' );
 
-$user_id = get_current_user_id();
-$current_user= wp_get_current_user();
+$user_id      = get_current_user_id();
+$current_user = wp_get_current_user();
 ?>
 
 <section class="intro intro-inner intro-inner--second <?php echo ( $mak_product_show ) ? 'intro-club' : '' ?>">
@@ -119,11 +119,7 @@ if ( ! $mak_product_show ):
     <div class="basic-inner">
         <div class="container">
             <div class="basic-inner__container">
-                <?php 
-                
-                    if (!wc_customer_bought_product( $customer_email, $user_id, get_the_ID()) ) :
-                    
-                ?>
+
                 <div class="basic-sidebar">
 
 					<?php
@@ -135,7 +131,7 @@ if ( ! $mak_product_show ):
 						$user_name  = $curr_user->data->display_name;
 						$user_email = $curr_user->data->user_email;
 					}
-                    
+
 					?>
 
                     <form method="POST" class="basic-sidebar__form">
@@ -154,30 +150,37 @@ if ( ! $mak_product_show ):
                             <span>Ваш e-mail</span>
                         </label>
 
-						<?php if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
-                            <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
-                                    name="add-to-cart"
-                                    value="<?php echo $product->get_id(); ?>">
-								<?php echo product_button_name( $product ); ?>
-                            </button>
-						<?php } elseif ( ! $product->is_purchasable() ) {
-							?>
-                            <div class="basic-sidebar__product__members basic-sidebar__form__button basic-sidebar__form__button--disabled">
-	                            <?php echo __( 'Курс недоступен', 'kabacedemy' ); ?>
-                            </div>
-							<?php
-						} else { ?>
+						<?php if ( ! wc_customer_bought_product( $customer_email, $user_id, get_the_ID() ) ) { ?>
+							<?php if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
+                                <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
+                                        name="add-to-cart"
+                                        value="<?php echo $product->get_id(); ?>">
+									<?php echo product_button_name( $product ); ?>
+                                </button>
+							<?php } elseif ( ! $product->is_purchasable() ) {
+								?>
+                                <div class="basic-sidebar__product__members basic-sidebar__form__button basic-sidebar__form__button--disabled">
+									<?php echo __( 'Курс недоступен', 'kabacedemy' ); ?>
+                                </div>
+								<?php
+							} else { ?>
+                                <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
+                                        disabled="disabled">
+									<?php echo __( 'Курс недоступен', 'kabacedemy' ); ?>
+                                </button>
+							<?php } ?>
+
+						<?php } else { ?>
                             <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
                                     disabled="disabled">
-								<?php echo __( 'Курс недоступен', 'kabacedemy' ); ?>
+								<?php echo __( 'Вы уже записаны на курс', 'kabacedemy' ); ?>
                             </button>
 						<?php } ?>
 
 						<?php sv_wc_memberships_member_discount_product_notice( get_the_ID() ); ?>
                     </form>
                 </div>
-                
-                <?php endif; ?>
+
 
 				<?php $content_repeater = get_field( 'product_content_item_repeater' ); ?>
 
