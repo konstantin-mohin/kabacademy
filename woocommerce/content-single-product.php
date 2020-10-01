@@ -150,7 +150,7 @@ if ( ! $mak_product_show ):
                             <span>Ваш e-mail</span>
                         </label>
 
-						<?php if ( ! wc_customer_bought_product( $customer_email, $user_id, get_the_ID() ) ) { ?>
+
 							<?php if ( $product->is_in_stock() && $product->is_purchasable() ) { ?>
                                 <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
                                         name="add-to-cart"
@@ -169,13 +169,6 @@ if ( ! $mak_product_show ):
 									<?php echo __( 'Курс недоступен', 'kabacedemy' ); ?>
                                 </button>
 							<?php } ?>
-
-						<?php } else { ?>
-                            <button class="btn basic-sidebar__form__button single_add_to_cart_button button alt"
-                                    disabled="disabled">
-								<?php echo __( 'Вы уже записаны на курс', 'kabacedemy' ); ?>
-                            </button>
-						<?php } ?>
 
 						<?php sv_wc_memberships_member_discount_product_notice( get_the_ID() ); ?>
                     </form>
