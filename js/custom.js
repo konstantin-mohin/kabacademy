@@ -162,20 +162,24 @@ jQuery(function ($) {
 // Popup notification
 $(document).ready(function () {
 	if ($('#hidden-content').length) {
-		if (!getCookie('user_details_fill')) {
-			setTimeout(function () {
+
+
+		let interval = setInterval(function () {
+			if (!getCookie('user_details_fill')) {
+				console.info('Gog');
 				var instance = $.fancybox.open({
 					src: '#hidden-content',
 					type: 'inline',
 					opts: {
 						afterShow: function (instance, current) {
 							console.info('Set cookie');
-							setCookie('user_details_fill', 'timeout', {secure: true, 'max-age': 100});
+							setCookie('user_details_fill', 'timeout', {secure: true, 'max-age': 60});
 						}
 					}
 				});
-			}, 2000);
-		}
+			}
+
+		}, 2000);
 	}
 });
 
@@ -199,14 +203,13 @@ $(".training__studies__button").on('click', function (e) {
 });*/
 
 
-
 //
 
 $("#commentform").on('submit', function (e) {
-    if ($("#comment").val() == '') { 
-        $("#comment").addClass('comment--error');
-        return false;
-    }
+	if ($("#comment").val() == '') {
+		$("#comment").addClass('comment--error');
+		return false;
+	}
 });
 
 
@@ -256,32 +259,32 @@ $(document).ready(function () {
 			width: '100%',
 		});
 	}
-    
-    $('.bbp-reply-to-link').on('click', function(e){
-          e.preventDefault(); 
-          var comment = $(this).parents(".forum-comment");
-          var block = $(this).parents(".forum-comment__main");
-          var answer = block.find(".forum-answer");
 
-          if (!answer.length) {
-            answer = $(".answer-template").html();
-            block.children().hide();
-            block.append(answer);
-            answer = block.find(".forum-answer");
-            var name = comment.find(".forum-comment-author__name").text();
-            answer.find(".forum-answer__target").text(name);
-          } else {
-            block.children().hide();
-            answer.show();
-          }
-          return false;
-    });
-    
-    $('.cart-step__two-error .close').on('click', function(){
-          url = window.location.origin;
-          $('.cart-step__two-error').fadeOut();
-          window.location.href = url + "/cart";
-    });
+	$('.bbp-reply-to-link').on('click', function (e) {
+		e.preventDefault();
+		var comment = $(this).parents(".forum-comment");
+		var block = $(this).parents(".forum-comment__main");
+		var answer = block.find(".forum-answer");
+
+		if (!answer.length) {
+			answer = $(".answer-template").html();
+			block.children().hide();
+			block.append(answer);
+			answer = block.find(".forum-answer");
+			var name = comment.find(".forum-comment-author__name").text();
+			answer.find(".forum-answer__target").text(name);
+		} else {
+			block.children().hide();
+			answer.show();
+		}
+		return false;
+	});
+
+	$('.cart-step__two-error .close').on('click', function () {
+		url = window.location.origin;
+		$('.cart-step__two-error').fadeOut();
+		window.location.href = url + "/cart";
+	});
 
 });
 
@@ -292,44 +295,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// const loginErrorsBlock = document.querySelector('.login-errors');
 	const loginErrors = document.querySelectorAll('.login-errors li');
-    
-    const iscart = document.querySelector(".cart-step__two-error");
+
+	const iscart = document.querySelector(".cart-step__two-error");
 
 	if (errorBlock) {
-        
-        if (iscart) {
-            iscart.style.display = "block";
-        } else {
-            const Toast = Swal.mixin({
-                showCloseButton: true,
-                backdrop: false,
-                showConfirmButton: true,
-                   timer: 7000,
-                   timerProgressBar: true,
-                onOpen: (toast) => {
-                    // toast.addEventListener('mouseenter', Swal.stopTimer)
-                    // toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
 
-            if (errorsItems) {
-                errorsItems.forEach(function (item, index) {
-                    Toast.fire({
-                        icon: 'info',
-                        html: item.innerHTML
-                    });
-                });
-            }
+		if (iscart) {
+			iscart.style.display = "block";
+		} else {
+			const Toast = Swal.mixin({
+				showCloseButton: true,
+				backdrop: false,
+				showConfirmButton: true,
+				timer: 7000,
+				timerProgressBar: true,
+				onOpen: (toast) => {
+					// toast.addEventListener('mouseenter', Swal.stopTimer)
+					// toast.addEventListener('mouseleave', Swal.resumeTimer)
+				}
+			});
 
-            // if (loginErrors) {
-            // 	loginErrors.forEach(function (item, index) {
-            // 		Toast.fire({
-            // 			icon: 'error',
-            // 			html: item.innerHTML
-            // 		});
-            // 	});
-            // }
-        }
+			if (errorsItems) {
+				errorsItems.forEach(function (item, index) {
+					Toast.fire({
+						icon: 'info',
+						html: item.innerHTML
+					});
+				});
+			}
+
+			// if (loginErrors) {
+			// 	loginErrors.forEach(function (item, index) {
+			// 		Toast.fire({
+			// 			icon: 'error',
+			// 			html: item.innerHTML
+			// 		});
+			// 	});
+			// }
+		}
 
 	}
 
