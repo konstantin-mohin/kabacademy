@@ -231,7 +231,7 @@ class KabacedemyHelper {
 
 		return $month;
 	}
-	
+
 	public function checkUserCountry( $user_login, $user ) {
 
 		$user_country = get_user_meta( $user->ID, 'country', true );
@@ -240,6 +240,29 @@ class KabacedemyHelper {
 			if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
 				$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
 				update_user_meta( $user->ID, 'country', $geoIP->country->isoCode );
+
+
+				$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
+
+				if ( ! is_numeric( $moodle_user_id ) ) {
+					return;
+				}
+
+				$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+
+				$user_data = array(
+					'id'      => $moodle_user_id, // moodle user id
+					//'user_id'   => $user_id, // wordpress user id
+					'country' => $geoIP->country->isoCode,
+				);
+
+				$moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
+
+				if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
+					customDebug( 'Country successfully changed on moodle.' );
+				} else {
+					customDebug( 'There is a problem in country changed on moodle.' );
+				}
 			}
 		}
 
