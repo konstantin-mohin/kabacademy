@@ -20,8 +20,10 @@ class KabacedemyHelper {
 
 		// add_action( 'wp_print_scripts', array( $this, 'remove_password_strength' ), 10 );
 
+		add_action( 'wp_login', [ $this, 'checkUserCountry' ], 8, 2 );
+
 		add_filter( 'woocommerce_get_script_data', [ $this, 'strength_meter_settings' ], 20, 2 );
- 
+
 		add_action( 'woocommerce_add_cart_item_data', array( $this, 'save_custom_data' ), 10 );
 
 		add_action( 'rest_api_init', array( $this, 'api_registration' ) );
@@ -85,17 +87,18 @@ class KabacedemyHelper {
 		wp_dequeue_script( 'wc-password-strength-meter' );
 	}
 
-	public function strength_meter_settings( $params, $handle  ) {
- 
-		if( $handle === 'wc-password-strength-meter' ) {
+	public function strength_meter_settings( $params, $handle ) {
+
+		if ( $handle === 'wc-password-strength-meter' ) {
 			$params = array_merge( $params, array(
 				'min_password_strength' => 8,
-				'i18n_password_error' => 'пароль',
-				'i18n_password_hint' => ''
+				'i18n_password_error'   => 'пароль',
+				'i18n_password_hint'    => ''
 			) );
 		}
+
 		return $params;
-	 
+
 	}
 
 	public function save_custom_data() {
@@ -227,5 +230,18 @@ class KabacedemyHelper {
 		}
 
 		return $month;
+	}
+	
+	public function checkUserCountry( $user_login, $user ) {
+
+		$user_country = get_user_meta( $user->ID, 'country', true );
+
+		if ( empty( $user_country ) ) {
+			if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
+				$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
+				update_user_meta( $user->ID, 'country', $geoIP->country->isoCode );
+			}
+		}
+
 	}
 }
