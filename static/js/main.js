@@ -300,7 +300,7 @@ if ($(".club-department-slider").length) {
   }
 });
 $("body").on("click", ".forum-answer__btn", function (e) {
-  e.preventDefault();
+  // e.preventDefault();
   var answer = $(this).parents(".forum-answer");
   answer.hide();
   answer.siblings().show();
