@@ -393,51 +393,56 @@ function myplugin_user_register( $customer_id, $data ) {
 
 	customDebug( "Create user WP user_id = $customer_id" );
 
-	// Default last_name
-	update_user_meta( $customer_id, 'last_name', '-' );
-	// добавление сохранения страны
-	if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
-		$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
-		update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
-	}
 
-	if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
-
-		customDebug( "Create user WP user_email == {$data['billing_email']}" );
-
-		$user = get_userdata( $customer_id );
-
-		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
-
-		$user_data = array(
-			'username'  => $user->data->user_login,
-			'password'  => $data['account_password'],
-			'firstname' => $data['billing_first_name'],
-			'lastname'  => $data['last_name'],
-			'email'     => $data['billing_email'],
-			'auth'      => 'manual',
-			'lang'      => 'ru',
-		);
-
-		customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
-
-		// create a moodle user with above details
-		if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
-			$moodle_user = $action->userManager()->createMoodleUser( $user_data );
-
-			customDebug( "Request info ==" . serialize( $moodle_user ) );
-
-			if ( isset( $moodle_user['user_created'] ) && $moodle_user['user_created'] == 1 && is_object( $moodle_user['user_data'] ) ) {
-
-				customDebug( "Create user Moodle user_created == " . serialize( $moodle_user['user_created'] ) );
-				customDebug( "user_data Moodle == " . serialize( $moodle_user['user_data'] ) );
-
-				update_user_meta( $customer_id, 'moodle_user_id', $moodle_user['user_data']->id );
-			}
-
+	if ( ! email_exists( $data['billing_email'] ) ) {
+		// Default last_name
+		update_user_meta( $customer_id, 'last_name', '-' );
+		// добавление сохранения страны
+		if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
+			$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
+			update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
 		}
 
-		update_user_meta( $customer_id, '_user_contacts_details', 1 );
+		if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
+
+			customDebug( "Create user WP user_email == {$data['billing_email']}" );
+
+			$user = get_userdata( $customer_id );
+
+			$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+
+			$user_data = array(
+				'username'  => $user->data->user_login,
+				'password'  => $data['account_password'],
+				'firstname' => $data['billing_first_name'],
+				'lastname'  => $data['last_name'],
+				'email'     => $data['billing_email'],
+				'auth'      => 'manual',
+				'lang'      => 'ru',
+			);
+
+			customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
+
+			// create a moodle user with above details
+			if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
+				$moodle_user = $action->userManager()->createMoodleUser( $user_data );
+
+				customDebug( "Request info ==" . serialize( $moodle_user ) );
+
+				if ( isset( $moodle_user['user_created'] ) && $moodle_user['user_created'] == 1 && is_object( $moodle_user['user_data'] ) ) {
+
+					customDebug( "Create user Moodle user_created == " . serialize( $moodle_user['user_created'] ) );
+					customDebug( "user_data Moodle == " . serialize( $moodle_user['user_data'] ) );
+
+					update_user_meta( $customer_id, 'moodle_user_id', $moodle_user['user_data']->id );
+				}
+
+			}
+
+			update_user_meta( $customer_id, '_user_contacts_details', 1 );
+
+			$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $user_id, 'register' );
+		}
 	}
 
 }
@@ -829,3 +834,25 @@ function customDebug( $text ) {
 	fwrite( $random_file, date( '[Y-m-d H:i:s] ' ) . '---' . $str . "\r\n" );
 	fclose( $random_file );
 }
+
+add_action( 'woocommerce_thankyou', function( $order_id ) {
+
+	$order = wc_get_order( $order_id );
+
+	$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $order->get_user_id(), 'order', $order );
+
+}, 12, 1 );
+
+
+// add_action( 'woocommerce_checkout_update_user_meta', 'hello_func', 12, 1 );
+
+// function hello_func( $user_id ) {
+
+// 	$user = get_user_by( 'id', $user_id );
+
+// 	if ( ! empty( $user ) ) {
+// 		$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $user_id, 'register' );
+// 	}
+
+// 	// var_dump($test);
+// }
