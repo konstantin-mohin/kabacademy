@@ -844,3 +844,15 @@ function send_user_after_order( $order_id ) {
 
 	$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $order->get_user_id(), 'order', $order );
 }
+
+/*Максимальное количество символов в имени при регистрации и заказе*/
+
+add_action( 'woocommerce_checkout_process', 'bbloomer_checkout_fields_custom_validation' );
+   
+function bbloomer_checkout_fields_custom_validation() { 
+   if ( isset( $_POST['billing_first_name'] ) && ! empty( $_POST['billing_first_name'] ) ) {
+      if ( strlen( $_POST['billing_first_name'] ) > 20 ) {
+         wc_add_notice( 'Максимальное количество символов в имени - 20', 'error' );
+      }
+   }   
+}

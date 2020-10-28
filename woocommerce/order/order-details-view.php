@@ -30,7 +30,7 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 $downloads             = $order->get_downloadable_items();
 $show_downloads        = $order->has_downloadable_item() && $order->is_download_permitted();
 
-if ( $show_downloads ) {
+/*if ( $show_downloads ) {
 	wc_get_template(
 		'order/order-downloads.php',
 		array(
