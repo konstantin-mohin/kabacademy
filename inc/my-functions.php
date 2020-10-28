@@ -393,8 +393,7 @@ function myplugin_user_register( $customer_id, $data ) {
 
 	customDebug( "Create user WP user_id = $customer_id" );
 
-
-	if ( ! email_exists( $data['billing_email'] ) ) {
+	// if ( ! email_exists( $data['billing_email'] ) ) {
 		// Default last_name
 		update_user_meta( $customer_id, 'last_name', '-' );
 		// добавление сохранения страны
@@ -415,13 +414,16 @@ function myplugin_user_register( $customer_id, $data ) {
 				'username'  => $user->data->user_login,
 				'password'  => $data['account_password'],
 				'firstname' => $data['billing_first_name'],
-				'lastname'  => $data['last_name'],
+				// 'lastname'  => $data['last_name'],
+				'lastname'  => '-',
 				'email'     => $data['billing_email'],
 				'auth'      => 'manual',
 				'lang'      => 'ru',
 			);
 
 			customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
+
+			customDebug( print_r( $user_data, true ) );
 
 			// create a moodle user with above details
 			if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
@@ -442,7 +444,7 @@ function myplugin_user_register( $customer_id, $data ) {
 			update_user_meta( $customer_id, '_user_contacts_details', 1 );
 
 			$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $user_id, 'register' );
-		}
+		// }
 	}
 
 }
@@ -835,24 +837,10 @@ function customDebug( $text ) {
 	fclose( $random_file );
 }
 
-add_action( 'woocommerce_thankyou', function( $order_id ) {
+add_action( 'woocommerce_thankyou', 'send_user_after_order', 12, 1 );
 
+function send_user_after_order( $order_id ) {
 	$order = wc_get_order( $order_id );
 
 	$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $order->get_user_id(), 'order', $order );
-
-}, 12, 1 );
-
-
-// add_action( 'woocommerce_checkout_update_user_meta', 'hello_func', 12, 1 );
-
-// function hello_func( $user_id ) {
-
-// 	$user = get_user_by( 'id', $user_id );
-
-// 	if ( ! empty( $user ) ) {
-// 		$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $user_id, 'register' );
-// 	}
-
-// 	// var_dump($test);
-// }
+}

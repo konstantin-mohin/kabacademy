@@ -52,12 +52,11 @@ if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
             <span><?php esc_html_e( 'Last name', 'woocommerce' ); ?> *</span>
         </label>
 
-        <label class="form-label">
-            <input type="text" name="nickname" id="nickname" required value="<?php echo esc_attr( $nickname ); ?>"/>
-            <span><?php esc_html_e( 'Display name', 'woocommerce' ); ?> *</span>
-            <p class="form-label__tip"><?php esc_html_e( 'This will be how your name will be displayed in the account section and in reviews',
-					'woocommerce' ); ?></p>
-        </label>
+        <!--label class="form-label">
+            <input type="text" name="nickname" id="nickname" required value="<-?php echo esc_attr( $nickname ); ?>"/>
+            <span><-?php esc_html_e( 'Display name', 'woocommerce' ); ?> *</span>
+            <p class="form-label__tip"><-?php esc_html_e( 'This will be how your name will be displayed in the account section and in reviews', 'woocommerce' ); ?></p>
+        </label-->
 
         <label class="form-label">
             <input type="email" name="email" id="email" autocomplete="email" required

@@ -77,7 +77,7 @@
 
         </div>
 
-        <form action="http://kabacademy.com/newsletter/input.php" method="POST" class="training__form">
+        <form action="https://kabacademy.com/newsletter/input.php" method="POST" class="training__form">
           <div class="training__form__title">Подпишись<br>на нашу рассылку</div>
           <div class="form-group"> 
             <label class="form-label"> 

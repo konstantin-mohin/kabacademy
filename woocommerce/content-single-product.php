@@ -134,7 +134,7 @@ if ( ! $mak_product_show ):
 
 					?>
 
-                    <form method="POST" class="basic-sidebar__form">
+                    <form method="POST" class="basic-sidebar__form" action="<?php echo wc_get_cart_url()?>">
 						<?php if ( get_field( 'product_intro_base_date' ) ) { ?>
                             <div class="basic-sidebar__form__title">СТАРТ
                                 C <?php the_field( 'product_intro_base_date' ); ?></div>
@@ -244,7 +244,7 @@ if ( ! $mak_product_show ):
 							<?php the_field( 'product_sidebar_content' ); ?>
                         </div>
 
-                        <form method="POST">
+                        <form method="POST" action="<?php echo wc_get_cart_url()?>">
                             <button class="btn mak-club__button" name="add-to-cart"
                                     value="<?php echo $product->get_id(); ?>">
                                 Записаться в МАК Клуб

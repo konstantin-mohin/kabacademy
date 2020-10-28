@@ -242,3 +242,16 @@ require get_template_directory() . '/inc/shortcodes/op-events-gallery.php';
 require get_template_directory() . '/inc/widgets/widget-special-offer.php';
 require get_template_directory() . '/inc/widgets/widget-kabacademy-nav-offer.php';
 require get_template_directory() . '/inc/widgets/widget-webinar-event.php';
+
+add_action('init', 'stop');
+
+function stop() {
+	$url       = $_SERVER['REQUEST_URI'];
+	$url_array = explode( '/', $url );
+	if ( in_array( 'my-account', $url_array ) ) {
+		if ( $_SERVER['QUERY_STRING'] == 'action=eb_register' ) {
+			die();
+		}
+	}
+	
+}

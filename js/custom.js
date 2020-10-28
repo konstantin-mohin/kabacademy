@@ -259,26 +259,34 @@ $(document).ready(function () {
 			width: '100%',
 		});
 	}
-
+    
 	$('.bbp-reply-to-link').on('click', function (e) {
 		e.preventDefault();
 		var comment = $(this).parents(".forum-comment");
 		var block = $(this).parents(".forum-comment__main");
 		var answer = block.find(".forum-answer");
-
-		if (!answer.length) {
-			answer = $(".answer-template").html();
-			block.children().hide();
-			block.append(answer);
-			answer = block.find(".forum-answer");
-			var name = comment.find(".forum-comment-author__name").text();
-			answer.find(".forum-answer__target").text(name);
-		} else {
-			block.children().hide();
-			answer.show();
-		}
+        
+        
+        
+        $('.forum-comment__main').children().show(); 
+        
+        var name = comment.find(".forum-comment-author__name").text();
+        $(".forum-answer__target").text(name);
+        block.children().hide();
+        answer.show();
+        
+        console.log(name);
+        
+        $('.forum-answer__header').show(); 
+        $('#bbp_topic_subscription').removeAttr('checked');
+        //$('#bbp_reply_to').val(cclick);
 		return false;
 	});
+    
+    $('.forum-comment__btn').on('click', function(){
+        var block = $(this).parents(".forum-comment__main");
+        block.find('.bbp-reply-to-link').trigger('click'); 
+    });
 
 	$('.cart-step__two-error .close').on('click', function () {
 		url = window.location.origin;
@@ -287,6 +295,7 @@ $(document).ready(function () {
 	});
 
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
 

@@ -1,5 +1,6 @@
 <?php
 // check if registration enabled
+/*
 $general_settings    = get_option( 'eb_general' );
 $enable_registration = getArrValue( $general_settings, "eb_enable_registration", "" );
 
@@ -16,7 +17,7 @@ if ( $enable_registration == 'yes' ):
             </svg>
         </button>
 
-        <form action="/my-account?action=eb_register" method="POST" class="modal__form">
+        <form method="POST" class="modal__form">
 			<?php
 			do_action( 'eb_register_form_start' );
 			?>
@@ -74,7 +75,7 @@ if ( $enable_registration == 'yes' ):
 			do_action( 'eb_register_form' );
 			?>
 
-			<?php wp_nonce_field( 'eb-register' ); ?>
+			<?php //wp_nonce_field( 'eb-register' ); ?>
 
             <button class="btn modal__form__button" name="register">регистрация</button>
 
@@ -85,5 +86,5 @@ if ( $enable_registration == 'yes' ):
 			<?php do_action( 'eb_register_form_end' ); ?>
         </form>
     </div>
-
-<?php endif; ?>
+*/
+<?php //endif; ?>

@@ -16,41 +16,62 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
+
 ?>
-															</div>
-														</td>
-													</tr>
-												</table>
-												<!-- End Content -->
-											</td>
-										</tr>
-									</table>
-									<!-- End Body -->
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td align="center" valign="top">
-						<!-- Footer -->
-						<table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
-							<tr>
-								<td valign="top">
-									<table border="0" cellpadding="10" cellspacing="0" width="100%">
-										<tr>
-											<td colspan="2" valign="middle" id="credit">
-												<?php echo wp_kses_post( wpautop( wptexturize( apply_filters( 'woocommerce_email_footer_text', get_option( 'woocommerce_email_footer_text' ) ) ) ) ); ?>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-						<!-- End Footer -->
-					</td>
-				</tr>
-			</table>
-		</div>
-	</body>
-</html>
+<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0;background:linear-gradient(180deg,#f2f9fd 0,#fff 100%)">
+    <tbody>
+        <!--tr>
+            <td style="padding:50px 8%;font-family:'Open Sans',sans-serif;font-weight:300;font-size:13px;line-height:180%;color:#2c2c2c"> 
+            
+            Вы получили это письмо, потому что являетесь участником МАК клуба. Если вы не желаете получать наши письма на эту почту вы можете <a href="<?php echo get_site_url();?>/my-account/edit-account/" style="color:#a42bb9;text-decoration:underline;font-weight:400">изменить её</a> в личном кабинете</td>
+        </tr-->
+        <tr>
+            <td style="padding-top:50px">
+                <table width="100%" cellpadding="0" cellspacing="0" style="border-spacing:0">
+                    <tbody>
+                        <tr>
+                            <td style="width:50%;padding:0 8%">
+                                <a href="<?php echo get_site_url(); ?>" target="_blank">
+                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/header-logo.png" alt="" style="display:block;width:100%;max-width:155px">
+                                </a>
+                            </td>
+                            <td style="width:50%;padding-right:8%">
+                                <table width="100%" cellpadding="0" cellspacing="0" style="border-spacing:0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="<?php echo get_field('youtube_link', 'option'); ?>" target="_blank">
+                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-youtube.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:30px">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo get_field('vk_link', 'option'); ?>" target="_blank">
+                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-vk.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:37px">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo get_field('fb_link', 'option'); ?>" target="_blank">
+                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-facebook.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:27px">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo get_field('whatsapp_link', 'option'); ?>" target="_blank">
+                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-whatsapp.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:28px">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:50px 8%;font-family:'Open Sans',sans-serif;font-weight:300;font-size:13px;line-height:180%;color:#2c2c2c"> Copyright ©&nbsp;1996-<?php echo date('Y'); ?>. <a href="<?php echo get_site_url(); ?>" style="color:#a42bb9;text-decoration:underline"><?php bloginfo('description'); ?></a>
+            </td>
+        </tr> 
+    </tbody>
+</table>

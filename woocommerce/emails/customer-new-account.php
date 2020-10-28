@@ -17,23 +17,57 @@
 
 defined( 'ABSPATH' ) || exit;
 
-do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
+do_action( 'woocommerce_email_header', $email_heading, $email ); 
 
-<?php /* translators: %s: Customer username */ ?>
-<p><?php printf( esc_html__( 'Hi %s,', 'woocommerce' ), esc_html( $user_login ) ); ?></p>
-<?php /* translators: %1$s: Site title, %2$s: Username, %3$s: My account link */ ?>
-<p><?php printf( esc_html__( 'Thanks for creating an account on %1$s. Your username is %2$s. You can access your account area to view orders, change your password, and more at: %3$s', 'woocommerce' ), esc_html( $blogname ), '<strong>' . esc_html( $user_login ) . '</strong>', make_clickable( esc_url( wc_get_page_permalink( 'myaccount' ) ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-<?php if ( 'yes' === get_option( 'woocommerce_registration_generate_password' ) && $password_generated ) : ?>
-	<?php /* translators: %s: Auto generated password */ ?>
-	<p><?php printf( esc_html__( 'Your password has been automatically generated: %s', 'woocommerce' ), '<strong>' . esc_html( $user_pass ) . '</strong>' ); ?></p>
-<?php endif; ?>
+// Получаем данные пользователя
 
-<?php
-/**
- * Show user-defined additional content - this is set in each email's settings.
- */
-if ( $additional_content ) {
-	echo wp_kses_post( wpautop( wptexturize( $additional_content ) ) );
-}
+$first_name = get_user_meta( $email->object->ID, 'first_name', true );
+$last_name = get_user_meta( $email->object->ID, 'last_name', true );
 
-do_action( 'woocommerce_email_footer', $email );
+if (($last_name != '-') && ($last_name))
+    $name = $first_name . ' ' . $last_name;
+else
+    $name = $first_name;
+
+?>
+
+<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0">
+    <tbody>
+        <tr>
+            <td style="padding:60px 8%">
+                <table width="100%" cellpadding="0" cellspacing="0" style="border-spacing:0">
+                    <tbody>
+                        <tr>
+                            <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90"> Здравствуйте </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;line-height:130%;letter-spacing:-.05em;padding-bottom:20px;color:#3c5d90"><?php echo $name; ?></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90"> Спасибо за создание учетной записи на <a href="<?php echo get_site_url();?>" style="color:#a42bb9;text-decoration:underline;font-weight:600"><?php bloginfo( 'name' ); ?></a> </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table width="100%" cellpadding="0" cellspacing="0" style="border-spacing:0;margin:35px 0;padding:35px 0;border-top:1px dashed #52b0d8;border-bottom:1px dashed #52b0d8">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-family:'Open Sans',sans-serif;font-weight:300;font-size:13px;line-height:180%;color:#2c2c2c;padding-bottom:10px"> Ваш логин: <b><?php echo $email->user_login; ?></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-family:'Open Sans',sans-serif;font-weight:300;font-size:13px;line-height:180%;color:#2c2c2c"> Ваш пароль: <b>введён при регистрации</b> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90"> Линк на страницу вашей учетной записи: <a href="<?php echo get_site_url();?>/my-account/" style="color:#a42bb9;text-decoration:underline;font-weight:600"><?php echo $email->user_login; ?></a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<?php do_action( 'woocommerce_email_footer', $email );

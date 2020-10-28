@@ -53,7 +53,7 @@ $disabled = '';
 			}
 
 			if (  $key == 'account_password' ) {
-				$value = wp_generate_password();
+				$value = wp_generate_password( 10, false, false );
 				$field['type'] = 'text';
 			}
 

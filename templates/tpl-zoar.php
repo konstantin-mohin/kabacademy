@@ -58,7 +58,14 @@ while ( have_posts() ) :
 										<?php endif; ?>
 
                                     </div>                                    
-                                    <div class="broadcast__text"><?php the_content(); ?> </div>
+                                    <div class="broadcast__text">
+                                        <?php the_content(); ?>
+                                        <div class="broadcast__label no---scroll">ЛЕНТА КОММЕНТАРИЕВ</div>
+                                        <div class="broadcast__comments no---scroll">
+                                            <div class="broadcast__comments comments--youtube">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 								<?php $recent_videos = get_field( 'mak_archive_webinars' );
@@ -79,14 +86,7 @@ while ( have_posts() ) :
                                                     <!--<span>(4:21)</span>-->
                                                 </li>
 											<?php endforeach; ?>
-                                        </ul>
-                                        <br><br><br>
-                                        <div class="broadcast__label no---scroll">ЛЕНТА КОММЕНТАРИЕВ</div>
-                                            <div class="broadcast__comments">
-                                                <div class="broadcast__comments comments--youtube">
-                                            
-                                                </div>
-                                            </div>
+                                        </ul>                                        
                                     </div>
 								<?php endif; ?>
                             

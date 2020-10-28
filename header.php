@@ -120,7 +120,7 @@
 					<?php
 					get_template_part( 'template-parts/personal-area/area', 'login' );
 
-					get_template_part( 'template-parts/personal-area/area', 'registration' );
+					//get_template_part( 'template-parts/personal-area/area', 'registration' );
 					?>
 
 				<?php } ?>

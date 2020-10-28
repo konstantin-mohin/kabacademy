@@ -20,28 +20,26 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
+if ($current_user->last_name != '-') {    
+    $name = $current_user->first_name . ' ' . $current_user->last_name; 
+} else {
+    $name = $current_user->first_name; 
+} 
+
 ?>
 
-<p>
+<p class="woocommerce-myaccount__welcome">
 	<?php
-	printf(
-		/* translators: 1: user display name 2: logout url */
-		__( 'Hello %1$s (not %1$s? <a href="%2$s">Log out</a>)', 'woocommerce' ),
-		'<strong>' . esc_html( $current_user->display_name ) . '</strong>',
+	printf(__( 'Добро пожаловать, %1$s', 'woocommerce' ),
+		'<strong>' . esc_html( $name ) . '</strong>',
 		esc_url( wc_logout_url() )
 	);
 	?>
 </p>
 
-<p>
-	<?php
-	printf(
-		__( 'From your account dashboard you can view your <a href="%1$s">recent orders</a>, manage your <a href="%2$s">shipping and billing addresses</a>, and <a href="%3$s">edit your password and account details</a>.', 'woocommerce' ),
-		esc_url( wc_get_endpoint_url( 'orders' ) ),
-		esc_url( wc_get_endpoint_url( 'edit-address' ) ),
-		esc_url( wc_get_endpoint_url( 'edit-account' ) )
-	);
-	?>
+<p class="woocommerce-myaccount__subtext">
+	На странице аккаунта вы можете посмотреть ваши <a href="<?php get_site_url(); ?>/my-account/my-courses/">курсы</a>,	<a href="<?php get_site_url(); ?>/my-account/orders/">заказы</a>, <a href="<?php get_site_url(); ?>/my-account/subscriptions/">подписки</a>, а также<br> <a href="<?php get_site_url(); ?>/my-account/edit-account/">изменить пароль</a> и основную информацию о пользователе
 </p>
 
 <?php

@@ -282,29 +282,7 @@ if ($(".club-department-slider").length) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {$(".forum-comment__btn").click(function () {
-  var comment = $(this).parents(".forum-comment");
-  var block = $(this).parents(".forum-comment__main");
-  var answer = block.find(".forum-answer");
-
-  if (!answer.length) {
-    answer = $(".answer-template").html();
-    block.children().hide();
-    block.append(answer);
-    answer = block.find(".forum-answer");
-    var name = comment.find(".forum-comment-author__name").text();
-    answer.find(".forum-answer__target").text(name);
-  } else {
-    block.children().hide();
-    answer.show();
-  }
-});
-$("body").on("click", ".forum-answer__btn", function (e) {
-  // e.preventDefault();
-  var answer = $(this).parents(".forum-answer");
-  answer.hide();
-  answer.siblings().show();
-});
+/* WEBPACK VAR INJECTION */(function($) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

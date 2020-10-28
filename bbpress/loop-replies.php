@@ -27,11 +27,19 @@ do_action( 'bbp_template_before_replies_loop' ); ?>
 
             <div class="forum-topic__content">
 
-				<?php while ( bbp_replies() ) : bbp_the_reply(); ?>
+				<?php if ( bbp_thread_replies() ) : ?>
 
-					<?php bbp_get_template_part( 'loop', 'single-reply' ); ?>
+                    <?php bbp_list_replies(); ?>
 
-				<?php endwhile; ?>
+                <?php else : ?>
+
+                    <?php while ( bbp_replies() ) : bbp_the_reply(); ?>
+
+                        <?php bbp_get_template_part( 'loop', 'single-reply' ); ?>
+
+                    <?php endwhile; ?>
+
+                <?php endif; ?>
 
             </div>
 

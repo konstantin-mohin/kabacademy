@@ -110,13 +110,15 @@ if ( $query && $query->have_posts() ) :?>
 
 				<?php if ( current_user_can( 'unfiltered_html' ) ) : ?>
 
-                    <div class="bbp-template-notice">
+                    <!--div class="bbp-template-notice" >
                         <ul>
                             <li><?php esc_html_e( 'Your account has the ability to post unrestricted HTML content.', 'bbpress' ); ?></li>
                         </ul>
-                    </div>
+                    </div-->
 
 				<?php endif; ?>
+				
+				<br><br>
 
 				<?php do_action( 'bbp_template_notices' ); ?>
 
@@ -139,14 +141,14 @@ if ( $query && $query->have_posts() ) :?>
 
 					<?php do_action( 'bbp_theme_after_topic_form_content' ); ?>
 
-					<?php if ( ! ( bbp_use_wp_editor() || current_user_can( 'unfiltered_html' ) ) ) : ?>
+					<?php //if ( ! ( bbp_use_wp_editor() || current_user_can( 'unfiltered_html' ) ) ) : ?>
 
-                        <p class="form-allowed-tags">
+                        <!--p class="form-allowed-tags">
                             <label><?php printf( esc_html__( 'You may use these %s tags and attributes:', 'bbpress' ), '<abbr title="HyperText Markup Language">HTML</abbr>' ); ?></label><br />
                             <code><?php bbp_allowed_tags(); ?></code>
-                        </p>
+                        </p-->
 
-					<?php endif; ?>
+					<?php //endif; ?>
 
 					<?php if ( bbp_allow_topic_tags() && current_user_can( 'assign_topic_tags', bbp_get_topic_id() ) ) : ?>
 
