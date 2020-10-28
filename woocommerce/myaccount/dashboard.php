@@ -32,14 +32,14 @@ if ($current_user->last_name != '-') {
 <p class="woocommerce-myaccount__welcome">
 	<?php
 	printf(__( 'Добро пожаловать, %1$s', 'woocommerce' ),
-		'<strong>' . esc_html( $name ) . '</strong>',
+		'<strong>' . esc_html( $name ) . '!</strong>',
 		esc_url( wc_logout_url() )
 	);
 	?>
 </p>
 
 <p class="woocommerce-myaccount__subtext">
-	На странице аккаунта вы можете посмотреть ваши <a href="<?php get_site_url(); ?>/my-account/my-courses/">курсы</a>,	<a href="<?php get_site_url(); ?>/my-account/orders/">заказы</a>, <a href="<?php get_site_url(); ?>/my-account/subscriptions/">подписки</a>, а также<br> <a href="<?php get_site_url(); ?>/my-account/edit-account/">изменить пароль</a> и основную информацию о пользователе
+	На странице аккаунта вы можете посмотреть ваши <a href="<?php get_site_url(); ?>/my-account/my-courses/">курсы</a>,	<a href="<?php get_site_url(); ?>/my-account/orders/">заказы</a>, <a href="<?php get_site_url(); ?>/my-account/subscriptions/">подписки</a>, а также<br> <a href="<?php get_site_url(); ?>/my-account/edit-account/">изменить пароль</a> и основную информацию о пользователе.
 </p>
 
 <?php
