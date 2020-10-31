@@ -856,3 +856,36 @@ function bbloomer_checkout_fields_custom_validation() {
       }
    }   
 }
+
+
+// styles for bbpress emails
+
+add_action( 'bbp_subscription_mail_message', 'format_bbpress_emails' );
+   
+function format_bbpress_emails( $mail ) { 
+
+  ob_start();
+	get_template_part("woocommerce/emails/email-header");
+  $header = ob_get_contents();
+  ob_end_flush();
+
+  ob_start();
+	get_template_part("woocommerce/emails/email-footer");
+  $footer = ob_get_contents();
+  ob_end_flush();
+
+  $content_start = '<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0"> <tbody><tr> <td style="padding:60px 8%">';
+
+  $content_end = '</td></tr></tbody></table>';
+
+    return $header . $content_start . $mail . $content_end .$footer;
+}
+
+
+add_action( 'bbp_subscription_mail_headers', 'html_bbpress_emails' );
+   
+function html_bbpress_emails( $headers ) { 
+
+	$headers[]  = 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' );;
+	return $headers;
+}
