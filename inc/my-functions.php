@@ -389,62 +389,66 @@ add_action( 'woocommerce_checkout_update_user_meta', 'myplugin_user_register', 1
 
 function myplugin_user_register( $customer_id, $data ) {
 
-	customDebug( '==============  BEGIN ===========' );
-
 	customDebug( "Create user WP user_id = $customer_id" );
+	// Default last_name
+	$default_last_name = '-';
+//	$billing_last_name = get_user_meta( $customer_id, 'billing_last_name', true );
+//
+//	if ( empty( $billing_last_name ) ) {
+//		update_user_meta( $customer_id, 'last_name', $default_last_name );
+//	} else {
+//		update_user_meta( $customer_id, 'last_name', $billing_last_name );
+//	}
 
-	// if ( ! email_exists( $data['billing_email'] ) ) {
-		// Default last_name
-		update_user_meta( $customer_id, 'last_name', '-' );
-		// добавление сохранения страны
-		if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
-			$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
-			update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
-		}
+	// добавление сохранения страны
+	if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
+		$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
+		update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
+	}
 
-		if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
+	if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
 
-			customDebug( "Create user WP user_email == {$data['billing_email']}" );
+		customDebug( "Create user WP user_email == {$data['billing_email']}" );
 
-			$user = get_userdata( $customer_id );
+		$user = get_userdata( $customer_id );
 
-			$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+		update_user_meta( $customer_id, 'last_name', $default_last_name );
 
-			$user_data = array(
-				'username'  => $user->data->user_login,
-				'password'  => $data['account_password'],
-				'firstname' => $data['billing_first_name'],
-				// 'lastname'  => $data['last_name'],
-				'lastname'  => '-',
-				'email'     => $data['billing_email'],
-				'auth'      => 'manual',
-				'lang'      => 'ru',
-			);
+		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
 
-			customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
+		$user_data = array(
+			'username'  => $user->data->user_login,
+			'password'  => $data['account_password'],
+			'firstname' => $data['billing_first_name'],
+			'lastname'  => $default_last_name,
+			'email'     => $data['billing_email'],
+			'auth'      => 'manual',
+			'lang'      => 'ru',
+		);
 
-			customDebug( print_r( $user_data, true ) );
+//		customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
 
-			// create a moodle user with above details
-			if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
-				$moodle_user = $action->userManager()->createMoodleUser( $user_data );
+		customDebug( print_r( $user_data, true ) );
 
-				customDebug( "Request info ==" . serialize( $moodle_user ) );
+		// create a moodle user with above details
+		if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
+			$moodle_user = $action->userManager()->createMoodleUser( $user_data );
 
-				if ( isset( $moodle_user['user_created'] ) && $moodle_user['user_created'] == 1 && is_object( $moodle_user['user_data'] ) ) {
+			customDebug( "Request info ==" . serialize( $moodle_user ) );
 
-					customDebug( "Create user Moodle user_created == " . serialize( $moodle_user['user_created'] ) );
-					customDebug( "user_data Moodle == " . serialize( $moodle_user['user_data'] ) );
+			if ( isset( $moodle_user['user_created'] ) && $moodle_user['user_created'] == 1 && is_object( $moodle_user['user_data'] ) ) {
 
-					update_user_meta( $customer_id, 'moodle_user_id', $moodle_user['user_data']->id );
-				}
+				customDebug( "Create user Moodle user_created == " . serialize( $moodle_user['user_created'] ) );
+				customDebug( "user_data Moodle == " . serialize( $moodle_user['user_data'] ) );
 
+				update_user_meta( $customer_id, 'moodle_user_id', $moodle_user['user_data']->id );
 			}
 
-			update_user_meta( $customer_id, '_user_contacts_details', 1 );
+		}
 
-			$test = Onepix_Mailchimp_Admin::addUserToMainchimp( $user_id, 'register' );
-		// }
+		update_user_meta( $customer_id, '_user_contacts_details', 1 );
+
+		Onepix_Mailchimp_Admin::addUserToMainchimp( $customer_id, 'register' );
 	}
 
 }
@@ -848,11 +852,11 @@ function send_user_after_order( $order_id ) {
 /*Максимальное количество символов в имени при регистрации и заказе*/
 
 add_action( 'woocommerce_checkout_process', 'bbloomer_checkout_fields_custom_validation' );
-   
-function bbloomer_checkout_fields_custom_validation() { 
-   if ( isset( $_POST['billing_first_name'] ) && ! empty( $_POST['billing_first_name'] ) ) {
-      if ( strlen( $_POST['billing_first_name'] ) > 20 ) {
-         wc_add_notice( 'Максимальное количество символов в имени - 20', 'error' );
-      }
-   }   
+
+function bbloomer_checkout_fields_custom_validation() {
+	if ( isset( $_POST['billing_first_name'] ) && ! empty( $_POST['billing_first_name'] ) ) {
+		if ( strlen( $_POST['billing_first_name'] ) > 20 ) {
+			wc_add_notice( 'Максимальное количество символов в имени - 20', 'error' );
+		}
+	}
 }
