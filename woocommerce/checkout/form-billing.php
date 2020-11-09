@@ -40,6 +40,7 @@ $disabled = '';
 		?>
 		<?php foreach ( $fields as $key => $field ) { ?>
 			<?php
+            $password_field = $key == 'account_password';
 			$session_data = WC()->session->get( 'product_form_user_data' );
 
 			if ( ! is_user_logged_in() && ! empty( $session_data ) ) {
@@ -52,14 +53,14 @@ $disabled = '';
 				}
 			}
 
-			if (  $key == 'account_password' ) {
-				$value = wp_generate_password( 10, false, false );
-				$field['type'] = 'text';
+			if ( $password_field ) {
+				$value              = wp_generate_password( 10, false, false );
+				$field['type']      = 'text';
 			}
 
 			if ( is_user_logged_in() ) {
 				$disabled = 'readonly="readonly"';
-            }
+			}
 			?>
             <label for="<?php echo $key; ?>" class="form-label">
                 <input
@@ -70,11 +71,11 @@ $disabled = '';
 					<?php echo $disabled ?>
                 >
                 <span><?php echo $field['label']; ?></span>
-                <?php 
-                    if ( $key == 'account_password' ) {
-					   echo '<div class="password-toggler"></div>';
-				    }
-                ?>
+				<?php
+				if ( $password_field ) {
+					echo '<div class="password-toggler"></div>';
+				}
+				?>
             </label>
 
 
