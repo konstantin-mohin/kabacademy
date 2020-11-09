@@ -26,6 +26,11 @@ a:focus {
 	background-color: #a7a7a7;
 }
 
+.disabled-btn {
+	background-color: #a7a7a7;
+	pointer-events: none;
+}
+
 .page-numbers {
 	display: inline-block;
 	vertical-align: middle;

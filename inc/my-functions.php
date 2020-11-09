@@ -426,7 +426,16 @@ function myplugin_user_register( $customer_id, $data ) {
 			'lang'      => 'ru',
 		);
 
-//		customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
+		// Need for emails
+		$args = array(
+			'user_email' => $data['billing_email'],
+			'username'   => $user->data->user_login,
+			'password'   => $data['account_password'],
+			'firstname'  => $data['billing_first_name'],
+		);
+
+		do_action( 'eb_created_user', $args );
+        //customDebug( "Create user WP user_login ==" . serialize( $user->data->user_login ) );
 
 		customDebug( print_r( $user_data, true ) );
 
