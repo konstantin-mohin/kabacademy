@@ -878,7 +878,10 @@ function format_bbpress_emails( $mail ) {
 
   $content_end = '</td></tr></tbody></table>';
 
-    return $header . $content_start . $mail . $content_end .$footer;
+  $mail = str_replace('-----------', '<br/><br/><br/>', $mail);
+  
+
+	return $header . $content_start . $mail . $content_end .$footer;
 }
 
 
