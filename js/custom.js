@@ -250,6 +250,30 @@ $(document).ready(function () {
 	$('.cabinet__form__password__title').on('click', function (evt) {
 		$('.cabinet__form__password').slideToggle();
 	});
+
+	$('#account_password').on('keyup', function (evt) {
+
+		if (evt.target.value.length < 10) {
+			$("#place_order").addClass('disabled-btn');
+		} else {
+			$("#place_order").removeClass('disabled-btn');
+		}
+
+	});
+
+
+	// let resetForm = $('.woocommerce-ResetPassword .form-group');
+	//
+	// resetForm.each(function() {
+	//
+	// 	if ($( this ).length < 10) {
+	// 		$(".woocommerce-Button").addClass('disabled-btn');
+	// 	} else {
+	// 		$(".woocommerce-Button").removeClass('disabled-btn');
+	// 	}
+	//
+	// });
+
 });
 
 $(document).ready(function () {
@@ -259,34 +283,33 @@ $(document).ready(function () {
 			width: '100%',
 		});
 	}
-    
+
 	$('.bbp-reply-to-link').on('click', function (e) {
 		e.preventDefault();
 		var comment = $(this).parents(".forum-comment");
 		var block = $(this).parents(".forum-comment__main");
 		var answer = block.find(".forum-answer");
-        
-        
-        
-        $('.forum-comment__main').children().show(); 
-        
-        var name = comment.find(".forum-comment-author__name").text();
-        $(".forum-answer__target").text(name);
-        block.children().hide();
-        answer.show();
-        
-        console.log(name);
-        
-        $('.forum-answer__header').show(); 
-        $('#bbp_topic_subscription').removeAttr('checked');
-        //$('#bbp_reply_to').val(cclick);
+
+
+		$('.forum-comment__main').children().show();
+
+		var name = comment.find(".forum-comment-author__name").text();
+		$(".forum-answer__target").text(name);
+		block.children().hide();
+		answer.show();
+
+		console.log(name);
+
+		$('.forum-answer__header').show();
+		$('#bbp_topic_subscription').removeAttr('checked');
+		//$('#bbp_reply_to').val(cclick);
 		return false;
 	});
-    
-    $('.forum-comment__btn').on('click', function(){
-        var block = $(this).parents(".forum-comment__main");
-        block.find('.bbp-reply-to-link').trigger('click'); 
-    });
+
+	$('.forum-comment__btn').on('click', function () {
+		var block = $(this).parents(".forum-comment__main");
+		block.find('.bbp-reply-to-link').trigger('click');
+	});
 
 	$('.cart-step__two-error .close').on('click', function () {
 		url = window.location.origin;

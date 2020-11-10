@@ -38,7 +38,7 @@ if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
 	unset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] );
 }
 ?>
-<form method="post" class="edit-account cabinet__form">
+<form method="post" class="edit-account cabinet__form" autocomplete="off">
     <div class="form-group cabinet__form__name">
         <label class="form-label">
             <input type="text" name="first_name" id="first_name" autocomplete="given-name" required
@@ -94,18 +94,18 @@ if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
 
     <div class="form-group cabinet__form__password" style="display: none">
         <label class="form-label">
-            <input type="password" name="curr_psw" id="eb_curr_psw" autocomplete="off"/>
+            <input type="password" name="curr_psw" id="eb_curr_psw" autocomplete="false"/>
             <span><?php esc_html_e( 'Старый пароль', 'woocommerce' ); ?></span>
         </label>
 
         <label class="form-label">
-            <input type="password" name="new_psw" id="eb_new_psw" autocomplete="off"/>
+            <input type="password" name="new_psw" id="eb_new_psw" autocomplete="false"/>
             <span><?php esc_html_e( 'New password', 'woocommerce' ); ?></span>
             <p class="form-label__tip">Не заполняйте, чтобы оставить прежний</p>
         </label>
 
         <label class="form-label">
-            <input type="password" name="confirm_psw" id="eb_confirm_psw" autocomplete="off"/>
+            <input type="password" name="confirm_psw" id="eb_confirm_psw" autocomplete="false"/>
             <span><?php esc_html_e( 'Confirm new password', 'woocommerce' ); ?></span>
         </label>
     </div>
