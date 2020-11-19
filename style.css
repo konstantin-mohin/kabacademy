@@ -1075,3 +1075,24 @@ div.bbp-submit-wrapper {
     }
     
 }
+
+.login .row{
+	display: flex;
+	flex-wrap: wrap
+}
+
+.login .row div{
+	width: 50%;
+	text-align: center;
+}
+
+.login .row div a{
+	height: 68px;
+	line-height: 45px;
+	text-decoration: underline;
+}
+.more-pass{
+	position: absolute;
+	bottom: -60px;
+	font-size: 14px;
+}

@@ -255,8 +255,14 @@ $(document).ready(function () {
 
 		if (evt.target.value.length < 10) {
 			$("#place_order").addClass('disabled-btn');
+			if(!$(".more-pass").length){
+				$("#account_password").after( "<p class='more-pass'>Пароль должен содержать не менее 10 символов</p>" );
+			}
 		} else {
 			$("#place_order").removeClass('disabled-btn');
+			if($(".more-pass").length){
+				$(".more-pass").remove();
+			}
 		}
 
 	});

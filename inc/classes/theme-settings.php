@@ -131,7 +131,6 @@ class KabacedemyThemeSettings {
 	}
 
 	public function override_checkout_fields( $fields ) {
-		unset( $fields['billing']['billing_last_name'] );
 		unset( $fields['billing']['billing_company'] );
 		unset( $fields['billing']['billing_address_1'] );
 		unset( $fields['billing']['billing_address_2'] );

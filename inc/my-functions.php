@@ -392,13 +392,13 @@ function myplugin_user_register( $customer_id, $data ) {
 	customDebug( "Create user WP user_id = $customer_id" );
 	// Default last_name
 	$default_last_name = '-';
-//	$billing_last_name = get_user_meta( $customer_id, 'billing_last_name', true );
-//
-//	if ( empty( $billing_last_name ) ) {
-//		update_user_meta( $customer_id, 'last_name', $default_last_name );
-//	} else {
-//		update_user_meta( $customer_id, 'last_name', $billing_last_name );
-//	}
+	$billing_last_name = get_user_meta( $customer_id, 'billing_last_name', true );
+
+	if ( empty( $billing_last_name ) ) {
+		update_user_meta( $customer_id, 'last_name', $default_last_name );
+	} else {
+		update_user_meta( $customer_id, 'last_name', $billing_last_name );
+	}
 
 	// добавление сохранения страны
 	if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
@@ -412,15 +412,13 @@ function myplugin_user_register( $customer_id, $data ) {
 
 		$user = get_userdata( $customer_id );
 
-		update_user_meta( $customer_id, 'last_name', $default_last_name );
-
 		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
 
 		$user_data = array(
 			'username'  => $user->data->user_login,
 			'password'  => $data['account_password'],
 			'firstname' => $data['billing_first_name'],
-			'lastname'  => $default_last_name,
+			'lastname'  => $data['billing_last_name'],
 			'email'     => $data['billing_email'],
 			'auth'      => 'manual',
 			'lang'      => 'ru',
@@ -432,6 +430,7 @@ function myplugin_user_register( $customer_id, $data ) {
 			'username'   => $user->data->user_login,
 			'password'   => $data['account_password'],
 			'firstname'  => $data['billing_first_name'],
+            'lastname'   => $data['billing_last_name'],
 		);
 
 		do_action( 'eb_created_user', $args );

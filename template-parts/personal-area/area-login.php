@@ -19,11 +19,11 @@
                 <input type="password" name="wdm_password" id="password"> <span>Ваш пароль</span>
             </label>
         </div>
+        <input type="submit" class="eb-login-button btn modal__form__button" name="wdm_login" value="войти на сайт"/>
 
-        <input type="submit" class="eb-login-button btn modal__form__button" name="wdm_login"
-               value="войти на сайт"/>
+        <a class="link modal__form__link" href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Lost your password?', 'woocommerce' ); ?></a>
 
-		<?php wp_nonce_field( 'eb-login' ); ?>
+        <?php wp_nonce_field( 'eb-login' ); ?>
         <input type="hidden" name="rememberme" value="forever"/>
     </form>
 

@@ -31,6 +31,9 @@ $disabled = '';
     <div class="cart-step__title">Заполните ваши данные</div>
 	<?php
 	$fields = $checkout->get_checkout_fields( 'billing' );
+/*	echo '<pre>';
+	var_dump($fields);
+    echo '</pre>';*/
 	?>
     <div class="cart__contacts">
 		<?php
@@ -50,6 +53,10 @@ $disabled = '';
 
 				if ( $key == 'billing_first_name' ) {
 					$value = $checkout->get_value( 'first_name' );
+				}
+
+				if ( $key == 'billing_last_name' ) {
+					$value = $checkout->get_value( 'last_name' );
 				}
 			}
 

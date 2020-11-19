@@ -12011,7 +12011,6 @@ button.swiper-pagination-bullet {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 715px;
 }
 
 @media (max-width: 1024px) {
