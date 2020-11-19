@@ -253,7 +253,7 @@ $(document).ready(function () {
 
 	$('#account_password').on('keyup', function (evt) {
 
-		if (evt.target.value.length < 10) {
+		if (evt.target.value.length < 8) {
 			$("#place_order").addClass('disabled-btn');
 			if(!$(".more-pass").length){
 				$("#account_password").after( "<p class='more-pass'>Пароль должен содержать не менее 10 символов</p>" );

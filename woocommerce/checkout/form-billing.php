@@ -31,15 +31,12 @@ $disabled = '';
     <div class="cart-step__title">Заполните ваши данные</div>
 	<?php
 	$fields = $checkout->get_checkout_fields( 'billing' );
-/*	echo '<pre>';
-	var_dump($fields);
-    echo '</pre>';*/
 	?>
     <div class="cart__contacts">
 		<?php
 		if ( ! is_user_logged_in() ) {
-			$fields = array_merge( $fields, $checkout->get_checkout_fields( 'account' ) );
-		}
+            $fields = array_merge( $fields, $checkout->get_checkout_fields( 'account' ) );
+        }
 		?>
 		<?php foreach ( $fields as $key => $field ) { ?>
 			<?php
@@ -61,13 +58,23 @@ $disabled = '';
 			}
 
 			if ( $password_field ) {
-				$value              = wp_generate_password( 10, false, false );
-				$field['type']      = 'text';
+				$value              = wp_generate_password( 8, false, false );
+                if ( ! is_user_logged_in() ) {
+                    $field['type'] = 'hidden';
+                    $field['label'] = '';
+                    $hidePass = true;
+                }else{
+                    $field['type']      = 'text';
+                    $hidePass = false;
+                }
+
 			}
 
 			if ( is_user_logged_in() ) {
 				$disabled = 'readonly="readonly"';
 			}
+
+
 			?>
             <label for="<?php echo $key; ?>" class="form-label">
                 <input
@@ -77,13 +84,13 @@ $disabled = '';
                         value="<?php echo $value; ?>"
 					<?php echo $disabled ?>
                 >
-                <span><?php echo $field['label']; ?></span>
+            <? if (!$hidePass) {?><span><?php echo $field['label']; ?></span><? }?>
 				<?php
-				if ( $password_field ) {
+				if ( $password_field && !$hidePass) {
 					echo '<div class="password-toggler"></div>';
 				}
 				?>
-            </label>
+            <? if (!$hidePass) :?></label><? endif;?>
 
 
 		<?php } ?>
