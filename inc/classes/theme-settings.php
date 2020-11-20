@@ -138,7 +138,7 @@ class KabacedemyThemeSettings {
 		unset( $fields['billing']['billing_postcode'] );
 		unset( $fields['billing']['billing_country'] );
 		unset( $fields['billing']['billing_state'] );
-		unset( $fields['billing']['billing_phone'] );
+		//unset( $fields['billing']['billing_phone'] );
 		unset( $fields['order']['order_comments'] );
 
 		return $fields;
