@@ -109,6 +109,10 @@ class KabacedemyHelper {
 			$data['billing_first_name'] = $_REQUEST['billing_first_name'];
 		}
 
+		if ( isset( $_REQUEST['billing_last_name'] ) ) {
+			$data['billing_last_name'] = $_REQUEST['billing_last_name'];
+		}
+
 		if ( isset( $_REQUEST['billing_email'] ) ) {
 			$data['billing_email'] = $_REQUEST['billing_email'];
 		}
