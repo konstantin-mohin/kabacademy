@@ -154,12 +154,10 @@ function generate_id() {
 
 // Add Google Analytics Events
 
-add_action('woocommerce_review_order_before_payment', 'add_to_cart_google_analytics_events');
+add_action('woocommerce_before_cart', 'add_to_cart_google_analytics_events');
 
 function add_to_cart_google_analytics_events( ) {
-  global $woocommerce;
-
-  $items = $woocommerce->cart->get_cart();
+   $items = WC()->cart->get_cart() ;
    $out = array();
 
    foreach ( $items as $item ) {
@@ -174,13 +172,12 @@ function add_to_cart_google_analytics_events( ) {
 
    ?>
    <script>
-   console.log('ok')
     const products = JSON.parse('<?php echo json_encode($out);  ?>');
 
         dataLayer.push({
       'event': 'addToCart',
       'ecommerce': {
-        'currencyCode': '<?php echo get_woocommerce_currency_symbol(); ?>',
+        'currencyCode': '<?php echo $order_currency; ?>',
         'add': {
           'products': products
         }
@@ -243,11 +240,12 @@ function purchase_google_analytics_events( $order_id ) {
 add_action( 'woocommerce_after_single_product' , 'analytics_on_product_page');
 
 function analytics_on_product_page() {
-  global $product;
-
-  $product_id = $product->get_id();
-  $title = $product->get_title();
-  $price = $product->get_price();
+	global $product;
+	
+	$product_id = $product->get_id();
+  $_product = wc_get_product( $product_id );
+  $price = $_product->get_price();
+  $title = $_product->get_title();
    ?>
    <script>
    window.onload = (event) => {

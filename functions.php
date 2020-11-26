@@ -253,5 +253,10 @@ function stop() {
 			die();
 		}
 	}
-	
+
 }
+
+/**
+ * Tracking
+ */
+require get_template_directory() . '/inc/tracking.php';
