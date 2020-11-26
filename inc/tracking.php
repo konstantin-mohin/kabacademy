@@ -174,17 +174,19 @@ function add_to_cart_google_analytics_events( ) {
 
    ?>
    <script>
+   window.onload = (event) => {
     const products = JSON.parse('<?php echo json_encode($out);  ?>');
 
-        dataLayer.push({
-      'event': 'addToCart',
-      'ecommerce': {
-        'currencyCode': '<?php echo $get_woocommerce_currency_symbol(); ?>',
-        'add': {
-          'products': products
+      dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+          'currencyCode': '<?php echo $get_woocommerce_currency_symbol(); ?>',
+          'add': {
+            'products': products
+          }
         }
-      }
-    });
+      });
+    }
    </script>
    <?php
 }
