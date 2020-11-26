@@ -180,7 +180,7 @@ function add_to_cart_google_analytics_events( ) {
       dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
-          'currencyCode': '<?php echo $get_woocommerce_currency_symbol(); ?>',
+          'currencyCode': '<?php echo get_woocommerce_currency_symbol(); ?>',
           'add': {
             'products': products
           }
