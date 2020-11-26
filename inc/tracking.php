@@ -154,10 +154,12 @@ function generate_id() {
 
 // Add Google Analytics Events
 
-add_action('woocommerce_before_cart', 'add_to_cart_google_analytics_events');
+add_action('woocommerce_review_order_before_payment', 'add_to_cart_google_analytics_events');
 
 function add_to_cart_google_analytics_events( ) {
-   $items = WC()->cart->get_cart() ;
+   global $woocommerce;
+
+   $items = $woocommerce->cart->get_cart();
    $out = array();
 
    foreach ( $items as $item ) {
@@ -177,7 +179,7 @@ function add_to_cart_google_analytics_events( ) {
         dataLayer.push({
       'event': 'addToCart',
       'ecommerce': {
-        'currencyCode': '<?php echo $order_currency; ?>',
+        'currencyCode': '<?php echo $get_woocommerce_currency_symbol(); ?>',
         'add': {
           'products': products
         }
