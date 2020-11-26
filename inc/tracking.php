@@ -154,7 +154,7 @@ function generate_id() {
 
 // Add Google Analytics Events
 
-add_action('woocommerce_before_cart', 'add_to_cart_google_analytics_events');
+add_action('woocommerce_review_order_before_payment', 'add_to_cart_google_analytics_events');
 
 function add_to_cart_google_analytics_events( ) {
    global $woocommerce;
