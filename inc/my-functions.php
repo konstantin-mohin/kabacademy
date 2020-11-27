@@ -15,6 +15,14 @@ function kabacedemy_register_nav_menu() {
 	] );
 }
 
+add_action('validate_password_reset','wdm_validate_password_reset',10,2);
+
+function wdm_validate_password_reset( $errors, $user)
+{
+    if(strlen($_POST['password_1']) < 8)
+        $errors->add( 'error',  'Пароль должен содержать не менее 8 символов','');
+}
+
 /**
  * Logged user menu
  */
