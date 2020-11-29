@@ -267,6 +267,22 @@ $(document).ready(function () {
 
 	});
 
+	$('#eb_new_psw').on('keyup', function (evt) {
+
+		if (evt.target.value.length < 8) {
+			$(".cabinet__form__button").addClass('disabled-btn');
+			if(!$(".more-pass").length){
+				$("#eb_new_psw").after( "<p class='more-pass'>Пароль должен содержать не менее 8 символов</p>" );
+			}
+		} else {
+			$(".cabinet__form__button").removeClass('disabled-btn');
+			if($(".more-pass").length){
+				$(".more-pass").remove();
+			}
+		}
+
+	});
+
 
 	// let resetForm = $('.woocommerce-ResetPassword .form-group');
 	//
