@@ -70,9 +70,12 @@ $disabled = '';
 
 			}
 
-			if ( is_user_logged_in() ) {
+			if ( is_user_logged_in() && $key !== 'billing_phone' ) {
+
 				$disabled = 'readonly="readonly"';
-			}
+			}else{
+                $disabled = '';
+            }
 
 
 			?>
