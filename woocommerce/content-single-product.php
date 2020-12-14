@@ -291,11 +291,11 @@ if ( ! $mak_product_show ):
 				<?php endif; ?>
 
                 <div class="mak-club-content__bottom">
-                    <div class="mak-club__text">
+<!--                    <div class="mak-club__text">
                         <p> Для вступления в онлайн-клуб вам нужно пройти короткий недельный интенсив по науке
                             каббала </p>
                         <p> После просмотра 7-ми роликов и заполнения 7-ми тестов вы получаете приглашение в клуб </p>
-                    </div>
+                    </div>-->
 
                     <form method="POST">
                         <button class="btn mak-club__button" name="add-to-cart"
