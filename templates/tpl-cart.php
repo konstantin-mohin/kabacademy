@@ -32,7 +32,7 @@ get_header();
 
         <div class="cart__header">
 			<?php the_title( '<h1 class="cart__title">', '</h1>' ); ?>
-            <div class="cart-step__two-error" style="display: none;"><span class="close"></span>Ошибка добавления в корзину.<br>Вы не можете добавить два одинаковых курса.</div>
+            <div class="cart-step__two-error" style="display: none;"><span class="close"></span>Этот курс уже в корзине</div>
         </div>
 
 		<?php if ( ! WC()->cart->is_empty() ) { ?>
