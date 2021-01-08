@@ -24,14 +24,24 @@ global $current_user, $wp_roles;
 
 
 $username    = $current_user->user_login;
-$first_name  = getArrValue( $_POST, "first_name", $current_user->first_name );
+
+$first_name  = $current_user->first_name;
+$last_name   = $current_user->last_name;
+$nickname    = $current_user->nickname;
+$email       = $current_user->user_email;
+$description = $current_user->description;
+$city        = $current_user->city;
+$country     = $current_user->country;
+$phone       = $current_user->billing_phone;
+
+/*$first_name  = getArrValue( $_POST, "first_name", $current_user->first_name );
 $last_name   = getArrValue( $_POST, "last_name", $current_user->last_name );
 $nickname    = getArrValue( $_POST, "nickname", $current_user->nickname );
 $email       = getArrValue( $_POST, "email", $current_user->user_email );
 $description = getArrValue( $_POST, "description", $current_user->description );
 $city        = getArrValue( $_POST, "city", $current_user->city );
 $country     = getArrValue( $_POST, "country", $current_user->country );
-$phone       = getArrValue( $_POST, "phone", $current_user->billing_phone );
+$phone       = getArrValue( $_POST, "phone", $current_user->billing_phone );*/
 
 if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
 	echo $_SESSION[ 'eb_msgs_' . $current_user->ID ];
