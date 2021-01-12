@@ -9,7 +9,7 @@
     <form method="post" class="modal__form login">
         <div class="modal__form__title">Авторизация</div>
 
-        <?php //wdmShowNotices(); ?>
+        <?php wdmShowNotices(); ?>
 
         <div class="form-group">
             <label class="form-label">

@@ -28,7 +28,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
         <form method="post" class="modal__form">
 
-			<?php //wdmShowNotices(); ?>
+			<?php wdmShowNotices(); ?>
             <div class="form-group">
                 <label class="form-label">
                     <input type="text" name="wdm_username" id="username"> <span>Ваш email</span>
