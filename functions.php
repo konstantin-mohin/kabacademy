@@ -256,17 +256,6 @@ function stop() {
 
 }
 
-// display messages
-function wdmShowNotices()
-{
-    //display form messages
-    if (defined('USER_FORM_MESSAGE')) {
-        echo "<div class='wdm-flash-error'>";
-        echo '<span>' . USER_FORM_MESSAGE . '</span><br />';
-        echo '</div>';
-    }
-}
-
 /**
  * Tracking
  */

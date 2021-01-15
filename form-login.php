@@ -28,7 +28,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
         <form method="post" class="modal__form">
 
-			<?php wdmShowNotices(); ?>
+			<?php \app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices(); ?>
             <div class="form-group">
                 <label class="form-label">
                     <input type="text" name="wdm_username" id="username"> <span>Ваш email</span>
