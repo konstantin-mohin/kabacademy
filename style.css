@@ -729,7 +729,7 @@ div.bbp-submit-wrapper {
     width: 35px;
     height: 35px;
     left: 28px;
-    top: 22px;
+    top: 12px;
     background: url(inc/images/alert-octagon.svg) center no-repeat;
 }
 
@@ -1071,7 +1071,7 @@ div.bbp-submit-wrapper {
     }
     .cart-step__two-error:before {
         left: 16px;
-        top: 20px;
+        top: 10px;
     }
     
 }
