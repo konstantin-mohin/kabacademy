@@ -9,7 +9,7 @@
     <form method="post" class="modal__form login">
         <div class="modal__form__title">Авторизация</div>
 
-        <?php wdmShowNotices(); ?>
+        <?php \app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();?>
 
         <div class="form-group">
             <label class="form-label">
