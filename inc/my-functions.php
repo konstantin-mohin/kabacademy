@@ -805,3 +805,9 @@ function html_bbpress_emails( $headers ) {
 	$headers[]  = 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' );;
 	return $headers;
 }
+
+/*add_action( 'do_new_application_password', 'my_moodle_change_pass' );
+
+function my_moodle_change_pass(){
+    var_dump('12312');
+}*/
