@@ -706,10 +706,6 @@ div.bbp-submit-wrapper {
 	display: block !important;
 }
 
-.cart__header {
-    width: 100%;
-}
-
 .cart-step__two-error {
     position: absolute;
     bottom: -99px;
