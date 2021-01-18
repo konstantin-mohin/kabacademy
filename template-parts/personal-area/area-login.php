@@ -1,4 +1,4 @@
-<div class="modal modal--login" id="modalLogin" <?php echo ( defined( 'USER_FORM_MESSAGE' ) ) ? 'style="display: block;"' : '';  ?> >
+<div class="modal modal--login" id="modalLogin" <?php echo ( defined( 'WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE' ) ) ? 'style="display: block;"' : '';  ?> >
     <button class="modal__close js-modal-close" type="button">
         <svg class="icon__icon-close" width="14" height="14">
             <use href="svg-symbols.svg#icon-close"></use>
