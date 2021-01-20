@@ -806,8 +806,20 @@ function html_bbpress_emails( $headers ) {
 	return $headers;
 }
 
-/*add_action( 'do_new_application_password', 'my_moodle_change_pass' );
+/*add_action( 'send_password_change_email', 'my_moodle_change_pass_func' );
 
-function my_moodle_change_pass(){
-    var_dump('12312');
+function my_moodle_change_pass_func($tt, $user, $userdata){
+    //var_dump($userdata);
+
+    return $userdata;
 }*/
+
+
+add_filter( 'bbp_get_reply_content', 'clear_forum_content', 10, 2 );
+
+function clear_forum_content($content, $reply_id){
+    $content = str_replace('&lt;p&gt;', '', $content);
+    $content = str_replace('&lt;/p&gt;', '', $content);
+
+    return $content;
+}
