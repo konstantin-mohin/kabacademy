@@ -27,10 +27,10 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
                 <table width="100%" cellpadding="0" cellspacing="0" style="border-spacing:0">
                     <tbody>
                         <tr>
-                            <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90"> Здравствуйте </td>
+                            <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90"> Здравствуйте, </td>
                         </tr>
                         <tr>
-                            <td style="font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;line-height:130%;letter-spacing:-.05em;padding-bottom:20px;color:#3c5d90"><?php echo $user_login; ?> </td>
+                            <td style="font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;line-height:130%;letter-spacing:-.05em;padding-bottom:20px;color:#3c5d90"><?php echo $user_login; ?>! </td>
                         </tr>
                         <tr>
                             <td style="font-family:'Open Sans',sans-serif;font-size:14px;line-height:200%;color:#3c5d90">
