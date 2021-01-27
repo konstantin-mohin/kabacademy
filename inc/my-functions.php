@@ -820,6 +820,8 @@ add_filter( 'bbp_get_reply_content', 'clear_forum_content', 10, 2 );
 function clear_forum_content($content, $reply_id){
     $content = str_replace('&lt;p&gt;', '', $content);
     $content = str_replace('&lt;/p&gt;', '', $content);
+    $content = str_replace('&lt;i&gt;', '', $content);
+    $content = str_replace('&lt;/i&gt;', '', $content);
 
     return $content;
 }
