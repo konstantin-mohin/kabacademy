@@ -806,13 +806,22 @@ function html_bbpress_emails( $headers ) {
 	return $headers;
 }
 
-/*add_action( 'send_password_change_email', 'my_moodle_change_pass_func' );
+add_action( 'user_profile_update_errors', 'my_moodle_change_pass_func', 10, 3);
 
-function my_moodle_change_pass_func($tt, $user, $userdata){
-    //var_dump($userdata);
+function my_moodle_change_pass_func($errors, $update, $user){
 
-    return $userdata;
-}*/
+    $action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+
+    $moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
+
+    $user_data = array(
+        'id'       => $moodle_user_id, // moodle user id.
+        'password' => $user->user_pass,
+    );
+
+    $moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
+
+}
 
 
 add_filter( 'bbp_get_reply_content', 'clear_forum_content', 10, 2 );
