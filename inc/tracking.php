@@ -5,6 +5,21 @@ function tracker_logger( $data ) {
 	file_put_contents( '/sites/kabacademy.com/public/wp-content/debug.log', "\r\n" . $log, FILE_APPEND );
 }
 
+add_action( 'woocommerce_after_checkout_billing_form', 'add_tracking_fields', 10, 1 );
+
+function add_tracking_fields( $checkout ) {
+
+	$fields = array('gaClientId', 'gaUserId', 'utmSource', 'utmCampaign','utmTerm','utmMedium','utmContent','LeadId');
+
+	foreach ($fields as $key => $field_name) {
+		 woocommerce_form_field( $field_name, array(
+      'type'  => 'hidden',
+      'id'    => $field_name,
+      'class' => array('hidden form-row-wide'),
+    ), null);
+	}
+}
+
 add_action( 'woocommerce_after_checkout_validation', 'filter_checkout_validation', 15, 2 );
 
 function filter_checkout_validation( $data, $errors ) {

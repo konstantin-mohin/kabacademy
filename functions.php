@@ -194,6 +194,8 @@ function kabacedemy_scripts() {
 	wp_enqueue_script( 'kabacedemy-swal', 'https://cdn.jsdelivr.net/npm/sweetalert2@10',
 		null,
 		null, true );
+
+	wp_enqueue_script( 'kabacedemy-tracking-js', get_template_directory_uri() . '/js/tracking.js', array(), current_time( 'timestamp' ), true );
 }
 
 add_action( 'wp_enqueue_scripts', 'kabacedemy_scripts' );
