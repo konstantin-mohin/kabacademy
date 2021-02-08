@@ -70,8 +70,9 @@ if ( $show_downloads ) {
 		<?php if ( $order->get_discount_total() > 0 ) { ?>
             <div class="cart-checkout__discount"></div>
 		<?php } ?>
-        <div class="cart-checkout__result">
-            итого: <?php echo get_woocommerce_currency_symbol(); ?> <?php echo $order->get_subtotal(); ?></div>
+        <div class="cart-checkout__result_my">
+            итого: <?php echo get_woocommerce_currency_symbol(); ?> <?php echo $order->get_subtotal(); ?>
+        </div>
     </div>
 
 	<?php do_action( 'woocommerce_order_details_after_order_table_items', $order ); ?>
