@@ -31,7 +31,7 @@ else
 
 ?>
 
-<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0">
+<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0"> 
     <tbody>
         <tr>
             <td style="padding:60px 8%">

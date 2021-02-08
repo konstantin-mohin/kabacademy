@@ -710,7 +710,7 @@ div.bbp-submit-wrapper {
 .cart-step__two-error {
     position: absolute;
     bottom: -99px;
-    right: -1px;
+	left: 551px;
     font-size: 14px;
     line-height: 24px;
     font-weight: 500;
@@ -1092,4 +1092,23 @@ div.bbp-submit-wrapper {
 	position: absolute;
 	bottom: -60px;
 	font-size: 14px;
+}
+
+.checkout li::marker{
+	content: '';
+}
+
+.cart-checkout__result_my {
+	position: absolute;
+	right: -18px;
+	bottom: -87px;
+	width: 100%;
+	height: 86px;
+	max-width: 335px;
+	font-size: 32px;
+	letter-spacing: -0.05em;
+	line-height: 86px;
+	text-align: center;
+	color: #fff;
+	background: #a42ab9;
 }
