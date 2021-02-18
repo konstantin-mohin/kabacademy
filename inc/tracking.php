@@ -121,7 +121,7 @@ function woocommerce_payment_complete( $id ) {
     $response = wp_remote_post($azure_success, $request_params);
     $response_data = wp_remote_retrieve_body( $response );
 
-    tracker_logger('Success -> ' . $paymentId);
+    tracker_logger('Success -> ' . $order_status . $paymentId);
     delete_transient($order_billing_email);
 
   } else {
