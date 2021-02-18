@@ -88,6 +88,13 @@ function send_tracking() {
 
 add_action( 'woocommerce_order_status_completed', 'woocommerce_payment_complete',10, 1 );
 add_action( 'woocommerce_order_status_cancelled', 'woocommerce_payment_cancelled', 10, 1 );
+add_filter( 'woocommerce_payment_complete_order_status', 'woocommerce_payment_processed',10, 3 );
+
+function woocommerce_payment_processed ( $s, $id, $o ) {
+  $order = new WC_Order($id);
+  $order_status = $order->status;
+  tracker_logger('PROCESSED COMPL -> ' . $s .'! '. $order_status );
+}
 
 function woocommerce_payment_cancelled ( $id ) {
   tracker_logger('Cancelled -> ' . $id);
