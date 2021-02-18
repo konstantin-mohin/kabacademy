@@ -12413,8 +12413,8 @@ button.swiper-pagination-bullet {
 }
 
 .cart-promo {
-  margin-top: -10px;
-  margin-left: 90px;
+  margin-top: 10px;
+  margin-left: 30px;
 }
 
 @media (max-width: 1024px) {
