@@ -90,9 +90,8 @@ add_action( 'woocommerce_order_status_changed', 'woocommerce_payment_complete',1
 add_action( 'woocommerce_order_status_cancelled', 'woocommerce_payment_cancelled', 10, 1 );
 
 function woocommerce_payment_cancelled ( $id ) {
-  $order = new WC_Order($id);
-  $order_status = $order->status;
-  tracker_logger('Cancelled -> ' . $id . ' ' . $order_status);
+  tracker_logger('Cancelled -> ' . $id);
+
   woocommerce_payment_complete($id, null, null);
 }
 
