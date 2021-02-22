@@ -86,14 +86,16 @@ function send_tracking() {
 	}
 }
 
-add_action( 'woocommerce_order_status_completed', 'woocommerce_payment_complete',10, 1 );
+add_action( 'woocommerce_order_status_changed', 'woocommerce_payment_complete',10, 1 );
 add_action( 'woocommerce_order_status_cancelled', 'woocommerce_payment_cancelled', 10, 1 );
 
 function woocommerce_payment_cancelled ( $id ) {
-  tracker_logger('Cancelled -> ' . $id);
+  $order = new WC_Order($id);
+  $order_status = $order->status;
+  tracker_logger('Cancelled -> ' . $id . ' ' . $order_status);
 }
 
-function woocommerce_payment_complete( $id ) {
+function woocommerce_payment_complete($id, $from,  $to) {
   $order = new WC_Order($id);
   $order_status = $order->status;
   $order_billing_email = $order->billing_email;
@@ -108,7 +110,7 @@ function woocommerce_payment_complete( $id ) {
       $order_data['isSuccess'] = true;
     } else {
       $order_data['isSuccess'] = false;
-      $order_data['failureReason'] = 'Order is failed';
+      $order_data['failureReason'] = 'Order is ' . $order_status;
     }
     $request_params = get_request_params($order_data);
     $response = wp_remote_post($azure_success, $request_params);
