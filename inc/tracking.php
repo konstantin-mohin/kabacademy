@@ -93,6 +93,7 @@ function woocommerce_payment_cancelled ( $id ) {
   $order = new WC_Order($id);
   $order_status = $order->status;
   tracker_logger('Cancelled -> ' . $id . ' ' . $order_status);
+  woocommerce_payment_complete($id, null, null);
 }
 
 function woocommerce_payment_complete($id, $from,  $to) {
