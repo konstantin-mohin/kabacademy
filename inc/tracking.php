@@ -86,7 +86,7 @@ function send_tracking() {
 	}
 }
 
-add_action( 'woocommerce_order_status_changed', 'woocommerce_payment_complete',10, 1 );
+add_action( 'woocommerce_order_status_changed', 'woocommerce_payment_complete',10, 3 );
 add_action( 'woocommerce_order_status_cancelled', 'woocommerce_payment_cancelled', 10, 1 );
 
 function woocommerce_payment_cancelled ( $id ) {
