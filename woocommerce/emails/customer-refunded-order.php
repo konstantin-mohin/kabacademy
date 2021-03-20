@@ -39,8 +39,18 @@ $taxsumm    = $subtotal - $total;
 $subtotaltext = 'Подитог';
 
 if( sizeof( $order->get_refunds() ) > 0 ) {
-    $subtotaltext = 'Сумма полностью возвращена';
+
     $total2 = -$total;
+
+
+    $ref = $order->get_refunds();
+    $refAmount = $ref[0]->amount;
+    if(intval($total) != intval($refAmount)){
+        $subtotaltext = 'Сумма частично возвращена';
+    }else{
+        $subtotaltext = 'Сумма полностью возвращена';
+    }
+
     $total = 0;
 }
 
@@ -71,6 +81,7 @@ if( sizeof( $order->get_refunds() ) > 0 ) {
                                         <tr>
                                             <td style="font-family:Montserrat,sans-serif;font-weight:300;font-size:32px;line-height:120%;letter-spacing:-.05em;width:45%"> Заказ #<?php echo $data['id']; ?></td>
                                             <td style="font-family:Montserrat,sans-serif;font-weight:500;font-size:16px;line-height:160%;margin-left:20px;color:#3c5d90;vertical-align:bottom">от <?php echo $data['date_created']->date('d.m.Y'); ?></td>
+                                            <?var_dump($order->get_refunds());?>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -114,7 +125,7 @@ if( sizeof( $order->get_refunds() ) > 0 ) {
                                         ?>
                                         <tr>
                                             <td style="padding:15px 13px 35px 28px;width:213px;font-weight:500;font-size:14px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top"><?php echo $subtotaltext; ?></td>
-                                            <td style="padding:15px 13px;width:136px;font-weight:500;font-size:16px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top"><?php if ($total2) { echo '$' . $total2; }?></td>
+                                            <td style="padding:15px 13px;width:136px;font-weight:500;font-size:16px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top"><?php if ($refAmount) { echo '$' . $refAmount; }?></td>
                                             <td style="padding:15px 13px;width:136px;font-weight:500;font-size:16px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top"> <b>$ <?php echo $total?></b> </td>
                                         </tr>
                                     </tbody>
