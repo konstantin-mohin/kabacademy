@@ -262,3 +262,23 @@ function stop() {
  * Tracking
  */
 require get_template_directory() . '/inc/tracking.php';
+
+
+add_filter( 'woocommerce_admin_billing_fields' , 'order_admin_custom_fields' );
+function order_admin_custom_fields( $fields ) {
+	$fields['makleadid'] = array(
+		'label' => __( 'ID User Azure(makleadid)', 'woocommerce' ),
+		'show'  => true,
+		'wrapper_class' => 'form-field-wide',
+		'style' => '',
+	);
+
+	$fields['timezone'] = array(
+		'label' => __('Timezone'),
+		'show'  => true,
+		'wrapper_class' => 'form-field-wide',
+		'style' => '',
+	);
+
+	return $fields;
+}
