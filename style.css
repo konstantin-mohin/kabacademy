@@ -1112,3 +1112,29 @@ div.bbp-submit-wrapper {
 	color: #fff;
 	background: #a42ab9;
 }
+
+.order-receipt-details {
+	width: 30%;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 70px;
+}
+
+.order-receipt-details .order-receipt-item {
+	margin: 20px 0;
+	height: 10px;
+	display: block;
+	width: 100%;
+}
+
+.order-receipt-details .order-receipt-item .order-receipt-item-right  {
+	float: right;
+	width: 50%;
+	text-align: center;
+}
+
+.order-receipt-details .order-receipt-item .order-receipt-item-left {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
