@@ -3712,7 +3712,7 @@ button.swiper-pagination-bullet {
   margin-bottom: 20px;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 320px) {
   .breadcrumbs {
     display: none;
   }

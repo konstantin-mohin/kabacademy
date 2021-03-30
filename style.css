@@ -1120,6 +1120,25 @@ div.bbp-submit-wrapper {
 	margin-bottom: 70px;
 }
 
+@media (max-width: 1025px) {
+	.order-receipt-details {
+		width: 50%;
+	}
+}
+
+@media (max-width: 767px) {
+	.order-receipt-details {
+		width: 70%;
+	}
+}
+
+@media (max-width: 480px) {
+	.order-receipt-details {
+		width: 100%;
+	}
+}
+
+
 .order-receipt-details .order-receipt-item {
 	margin: 20px 0;
 	height: 10px;
