@@ -683,11 +683,11 @@ function product_button_name( $product ) {
 		return 'Записаться';
 	}
 
-	if ( WC_Subscriptions_Product::is_subscription( $product->get_id() ) ) {
-		$base_text = 'ежемесячно';
+	if( class_exists( 'WC_Subscriptions_Product' ) && WC_Subscriptions_Product::is_subscription( $product ) ) {
+		$base_text = esc_html__(WC_Subscriptions_Product::get_period( $product ), 'kabacedemy');
 	}
 
-	return "Оплатить <span class=\"btn--bold\">" . get_woocommerce_currency_symbol() . "{$product->get_price()}</span> {$base_text}";
+	return "Оплатить <span class=\"btn--bold\">" . wc_price($product->get_price()) . "</span> {$base_text}";
 }
 
 
