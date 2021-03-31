@@ -58,8 +58,13 @@ defined( 'ABSPATH' ) || exit;
 
                     <div class="cart-checkout__item__price">
 						<?php
-						echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ),
-							$cart_item, $cart_item_key ); // PHPCS: XSS ok.
+                            if( class_exists( 'WC_Subscriptions_Product' ) && WC_Subscriptions_Product::is_subscription( $_product ) ) {
+                                echo wc_price(WC_Subscriptions_Product::get_price($_product)) . ' ' . esc_html__(WC_Subscriptions_Product::get_period( $_product ), 'kabacedemy');
+								echo '<div class="cancel_text">' . esc_html__('Cancellation of future payments at any time', 'kabacedemy') . '</div>';
+                            } else {
+                                echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ),
+                                    $cart_item, $cart_item_key ); // PHPCS: XSS ok.
+                            }
 						?>
                     </div>
 					<?php
@@ -96,6 +101,7 @@ defined( 'ABSPATH' ) || exit;
             </div>
 		<?php } ?>
         <div class="cart-checkout__result"> итого: <?php echo WC()->cart->get_total(); ?></div>
+
     </div>
 
 </li>

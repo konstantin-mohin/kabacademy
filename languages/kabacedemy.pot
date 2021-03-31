@@ -196,3 +196,29 @@ msgstr ""
 #: template-parts/content.php:40
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr ""
+
+#: woocommerce-subscriptions
+#: woocommerce/checkout/review-order.php
+msgid "day"
+msgstr ""
+
+#: woocommerce-subscriptions
+#: woocommerce/checkout/review-order.php
+msgid "week"
+msgstr ""
+
+#: woocommerce-subscriptions
+#: woocommerce/checkout/review-order.php
+msgid "month"
+msgstr ""
+
+#: woocommerce-subscriptions
+#: woocommerce/checkout/review-order.php
+msgid "year"
+msgstr ""
+
+
+#: woocommerce/checkout/review-order.php
+msgid "Cancellation of future payments at any time"
+msgstr ""
+

@@ -1157,3 +1157,29 @@ div.bbp-submit-wrapper {
 	width: 50%;
 	text-align: center;
 }
+
+
+.cancel_text {
+	text-align: right;
+	font-weight: 500;
+	font-size: 13px;
+	color: #444;
+	position: absolute;
+	bottom: 18px;
+	right: 0;
+	width: 100%;
+	letter-spacing: 0.001em;
+}
+
+@media (max-width: 768px) {
+	.cancel_text {
+		position: static;
+		margin-top: 20px;
+	}
+}
+
+@media (max-width: 600px) {
+	.cancel_text {
+		text-align: left;
+	}
+}
