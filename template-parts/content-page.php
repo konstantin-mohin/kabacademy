@@ -9,9 +9,10 @@
 
 ?>
 
-<?php 
-    if( ! ( end($request) == 'my-account' && is_account_page() ) ) { 
+<?php
+    if( $request && ( !( end($request) == 'my-account' )  && is_account_page() ) ) {
     $post_slug = str_replace('/', '-', $_SERVER['REQUEST_URI']);
+
 ?>
 
 <article id="post<?php echo $post_slug; ?>id" <?php post_class( array( 'article' ) ); ?>> 
@@ -26,7 +27,10 @@
 
 			<?php get_sidebar(); ?>
             
-            <section class="article-content <?php if( ! ( end($request) == 'my-account' && is_account_page() ) ){ echo 'test'; } ?>">
+            <section class="article-content <?php
+//            TODO: figure out why we need the test here
+//            if( ! ( end($request) == 'my-account' && is_account_page() ) ){ echo 'test'; }
+            ?>">
 
                 <div class="article-content__top">
 					<?php the_title( '<h1 class="article-content__top__title">', '</h1>' ); ?>
