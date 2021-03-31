@@ -901,7 +901,7 @@ div.bbp-submit-wrapper {
 }
 
 .intro.front---page .intro__background img {
-    max-width: 1016px; 
+    max-width: 1016px;
 }
 
 .swal2-container.swal2-backdrop-show, .swal2-container.swal2-noanimation {
@@ -1070,7 +1070,7 @@ div.bbp-submit-wrapper {
         left: 16px;
         top: 10px;
     }
-    
+
 }
 
 .login .row{
@@ -1162,7 +1162,7 @@ div.bbp-submit-wrapper {
 .cancel_text {
 	text-align: right;
 	font-weight: 500;
-	font-size: 13px;
+	font-size: 15px;
 	color: #444;
 	position: absolute;
 	bottom: 18px;
@@ -1171,11 +1171,15 @@ div.bbp-submit-wrapper {
 	letter-spacing: 0.001em;
 }
 
+.cart-checkout__item:last-of-type .cancel_text {
+ bottom: -30px;
+}
+
 @media (max-width: 768px) {
 	.cancel_text {
 		position: static;
 		margin-top: 20px;
-	}
+	}.cancel_text
 }
 
 @media (max-width: 600px) {
@@ -1183,3 +1187,18 @@ div.bbp-submit-wrapper {
 		text-align: left;
 	}
 }
+
+.woocommerce-view-subscription .subscription_details_status {
+	font-weight: 600;
+}
+
+.woocommerce-view-subscription .subscription_action_link {
+	border: 1px solid #ccc ;
+	padding: 7px 40px;
+	margin: 0 5px;
+}
+
+.woocommerce-view-subscription .subscription_action_link:hover {
+	box-shadow: 0px 1px 3px #ddd;
+}
+
