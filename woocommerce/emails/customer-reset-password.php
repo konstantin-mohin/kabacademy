@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
 $user = get_user_by('id', $user_id);
-$user_name = $user->display_name ?? $user_login;
+$user_name = $user->first_name ?? $user_login;
 
 ?>
 <table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0">
