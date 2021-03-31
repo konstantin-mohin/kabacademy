@@ -687,7 +687,7 @@ function product_button_name( $product ) {
 		$base_text = esc_html__(WC_Subscriptions_Product::get_period( $product ), 'kabacedemy');
 	}
 
-	return "Оплатить <span class=\"btn--bold\">" . wc_price($product->get_price()) . "</span> {$base_text}";
+	return "Оплатить <span class=\"btn--bold\">" . html_entity_decode( wp_strip_all_tags(wc_price($product->get_price()))) . "</span> {$base_text}";
 }
 
 
