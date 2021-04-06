@@ -237,25 +237,6 @@ class KabacedemyHelper {
 	}
 
 	/**
-     * Get user ip address
-     *
-	 * @return mixed|string
-	 */
-	public function getUserIP() {
-		if( array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER) && !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
-			if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') > 0) {
-				$addr = explode(",",$_SERVER['HTTP_X_FORWARDED_FOR']);
-				return trim($addr[0]);
-			} else {
-				return $_SERVER['HTTP_X_FORWARDED_FOR'];
-			}
-		}
-		else {
-			return $_SERVER['REMOTE_ADDR'];
-		}
-	}
-
-	/**
      * check if user country is filled
      *
 	 * @param $user_login
@@ -263,7 +244,7 @@ class KabacedemyHelper {
 	 */
 	public function checkUserCountry($user_login, $user ) {
 		$user_country = get_user_meta( $user->ID, 'country', true );
-		$ip = $this->getUserIP();
+		$ip = getUserIP();
 		$ipInfo = get_ipInfo_data($ip);
 		if ( is_null($ipInfo) || ( !empty( $user_country )) ) {
             return;

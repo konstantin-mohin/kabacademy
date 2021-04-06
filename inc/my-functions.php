@@ -401,17 +401,17 @@ function myplugin_user_register( $customer_id, $data ) {
 	// Default last_name
 	$default_last_name = '-';
 	$billing_last_name = get_user_meta( $customer_id, 'billing_last_name', true );
+	$ip = getUserIP();
+	$ipInfo = get_ipInfo_data($ip);
+
+	if ( !is_null($ipInfo) ) {
+		update_user_meta( $customer_id, 'country', sanitize_text_field( $ipInfo->country ) );
+	}
 
 	if ( empty( $billing_last_name ) ) {
 		update_user_meta( $customer_id, 'last_name', $default_last_name );
 	} else {
 		update_user_meta( $customer_id, 'last_name', $billing_last_name );
-	}
-
-	// добавление сохранения страны
-	if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
-		$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
-		update_user_meta( $customer_id, 'country', $geoIP->country->isoCode );
 	}
 
 	if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
