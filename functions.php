@@ -364,6 +364,10 @@ function update_data_after_order( $order_id ) {
         update_user_meta( $user_id, 'billing_city',  $city );
     }
 
+	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
+		update_user_meta( $user_id, 'city',  $city );
+	}
+
     if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
         update_user_meta( $user_id, 'billing_state',  $state );
     }
@@ -371,6 +375,10 @@ function update_data_after_order( $order_id ) {
     if ( (get_user_meta( $user_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_country', true ) )) {
         update_user_meta( $user_id, 'billing_country',  $country );
     }
+
+	if ( (get_user_meta( $user_id, 'country', true ) === '' ) || empty( get_user_meta( $user_id, 'country', true ) )) {
+		update_user_meta( $user_id, 'country',  $country );
+	}
 
     if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
         update_field('timezone', $timezone, 'user_' . $user_id);

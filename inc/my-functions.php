@@ -406,6 +406,7 @@ function myplugin_user_register( $customer_id, $data ) {
 
 	if ( !is_null($ipInfo) ) {
 		update_user_meta( $customer_id, 'country', sanitize_text_field( $ipInfo->country ) );
+		update_user_meta( $customer_id, 'billing_country', sanitize_text_field( $ipInfo->country ) );
 	}
 
 	if ( empty( $billing_last_name ) ) {
