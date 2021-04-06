@@ -305,6 +305,7 @@ function add_ipinfo_data( $order_id ) {
 		$city = sanitize_text_field( $ipInfo->city );
 		$state = sanitize_text_field( $ipInfo->region );
 		$timezone = sanitize_text_field( $ipInfo->timezone );
+		$country = sanitize_text_field( $ipInfo->country );
 
 		update_post_meta( $order_id, '_billing_city', $city );
 		update_post_meta( $order_id, '_billing_state', $state );
@@ -318,12 +319,13 @@ function add_ipinfo_data( $order_id ) {
 			update_user_meta( $user_id, 'billing_state',  $state );
 		}
 
+		if ( get_user_meta( $user_id, 'billing_country', true ) === '' ) {
+			update_user_meta( $user_id, 'billing_country',  $country );
+		}
+
 		if ( get_field('timezone', 'user_' . $user_id) === '' ) {
 			update_field('timezone', $timezone, 'user_' . $user_id);
 		}
-
-		update_user_meta( $user_id, 'country', $ipInfo->country);
-
 
 	} catch (Throwable $t) {
 		ob_start();
