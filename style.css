@@ -1114,30 +1114,16 @@ div.bbp-submit-wrapper {
 }
 
 .order-receipt-details {
-	width: 30%;
+	width: 750px;
 	margin: 0 auto;
 	text-align: center;
-	margin-bottom: 70px;
 }
 
-@media (max-width: 1025px) {
-	.order-receipt-details {
-		width: 50%;
-	}
-}
-
-@media (max-width: 767px) {
-	.order-receipt-details {
-		width: 70%;
-	}
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 	.order-receipt-details {
 		width: 100%;
 	}
 }
-
 
 .order-receipt-details .order-receipt-item {
 	margin: 20px 0;
@@ -1146,16 +1132,10 @@ div.bbp-submit-wrapper {
 	width: 100%;
 }
 
-.order-receipt-details .order-receipt-item .order-receipt-item-right  {
-	float: right;
-	width: 50%;
-	text-align: center;
-}
 
 .order-receipt-details .order-receipt-item .order-receipt-item-left {
-	float: left;
-	width: 50%;
-	text-align: center;
+	width: 100%;
+	text-align: left;
 }
 
 
