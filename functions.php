@@ -293,7 +293,6 @@ use ipinfo\ipinfo\IPinfo;
 
 add_action( 'woocommerce_new_order', 'add_ipinfo_data' );
 function add_ipinfo_data( $order_id ) {
-
 	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
 	$user_id = get_post_meta( $order_id, '_customer_user', true );
 
@@ -311,19 +310,19 @@ function add_ipinfo_data( $order_id ) {
 		update_post_meta( $order_id, '_billing_state', $state );
 		update_post_meta( $order_id, '_billing_timezone', $timezone );
 
-		if ( get_user_meta( $user_id, 'billing_city', true ) === '' ) {
+		if ( ( get_user_meta( $user_id, 'billing_city', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_city', true ) ) )  {
 			update_user_meta( $user_id, 'billing_city',  $city );
 		}
 
-		if ( get_user_meta( $user_id, 'billing_state', true ) === '' ) {
+		if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
 			update_user_meta( $user_id, 'billing_state',  $state );
 		}
 
-		if ( get_user_meta( $user_id, 'billing_country', true ) === '' ) {
+		if ( (get_user_meta( $user_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_country', true ) )) {
 			update_user_meta( $user_id, 'billing_country',  $country );
 		}
 
-		if ( get_field('timezone', 'user_' . $user_id) === '' ) {
+		if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
 			update_field('timezone', $timezone, 'user_' . $user_id);
 		}
 
@@ -332,6 +331,6 @@ function add_ipinfo_data( $order_id ) {
 		var_dump($t);
 		$result = ob_get_clean();
 
-		write_log($result);
+		error_log($result);
 	}
 }
