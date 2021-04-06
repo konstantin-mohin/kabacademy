@@ -236,39 +236,60 @@ class KabacedemyHelper {
 		return $month;
 	}
 
-	public function checkUserCountry( $user_login, $user ) {
-
-		$user_country = get_user_meta( $user->ID, 'country', true );
-
-		if ( empty( $user_country ) ) {
-			if ( function_exists( 'geoip_detect2_get_info_from_ip' ) ) {
-				$geoIP = geoip_detect2_get_info_from_ip( $_SERVER['REMOTE_ADDR'], null );
-				update_user_meta( $user->ID, 'country', $geoIP->country->isoCode );
-
-
-				$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
-
-				if ( ! is_numeric( $moodle_user_id ) ) {
-					return;
-				}
-
-				$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
-
-				$user_data = array(
-					'id'      => $moodle_user_id, // moodle user id
-					//'user_id'   => $user_id, // wordpress user id
-					'country' => $geoIP->country->isoCode,
-				);
-
-				$moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
-
-				if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
-					customDebug( 'Country successfully changed on moodle.' );
-				} else {
-					customDebug( 'There is a problem in country changed on moodle.' );
-				}
+	/**
+     * Get user ip address
+     *
+	 * @return mixed|string
+	 */
+	public function getUserIP() {
+		if( array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER) && !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
+			if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') > 0) {
+				$addr = explode(",",$_SERVER['HTTP_X_FORWARDED_FOR']);
+				return trim($addr[0]);
+			} else {
+				return $_SERVER['HTTP_X_FORWARDED_FOR'];
 			}
 		}
-
+		else {
+			return $_SERVER['REMOTE_ADDR'];
+		}
 	}
+
+	/**
+     * check if user country is filled
+     *
+	 * @param $user_login
+	 * @param $user
+	 */
+	public function checkUserCountry($user_login, $user ) {
+		$user_country = get_user_meta( $user->ID, 'country', true );
+		$ip = $this->getUserIP();
+		$ipInfo = get_ipInfo_data($ip);
+		if ( is_null($ipInfo) || ( !empty( $user_country )) ) {
+            return;
+        }
+        $country = sanitize_text_field( $ipInfo->country );
+
+        update_user_meta( $user->ID, 'country', $country );
+        $moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
+        if ( ! is_numeric( $moodle_user_id ) ) {
+            return;
+        }
+
+        $action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+
+        $user_data = array(
+            'id'      => $moodle_user_id, // moodle user id
+            //'user_id'   => $user_id, // wordpress user id
+            'country' => $country,
+        );
+
+        $moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
+
+        if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
+            customDebug( 'Country successfully changed on moodle.' );
+        } else {
+            customDebug( 'There is a problem in country changed on moodle.' );
+        }
+     }
 }
