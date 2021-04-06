@@ -1,4 +1,10 @@
 <?php
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+use ipinfo\ipinfo\Details;
+use ipinfo\ipinfo\IPinfo;
+
 include_once 'inc/loader.php'; // main helper for theme
 
 kab_help()->init();
@@ -288,43 +294,19 @@ function order_admin_custom_fields( $fields ) {
 
 
 
-require_once(__DIR__ . '/vendor/autoload.php');
-use ipinfo\ipinfo\IPinfo;
-
-add_action( 'woocommerce_new_order', 'add_ipinfo_data' );
-function add_ipinfo_data( $order_id ) {
-	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
-	$user_id = get_post_meta( $order_id, '_customer_user', true );
-
+/**
+ * Get ip data based on ip
+ *
+ * @param string $ip ip address.
+ * @return Details|null user details based on ip.
+ */
+function get_ipInfo_data($ip) {
 	try {
-		$access_token = '41bb9fb7638750';
-		$client = new IPinfo($access_token);
+        $access_token = '41bb9fb7638750';
+        $client = new IPinfo($access_token);
+        $ipInfo = $client->getDetails($ip);
 
-		$ipInfo = $client->getDetails($ip);
-		$city = sanitize_text_field( $ipInfo->city );
-		$state = sanitize_text_field( $ipInfo->region );
-		$timezone = sanitize_text_field( $ipInfo->timezone );
-		$country = sanitize_text_field( $ipInfo->country );
-
-		update_post_meta( $order_id, '_billing_city', $city );
-		update_post_meta( $order_id, '_billing_state', $state );
-		update_post_meta( $order_id, '_billing_timezone', $timezone );
-
-		if ( ( get_user_meta( $user_id, 'billing_city', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_city', true ) ) )  {
-			update_user_meta( $user_id, 'billing_city',  $city );
-		}
-
-		if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
-			update_user_meta( $user_id, 'billing_state',  $state );
-		}
-
-		if ( (get_user_meta( $user_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_country', true ) )) {
-			update_user_meta( $user_id, 'billing_country',  $country );
-		}
-
-		if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
-			update_field('timezone', $timezone, 'user_' . $user_id);
-		}
+		return $ipInfo;
 
 	} catch (Throwable $t) {
 		ob_start();
@@ -332,5 +314,47 @@ function add_ipinfo_data( $order_id ) {
 		$result = ob_get_clean();
 
 		error_log($result);
+		return null;
 	}
+}
+
+/**
+ * Update user and order meta when order is created
+ *
+ * @param string $order_id Order id we get from hook.
+ */
+add_action( 'woocommerce_new_order', 'update_data_after_order' );
+function update_data_after_order( $order_id ) {
+	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
+	$user_id = get_post_meta( $order_id, '_customer_user', true );
+
+    $ipInfo = get_ipInfo_data($ip);
+    if ( is_null($ipInfo) ) {
+        return;
+    }
+
+    $city = sanitize_text_field( $ipInfo->city );
+    $state = sanitize_text_field( $ipInfo->region );
+    $timezone = sanitize_text_field( $ipInfo->timezone );
+    $country = sanitize_text_field( $ipInfo->country );
+
+    update_post_meta( $order_id, '_billing_city', $city );
+    update_post_meta( $order_id, '_billing_state', $state );
+    update_post_meta( $order_id, '_billing_timezone', $timezone );
+
+    if ( ( get_user_meta( $user_id, 'billing_city', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_city', true ) ) )  {
+        update_user_meta( $user_id, 'billing_city',  $city );
+    }
+
+    if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
+        update_user_meta( $user_id, 'billing_state',  $state );
+    }
+
+    if ( (get_user_meta( $user_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_country', true ) )) {
+        update_user_meta( $user_id, 'billing_country',  $country );
+    }
+
+    if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
+        update_field('timezone', $timezone, 'user_' . $user_id);
+    }
 }
