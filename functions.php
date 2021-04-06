@@ -78,8 +78,8 @@ add_action( 'after_setup_theme', 'kabacedemy_setup' );
 */
 
 add_filter( 'wc_add_to_cart_message', function( $string, $product_id = 0 ) {
-    $blank = '';
-    return $blank;
+	$blank = '';
+	return $blank;
 });
 
 /**
@@ -203,7 +203,7 @@ add_action( 'wp_enqueue_scripts', 'kabacedemy_scripts' );
 function kabacedemy_scripts_footer() {
 	?>
     <script>
-			svg4everybody();
+        svg4everybody();
     </script>
 	<?php
 }
@@ -281,4 +281,55 @@ function order_admin_custom_fields( $fields ) {
 	);
 
 	return $fields;
+}
+
+//var_dump(get_user_by('email', 'voodi.ua@gmail.com')->ID);
+
+
+
+
+require_once(__DIR__ . '/vendor/autoload.php');
+use ipinfo\ipinfo\IPinfo;
+
+add_action( 'woocommerce_new_order', 'add_ipinfo_data' );
+function add_ipinfo_data( $order_id ) {
+
+	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
+	$user_id = get_post_meta( $order_id, '_customer_user', true );
+
+	try {
+		$access_token = '41bb9fb7638750';
+		$client = new IPinfo($access_token);
+
+		$ipInfo = $client->getDetails($ip);
+		$city = sanitize_text_field( $ipInfo->city );
+		$state = sanitize_text_field( $ipInfo->region );
+		$timezone = sanitize_text_field( $ipInfo->timezone );
+
+		update_post_meta( $order_id, '_billing_city', $city );
+		update_post_meta( $order_id, '_billing_state', $state );
+		update_post_meta( $order_id, '_billing_timezone', $timezone );
+
+		if ( get_user_meta( $user_id, 'billing_city', true ) === '' ) {
+			update_user_meta( $user_id, 'billing_city',  $city );
+		}
+
+		if ( get_user_meta( $user_id, 'billing_state', true ) === '' ) {
+			update_user_meta( $user_id, 'billing_state',  $state );
+		}
+
+		if ( get_field('timezone', 'user_' . $user_id) === '' ) {
+			update_field('timezone', $timezone, 'user_' . $user_id);
+		}
+
+		update_user_meta( $user_id, 'country', $ipInfo->country);
+
+
+	} catch (Throwable $t) {
+		ob_start();
+		var_dump($t);
+		$result = ob_get_clean();
+
+		write_log($result);
+	}
 }
