@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
                         <tr>
                             <td style="width:50%;padding:0 8%">
                                 <a href="<?php echo get_site_url(); ?>" target="_blank">
-                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/header-logo.png" alt="" style="display:block;width:100%;max-width:155px">
+                                    <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/header-logo.png" alt="" style="display:block;width:100%;max-width:155px">
                                 </a>
                             </td>
                             <td style="width:50%;padding-right:8%">
@@ -42,22 +42,22 @@ defined( 'ABSPATH' ) || exit;
                                         <tr>
                                             <td>
                                                 <a href="<?php echo get_field('youtube_link', 'option'); ?>" target="_blank">
-                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-youtube.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:30px">
+                                                    <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/icon-youtube.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:30px">
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="<?php echo get_field('vk_link', 'option'); ?>" target="_blank">
-                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-vk.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:37px">
+                                                    <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/icon-vk.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:37px">
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="<?php echo get_field('fb_link', 'option'); ?>" target="_blank">
-                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-facebook.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:27px">
+                                                    <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/icon-facebook.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:27px">
                                                 </a>
                                             </td>
                                             <td>
                                                 <a href="<?php echo get_field('whatsapp_link', 'option'); ?>" target="_blank">
-                                                    <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/icon-whatsapp.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:28px">
+                                                    <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/icon-whatsapp.png" alt="" style="display:block;width:100%;margin:0 auto;max-width:28px">
                                                 </a>
                                             </td>
                                         </tr>

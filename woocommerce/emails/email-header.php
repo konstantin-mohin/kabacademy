@@ -32,14 +32,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<body style="margin:0;padding:0">
 		<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;border:0">
 		    <tbody>
-                <tr style="background:#d0eaf7">
+                <tr style="background-image: url( <?php echo get_template_directory_uri() ?>/static/img/assets/letters/bg.png); background-size: cover; height: 150px;">
                     <td style="width:50%;padding-left:8%;padding-right:15px">
                         <a href="https://kabacademy.com/" target="_blank">
-                            <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/header-logo.png" alt="" style="display:block;width:100%">
+                            <img src="<?php echo get_template_directory_uri() ?>/static/img/assets/letters/header-logo.png" alt="" style="display:block;width:100%">
                         </a>
                     </td>
                     <td style="width:50%">
-                        <img src="http://dev.kabacademy.com/verstka/static/img/assets/letters/header-img.jpg" alt="" style="display:block;width:100%">
+<!--                        <img src="--><?php //echo get_template_directory_uri() ?><!--/static/img/assets/letters/bg.png" alt="" style="display:block;width:100%">-->
                     </td>
                 </tr>
             </tbody>
