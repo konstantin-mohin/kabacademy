@@ -251,13 +251,9 @@ class KabacedemyHelper {
         }
         $country = sanitize_text_field( $ipInfo->country );
 
-		if ( (get_user_meta( $user->ID, 'billing_country', true ) === '' ) || empty( get_user_meta( $user->ID, 'billing_country', true ) )) {
-			update_user_meta( $user->ID, 'billing_country',  $country );
-		}
+        update_user_meta( $user->ID, 'country',  $country );
+        update_user_meta( $user->ID, 'billing_country',  $country );
 
-		if ( (get_user_meta( $user->ID, 'country', true ) === '' ) || empty( get_user_meta( $user->ID, 'country', true ) )) {
-			update_user_meta( $user->ID, 'country',  $country );
-		}
 //		customDebug($user->ID);
         $moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
         if ( ! is_numeric( $moodle_user_id ) ) {

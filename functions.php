@@ -356,32 +356,76 @@ function update_data_after_order( $order_id ) {
     $timezone = sanitize_text_field( $ipInfo->timezone );
     $country = sanitize_text_field( $ipInfo->country );
 
+
     update_post_meta( $order_id, '_billing_city', $city );
     update_post_meta( $order_id, '_billing_state', $state );
     update_post_meta( $order_id, '_billing_timezone', $timezone );
     update_post_meta( $order_id, '_billing_country', $country );
 
-    if ( ( get_user_meta( $user_id, 'billing_city', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_city', true ) ) )  {
-        update_user_meta( $user_id, 'billing_city',  $city );
-    }
-
-	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
-		update_user_meta( $user_id, 'city',  $city );
-	}
 
     if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
         update_user_meta( $user_id, 'billing_state',  $state );
     }
 
-    if ( (get_user_meta( $user_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_country', true ) )) {
-        update_user_meta( $user_id, 'billing_country',  $country );
-    }
+	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
+		update_user_meta( $user_id, 'city',  $city );
+		update_user_meta( $user_id, 'billing_city',  $city );
+
+		create_or_update_moodle_user_data($user_id, ['city' => $city]);
+	}
 
 	if ( (get_user_meta( $user_id, 'country', true ) === '' ) || empty( get_user_meta( $user_id, 'country', true ) )) {
 		update_user_meta( $user_id, 'country',  $country );
+		update_user_meta( $user_id, 'billing_country',  $country );
+
+		create_or_update_moodle_user_data($user_id, ['country' => $country]);
+
 	}
 
     if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
         update_field('timezone', $timezone, 'user_' . $user_id);
     }
 }
+
+
+function create_or_update_moodle_user_data($user_id, $data = []) {
+    if ( empty($data) ) return;
+
+	try {
+		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id
+		if ( ! is_numeric( $moodle_user_id ) ) {
+			customDebug( 'Non numeric moodle user id' );
+			return;
+		}
+
+		$user_data = array(
+			'id'      => $moodle_user_id, // moodle user id
+			//'user_id'   => $user_id, // wordpress user id
+//			'country' => $country,
+		);
+
+		$user_data = array_merge($user_data, $data);
+		$moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
+
+		if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
+//			customDebug( 'Country successfully changed on moodle.' );
+		} else {
+			customDebug( 'There is a problem in changing user data on moodle. function.php' );
+		}
+
+	} catch ( Throwable $t ) {
+		ob_start();
+		var_dump($t);
+		$result = ob_get_clean();
+
+		customDebug( 'Exception' . $result );
+	}
+}
+
+//var_dump(get_user_by('email', 'voodi.ua@gmail.com')->ID);
+
+//update_user_meta( 13154, 'country',  'US' );
+
+
+//var_dump(get_user_meta( 13154, 'moodle_user_id', true ));
