@@ -405,9 +405,18 @@ function myplugin_user_register( $customer_id, $data ) {
 	$ipInfo = get_ipInfo_data($ip);
 
 	if ( !is_null($ipInfo) ) {
-		update_user_meta( $customer_id, 'country', sanitize_text_field( $ipInfo->country ) );
-		update_user_meta( $customer_id, 'billing_country', sanitize_text_field( $ipInfo->country ) );
+		if ( (get_user_meta( $customer_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $customer_id, 'billing_country', true ) )) {
+			update_user_meta( $customer_id, 'billing_country',  sanitize_text_field( $ipInfo->country ) );
+		}
+
+		if ( (get_user_meta( $customer_id, 'country', true ) === '' ) || empty( get_user_meta( $customer_id, 'country', true ) )) {
+			update_user_meta( $customer_id, 'country',  sanitize_text_field( $ipInfo->country ) );
+		}
+
+//		update_user_meta( $customer_id, 'country', sanitize_text_field( $ipInfo->country ) );
+//		update_user_meta( $customer_id, 'billing_country', sanitize_text_field( $ipInfo->country ) );
 	}
+
 
 	if ( empty( $billing_last_name ) ) {
 		update_user_meta( $customer_id, 'last_name', $default_last_name );
