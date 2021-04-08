@@ -359,6 +359,7 @@ function update_data_after_order( $order_id ) {
     update_post_meta( $order_id, '_billing_city', $city );
     update_post_meta( $order_id, '_billing_state', $state );
     update_post_meta( $order_id, '_billing_timezone', $timezone );
+    update_post_meta( $order_id, '_billing_country', $country );
 
     if ( ( get_user_meta( $user_id, 'billing_city', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_city', true ) ) )  {
         update_user_meta( $user_id, 'billing_city',  $city );
