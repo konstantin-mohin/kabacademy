@@ -107,41 +107,41 @@
 				} ?>
             </div>
 
-			<?php if ( get_field( 'mp_basic_content', 'option' ) ) { ?>
-                <div class="basic__bottom__text"><?php the_field( 'mp_basic_content', 'option' ); ?></div>
-			<?php } ?>
+<!--			--><?php //if ( get_field( 'mp_basic_content', 'option' ) ) { ?>
+<!--                <div class="basic__bottom__text">--><?php //the_field( 'mp_basic_content', 'option' ); ?><!--</div>-->
+<!--			--><?php //} ?>
 
         </div>
 
 		<?php
-		$price_table = get_field( 'mp_basic_table', 'option' );
-		if ( isset( $price_table ) && ! empty( $price_table ) ) { ?>
-            <div class="table-responsive basic__table table--hidden" id="sales-table">
-                <table class="table table-blue">
-					<?php if ( ! empty( $price_table['header'] ) ) { ?>
-                        <thead>
-                        <tr>
-							<?php foreach ( $price_table['header'] as $item ) { ?>
-                                <th scope="col"><span><?php echo $item['c']; ?></span></th>
-							<?php } ?>
-                        </tr>
-                        </thead>
-					<?php } ?>
-
-					<?php if ( ! empty( $price_table['body'] ) ) { ?>
-                        <tbody>
-						<?php foreach ( $price_table['body'] as $row ) { ?>
-                            <tr>
-								<?php foreach ( $row as $item ) { ?>
-                                    <td><?php echo $item['c']; ?></td>
-								<?php } ?>
-                            </tr>
-						<?php } ?>
-                        </tbody>
-					<?php } ?>
-                </table>
-            </div>
-		<?php }
+//		$price_table = get_field( 'mp_basic_table', 'option' );
+//		if ( isset( $price_table ) && ! empty( $price_table ) ) { ?>
+<!--            <div class="table-responsive basic__table table--hidden" id="sales-table">-->
+<!--                <table class="table table-blue">-->
+<!--					--><?php //if ( ! empty( $price_table['header'] ) ) { ?>
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--							--><?php //foreach ( $price_table['header'] as $item ) { ?>
+<!--                                <th scope="col"><span>--><?php //echo $item['c']; ?><!--</span></th>-->
+<!--							--><?php //} ?>
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--					--><?php //} ?>
+<!---->
+<!--					--><?php //if ( ! empty( $price_table['body'] ) ) { ?>
+<!--                        <tbody>-->
+<!--						--><?php //foreach ( $price_table['body'] as $row ) { ?>
+<!--                            <tr>-->
+<!--								--><?php //foreach ( $row as $item ) { ?>
+<!--                                    <td>--><?php //echo $item['c']; ?><!--</td>-->
+<!--								--><?php //} ?>
+<!--                            </tr>-->
+<!--						--><?php //} ?>
+<!--                        </tbody>-->
+<!--					--><?php //} ?>
+<!--                </table>-->
+<!--            </div>-->
+<!--		--><?php //}
 		?>
     </div>
 </section>
