@@ -379,7 +379,6 @@ function update_data_after_order( $order_id ) {
 		update_user_meta( $user_id, 'billing_country',  $country );
 
 		create_or_update_moodle_user_data($user_id, ['country' => $country]);
-
 	}
 
     if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {

@@ -397,7 +397,7 @@ add_action( 'woocommerce_checkout_update_user_meta', 'myplugin_user_register', 1
 
 function myplugin_user_register( $customer_id, $data ) {
 
-	customDebug( "Create user WP user_id = $customer_id" );
+//	customDebug( "Create user WP user_id = $customer_id" );
 	// Default last_name
 	$default_last_name = '-';
 	$billing_last_name = get_user_meta( $customer_id, 'billing_last_name', true );
@@ -405,16 +405,13 @@ function myplugin_user_register( $customer_id, $data ) {
 	$ipInfo = get_ipInfo_data($ip);
 
 	if ( !is_null($ipInfo) ) {
-		if ( (get_user_meta( $customer_id, 'billing_country', true ) === '' ) || empty( get_user_meta( $customer_id, 'billing_country', true ) )) {
-			update_user_meta( $customer_id, 'billing_country',  sanitize_text_field( $ipInfo->country ) );
-		}
-
-		if ( (get_user_meta( $customer_id, 'country', true ) === '' ) || empty( get_user_meta( $customer_id, 'country', true ) )) {
+//		if ( (get_user_meta( $customer_id, 'country', true ) === '' ) || empty( get_user_meta( $customer_id, 'country', true ) )) {
 			update_user_meta( $customer_id, 'country',  sanitize_text_field( $ipInfo->country ) );
-		}
+			update_user_meta( $customer_id, 'billing_country',  sanitize_text_field( $ipInfo->country ) );
 
-//		update_user_meta( $customer_id, 'country', sanitize_text_field( $ipInfo->country ) );
-//		update_user_meta( $customer_id, 'billing_country', sanitize_text_field( $ipInfo->country ) );
+			update_user_meta( $customer_id, 'city',  sanitize_text_field( $ipInfo->city ) );
+			update_user_meta( $customer_id, 'billing_city',  sanitize_text_field( $ipInfo->city ) );
+//		}
 	}
 
 
@@ -424,9 +421,10 @@ function myplugin_user_register( $customer_id, $data ) {
 		update_user_meta( $customer_id, 'last_name', $billing_last_name );
 	}
 
+	// TODO: understand and refactor this piece of code
 	if ( isset( $data['billing_email'] ) && isset( $data['account_password'] ) ) {
 
-		customDebug( "Create user WP user_email == {$data['billing_email']}" );
+//		customDebug( "Create user WP user_email == {$data['billing_email']}" );
 
 		$user = get_userdata( $customer_id );
 
