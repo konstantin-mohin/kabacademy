@@ -320,9 +320,9 @@ function getUserIP() {
  */
 function get_ipInfo_data($ip) {
 	try {
-        $access_token = '41bb9fb7638750';
-        $client = new IPinfo($access_token);
-        $ipInfo = $client->getDetails($ip);
+		$access_token = '41bb9fb7638750';
+		$client = new IPinfo($access_token);
+		$ipInfo = $client->getDetails($ip);
 
 		return $ipInfo;
 
@@ -346,21 +346,21 @@ function update_data_after_order( $order_id ) {
 	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
 	$user_id = get_post_meta( $order_id, '_customer_user', true );
 
-    $ipInfo = get_ipInfo_data($ip);
-    if ( is_null($ipInfo) ) {
-        return;
-    }
+	$ipInfo = get_ipInfo_data($ip);
+	if ( is_null($ipInfo) ) {
+		return;
+	}
 
-    $city = sanitize_text_field( $ipInfo->city );
-    $state = sanitize_text_field( $ipInfo->region );
-    $timezone = sanitize_text_field( $ipInfo->timezone );
-    $country = sanitize_text_field( $ipInfo->country );
+	$city = sanitize_text_field( $ipInfo->city );
+	$state = sanitize_text_field( $ipInfo->region );
+	$timezone = sanitize_text_field( $ipInfo->timezone );
+	$country = sanitize_text_field( $ipInfo->country );
 
 
-    update_post_meta( $order_id, '_billing_city', $city );
-    update_post_meta( $order_id, '_billing_state', $state );
-    update_post_meta( $order_id, '_billing_timezone', $timezone );
-    update_post_meta( $order_id, '_billing_country', $country );
+	update_post_meta( $order_id, '_billing_city', $city );
+	update_post_meta( $order_id, '_billing_state', $state );
+	update_post_meta( $order_id, '_billing_timezone', $timezone );
+	update_post_meta( $order_id, '_billing_country', $country );
 
 
 	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
@@ -375,14 +375,20 @@ function update_data_after_order( $order_id ) {
 //		create_or_update_moodle_user_data($user_id, ['country' => $country]);
 	}
 
-    if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
-        update_field('timezone', $timezone, 'user_' . $user_id);
-    }
+	if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
+		update_field('timezone', $timezone, 'user_' . $user_id);
+	}
 }
 
 
-function create_or_update_moodle_user_data($user_id, $data = []) {
-    if ( empty($data) ) return;
+/**
+ * Create or update moodle user data
+ *
+ * @param $user_id wordpress user id.
+ * @param array $data array of custom data to save.
+ */
+function create_or_update_moodle_user_data( $user_id, $data = [] ) {
+	if ( empty($data) ) return;
 
 	try {
 		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
@@ -416,27 +422,17 @@ function create_or_update_moodle_user_data($user_id, $data = []) {
 	}
 }
 
-//var_dump(get_user_by('email', 'voodi.ua@gmail.com')->ID);
-
-//add_action( 'eb_save_account_details', 'update_suer_metaa', 10, 1 );
-//
-// function update_suer_metaa( $user_id ) {
-//	 update_user_meta( $user_id, 'city',  get_user_meta( $user_id, 'city',  true ) );
-////	 update_user_meta( $user_id, 'billing_city',  get_user_meta( $user_id, 'city',  true ) );
-//
-//
-//	 update_user_meta( $user_id, 'country',  get_user_meta( $user_id, 'country',  true ) );
-////	 update_user_meta( $user_id, 'billing_country',  get_user_meta( $user_id, 'country',  true ) );
-//}
 
 
 
-// Hooks near the bottom of profile page (if current user)
+
+/**
+ * Add user profile custom fields.
+ *
+ * @param $user
+ */
 add_action('show_user_profile', 'custom_user_profile_fields');
-
-// Hooks near the bottom of the profile page (if not current user)
 add_action('edit_user_profile', 'custom_user_profile_fields');
-
 function custom_user_profile_fields( $user ) {
 	?>
     <table class="form-table">
@@ -466,13 +462,19 @@ function custom_user_profile_fields( $user ) {
 
 
 
+
+
+/**
+ * Save user custom fields.
+ *
+ * @param $user_id User id.
+ */
 add_action( 'personal_options_update', 'update_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
-
 function update_extra_profile_fields( $user_id ) {
 	if ( current_user_can( 'edit_user', $user_id ) ) {
 		update_user_meta( $user_id, 'city', $_POST['city'] );
-    }
+	}
 
 	if ( current_user_can( 'edit_user', $user_id ) ) {
 		update_user_meta( $user_id, 'country', $_POST['country'] );
@@ -481,7 +483,23 @@ function update_extra_profile_fields( $user_id ) {
 
 
 
-//echo 'tedtt';
+
+
+/**
+ *  Remove "Change Payment Method" button from the "My Subscriptions" table.
+ *
+ * @param array $all_actions The $subscription_key => $actions array with all actions that will be displayed for a subscription on the "My Subscriptions" table.
+ * @param array $subscriptions All of a given users subscriptions that will be displayed on the "My Subscriptions" table
+ */
+add_filter( 'wcs_view_subscription_actions', 'remove_change_payment_from_subscription', 10, 2 );
+function remove_change_payment_from_subscription( $actions, $subscription ) {
+	unset($actions['change_payment_method']);
+
+	return $actions;
+}
+
+
+
 //
 //echo esc_html( app\wisdmlabs\edwiserBridge\Eb_Payment_Manager::access_course_button( 148154 ) );
 //echo '<div class="testt" style="display:none">';
