@@ -363,22 +363,16 @@ function update_data_after_order( $order_id ) {
     update_post_meta( $order_id, '_billing_country', $country );
 
 
-    if ( ( get_user_meta( $user_id, 'billing_state', true ) === '' ) || empty( get_user_meta( $user_id, 'billing_state', true ) ) ) {
-        update_user_meta( $user_id, 'billing_state',  $state );
-    }
-
 	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
 		update_user_meta( $user_id, 'city',  $city );
-		update_user_meta( $user_id, 'billing_city',  $city );
 
-		create_or_update_moodle_user_data($user_id, ['city' => $city]);
+//		create_or_update_moodle_user_data($user_id, ['city' => $city]);
 	}
 
 	if ( (get_user_meta( $user_id, 'country', true ) === '' ) || empty( get_user_meta( $user_id, 'country', true ) )) {
 		update_user_meta( $user_id, 'country',  $country );
-		update_user_meta( $user_id, 'billing_country',  $country );
 
-		create_or_update_moodle_user_data($user_id, ['country' => $country]);
+//		create_or_update_moodle_user_data($user_id, ['country' => $country]);
 	}
 
     if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
@@ -424,7 +418,79 @@ function create_or_update_moodle_user_data($user_id, $data = []) {
 
 //var_dump(get_user_by('email', 'voodi.ua@gmail.com')->ID);
 
-//update_user_meta( 13154, 'country',  'US' );
+//add_action( 'eb_save_account_details', 'update_suer_metaa', 10, 1 );
+//
+// function update_suer_metaa( $user_id ) {
+//	 update_user_meta( $user_id, 'city',  get_user_meta( $user_id, 'city',  true ) );
+////	 update_user_meta( $user_id, 'billing_city',  get_user_meta( $user_id, 'city',  true ) );
+//
+//
+//	 update_user_meta( $user_id, 'country',  get_user_meta( $user_id, 'country',  true ) );
+////	 update_user_meta( $user_id, 'billing_country',  get_user_meta( $user_id, 'country',  true ) );
+//}
 
 
-//var_dump(get_user_meta( 13154, 'moodle_user_id', true ));
+
+// Hooks near the bottom of profile page (if current user)
+add_action('show_user_profile', 'custom_user_profile_fields');
+
+// Hooks near the bottom of the profile page (if not current user)
+add_action('edit_user_profile', 'custom_user_profile_fields');
+
+function custom_user_profile_fields( $user ) {
+	?>
+    <table class="form-table">
+        <tr>
+            <th>
+                <label for="code"><?php _e( 'City' ); ?></label>
+            </th>
+            <td>
+                <input type="text" name="city" id="city" value="<?php echo esc_attr( get_user_meta($user->ID, 'city', true) ); ?>" class="regular-text" />
+            </td>
+        </tr>
+    </table>
+
+    <table class="form-table">
+        <tr>
+            <th>
+                <label for="code"><?php _e( 'Country' ); ?></label>
+            </th>
+            <td>
+                <input type="text" name="country" id="country" value="<?php echo esc_attr( get_user_meta($user->ID, 'country', true) ); ?>" class="regular-text" />
+
+            </td>
+        </tr>
+    </table>
+	<?php
+}
+
+
+
+add_action( 'personal_options_update', 'update_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
+
+function update_extra_profile_fields( $user_id ) {
+	if ( current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'city', $_POST['city'] );
+    }
+
+	if ( current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'country', $_POST['country'] );
+	}
+}
+
+
+
+//echo 'tedtt';
+//
+//echo esc_html( app\wisdmlabs\edwiserBridge\Eb_Payment_Manager::access_course_button( 148154 ) );
+//echo '<div class="testt" style="display:none">';
+//$mdl_user_id = get_user_meta( get_user_by('email', 'voodi.ua@gmail.com')->ID, 'moodle_user_id', 1 );
+//$moodle_user_courses = \app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager()->getMoodleCourses( $mdl_user_id );
+//
+//echo '</div>';
+
+
+
+
+

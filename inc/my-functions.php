@@ -405,13 +405,13 @@ function myplugin_user_register( $customer_id, $data ) {
 	$ipInfo = get_ipInfo_data($ip);
 
 	if ( !is_null($ipInfo) ) {
-//		if ( (get_user_meta( $customer_id, 'country', true ) === '' ) || empty( get_user_meta( $customer_id, 'country', true ) )) {
-			update_user_meta( $customer_id, 'country',  sanitize_text_field( $ipInfo->country ) );
-			update_user_meta( $customer_id, 'billing_country',  sanitize_text_field( $ipInfo->country ) );
-
+		if ( ( get_user_meta( $customer_id, 'city', true ) === '' ) || empty( get_user_meta( $customer_id, 'city', true ) ) )  {
 			update_user_meta( $customer_id, 'city',  sanitize_text_field( $ipInfo->city ) );
-			update_user_meta( $customer_id, 'billing_city',  sanitize_text_field( $ipInfo->city ) );
-//		}
+		}
+
+		if ( (get_user_meta( $customer_id, 'country', true ) === '' ) || empty( get_user_meta( $customer_id, 'country', true ) )) {
+			update_user_meta( $customer_id, 'country',  sanitize_text_field( $ipInfo->country ) );
+		}
 	}
 
 
@@ -649,7 +649,7 @@ function sv_wc_memberships_member_discount_product_notice( $product_id ) {
 }
 
 add_filter( 'woocommerce_registration_error_email_exists', function ( $msg, $email ) {
-	return "Аккаунт с таким email'ом уже зарегистрирован. Пожалуйста, <a class=\"notification-link\" href=\"/my-account\">авторизуйтесь</a>.";
+	return "Аккаунт с таким email'ом уже зарегистрирован. Пожалуйста, <a class=\"notification-link\" href=\"/my-account\">авторизируйтесь</a>.";
 }, 10, 2 );
 
 
