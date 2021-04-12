@@ -78,6 +78,7 @@ foreach ($items as $item_id => $item ) {
                                         <?php 
                                             foreach ($items as $item_id => $item ) { 
                                             $product        = wc_get_product( $item['product_id'] );
+
                                             $product_name   = $product->get_name();  
                                             $product_files  = $product->get_downloads();  
                                             $product_expiry = $product->get_download_expiry();
@@ -85,7 +86,7 @@ foreach ($items as $item_id => $item ) {
                                                 $product_expiry = date("d.m.Y", strtotime($product_date . '+ ' . $product_expiry . ' days'));
                                             else 
                                                 $product_expiry = 'Никогда';
-                                                
+
                                             foreach ($product_files as $file ) {   
                                         ?>
                                         <tr>
@@ -97,7 +98,7 @@ foreach ($items as $item_id => $item ) {
                                                 <a href="<?php echo $file["file"]; ?>" style="color:#a42bb9;font-weight:400;text-decoration:underline"> <?php echo $file["name"]; ?> </a>
                                             </td>
                                         </tr>
-                                        <?php 
+                                        <?php
                                             }
                                             } 
                                         ?>
@@ -132,7 +133,7 @@ foreach ($items as $item_id => $item ) {
                                             $product        = $item->get_data();
                                             $quantity       = $product["quantity"]; 
                                             $product_name   = $product["name"]; 
-                                            $product_price  = $product["subtotal"]; 
+                                            $product_price  = $product["subtotal"];
                                         ?>
                                         <tr>
                                             <td style="padding:15px 13px 15px 28px;width:213px;font-weight:500;font-size:16px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top">
@@ -143,6 +144,26 @@ foreach ($items as $item_id => $item ) {
                                                 <b>$ <?php echo $product_price; ?></b> 
                                             </td> 
                                         </tr>
+
+                                        <tr>
+                                            <?php
+//                                            TODO: add translatable string and dynamic url
+                                            $course_url = false;
+                                            if ( get_post_meta( $product['product_id'], 'is_product_a_moodle_course', true ) === 'yes' ) {
+                                                $product_options = get_post_meta($product['product_id'], 'product_options', true);
+
+                                                if ( $product_options ) {
+													$mdl_course_id = $product_options[ 'moodle_course_id' ];
+													$course_url = 'https://edu.kabacademy.com/course/view.php?id=' . $mdl_course_id;
+                                                }
+                                            }
+											if ( $course_url ) { ?>
+                                                <td style="padding:15px 13px 35px 28px;font-weight:500;font-size:14px;line-height:140%;color:#3c5d90;text-align:left;vertical-align:top">
+                                                    <?php echo 'Курс доступен из личного кабинета или по ссылке: <a target="_blunk" href="' . esc_url($course_url) . '">' .  esc_url($course_url) . '</a>';  ?>
+                                                </td>
+                                           <?php } ?>
+                                        </tr>
+
                                         <?php 
                                             } if ($taxsumm) {
                                         ?>
@@ -171,5 +192,11 @@ foreach ($items as $item_id => $item ) {
 </table>
 
 <?php
+
+//ob_start();
+//var_dump(\app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url());
+//$result = ob_get_clean();
+
+//echo $result;
 
 do_action( 'woocommerce_email_footer', $email );
