@@ -343,6 +343,10 @@ function get_ipInfo_data($ip) {
  */
 add_action( 'woocommerce_new_order', 'update_data_after_order' );
 function update_data_after_order( $order_id ) {
+    if ( is_admin() ) {
+        return;
+    }
+
 	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
 	$user_id = get_post_meta( $order_id, '_customer_user', true );
 
@@ -356,9 +360,10 @@ function update_data_after_order( $order_id ) {
 	$timezone = sanitize_text_field( $ipInfo->timezone );
 	$country = sanitize_text_field( $ipInfo->country );
 
-	update_post_meta($order_id, 'custom_order_ipinfo', $ipInfo);
-	update_post_meta($order_id, 'custom_order_city', $city);
-	update_post_meta($order_id, 'custom_order_country', $country);
+//	update_post_meta($order_id, 'custom_order_ipinfo', $ipInfo);
+//	update_post_meta($order_id, 'custom_order_city', $city);
+//	update_post_meta($order_id, 'custom_order_country', $country);
+//	update_post_meta($order_id, 'custom_order_timezone', $timezone);
 
 
 	update_post_meta( $order_id, '_billing_city', $city );
@@ -505,9 +510,9 @@ function remove_change_payment_from_subscription( $actions, $subscription ) {
 
 
 //echo '<div class="testt" style="display:none">';
-//var_dump(get_post_meta(150882, 'custom_order_ip', $ip));
-//var_dump(get_post_meta(150882, '_billing_country', $ip));
-//var_dump(get_post_meta(150882, '_billing_city', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_city', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_country', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_ip', $ip));
 //var_dump(get_post_meta(150977, 'custom_order_ipinfo', $ip));
 
 //echo '</div>';
