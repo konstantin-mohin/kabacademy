@@ -653,17 +653,34 @@ add_filter( 'woocommerce_registration_error_email_exists', function ( $msg, $ema
 }, 10, 2 );
 
 
-add_filter( 'eb_moodle_user_profile_details', 'phone_moodle_user_profile_details', 10, 2 );
-
-function phone_moodle_user_profile_details( $user_data, $update ) {
-	global $current_user;
+/**
+ * This function fires when filer eb_moodle_user_profile_details that placed in create_moodle_user function fires.
+ * Used to add additional user profile fields value that is passed to moodle.
+ * @param $user_data the user data used to create a new account or update existing one.
+ * @param $update set update = 1 if you want to update an existing user on moodle.
+ * @return array user data array
+ */
+add_filter( 'eb_moodle_user_profile_details', 'update_moodle_user_profile_details', 10, 2 );
+function update_moodle_user_profile_details( $user_data, $update ) {
+//  get user id from moodle user id.
+//  Considering we have only one to one relation wp user to moodle user.
+	$users = get_users(array(
+		'meta_key' => 'moodle_user_id',
+		'meta_value' => $user_data['id']
+	));
+	$user_id = $users[0]->ID;
 
 	if ( $update ) {
-		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
+		$user_data['phone1'] = get_user_meta( $user_id, 'billing_phone', true );
 	}
+//
+//	ob_start();
+//	var_dump($users[0]->ID);
+//	$result = ob_get_clean();
+//
+//	customDebug( 'Test users date' . $result );
 
-	$user_country = get_user_meta( $current_user->ID, 'country', true );
-
+	$user_country = get_user_meta( $user_id, 'country', true );
 	if ( ! empty( $user_country ) ) {
 		$user_data['country'] = $user_country;
 	}
@@ -702,7 +719,7 @@ function product_button_name( $product ) {
 function is_user_in_club() {
 	$membership_plan = 'mak-club';
 
-	return wc_memberships_is_user_active_member( get_current_user_id(), $membership_plan );
+	return '';
 }
 
 function is_members_area_page() {
@@ -714,12 +731,7 @@ function is_members_area_page() {
 }
 
 
-if ( ! is_admin() ) {
-	remove_filter( 'woocommerce_account_menu_items', array(
-		wc_memberships()->get_frontend_instance()->get_members_area_instance(),
-		'add_account_members_area_menu_item'
-	), 999 );
-}
+
 
 if ( is_user_in_club() ) {
 	add_filter( 'woocommerce_account_menu_items', 'mak_club_menu_items' );
