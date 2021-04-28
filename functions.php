@@ -337,6 +337,74 @@ function get_ipInfo_data($ip) {
 }
 
 /**
+ * Add user profile custom fields.
+ *
+ * @param $user
+ */
+add_action('show_user_profile', 'custom_user_profile_fields');
+add_action('edit_user_profile', 'custom_user_profile_fields');
+function custom_user_profile_fields( $user ) {
+	?>
+    <table class="form-table">
+        <tr>
+            <th>
+                <label for="code"><?php _e( 'City' ); ?></label>
+            </th>
+            <td>
+                <input type="text" name="city" id="city" value="<?php echo esc_attr( get_user_meta($user->ID, 'city', true) ); ?>" class="regular-text" />
+            </td>
+        </tr>
+    </table>
+
+    <table class="form-table">
+        <tr>
+            <th>
+                <label for="code"><?php _e( 'Country' ); ?></label>
+            </th>
+            <td>
+                <input type="text" name="country" id="country" value="<?php echo esc_attr( get_user_meta($user->ID, 'country', true) ); ?>" class="regular-text" />
+
+            </td>
+        </tr>
+    </table>
+	<?php
+}
+
+/**
+ * Save user custom fields.
+ *
+ * @param $user_id User id.
+ */
+add_action( 'personal_options_update', 'update_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
+function update_extra_profile_fields( $user_id ) {
+	if ( current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'city', $_POST['city'] );
+	}
+
+	if ( current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'country', $_POST['country'] );
+	}
+}
+
+
+
+
+
+/**
+ *  Remove "Change Payment Method" button from the "My Subscriptions" table.
+ *
+ * @param array $all_actions The $subscription_key => $actions array with all actions that will be displayed for a subscription on the "My Subscriptions" table.
+ * @param array $subscriptions All of a given users subscriptions that will be displayed on the "My Subscriptions" table
+ */
+add_filter( 'wcs_view_subscription_actions', 'remove_change_payment_from_subscription', 10, 2 );
+function remove_change_payment_from_subscription( $actions, $subscription ) {
+	unset($actions['change_payment_method']);
+
+	return $actions;
+}
+
+/**
  * Update user and order meta when order is created
  *
  * @param string $order_id Order id we get from hook.
@@ -367,22 +435,31 @@ function update_data_after_order( $order_id ) {
 	update_post_meta( $order_id, '_billing_timezone', $timezone );
 	update_post_meta( $order_id, '_billing_country', $country );
 
+	$user_city = get_user_meta( $user_id, 'city', true );
+	$user_country = get_user_meta( $user_id, 'country', true );
 
-	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
+	if ( ( $user_city === '' ) || empty( $user_city ) )  {
 		update_user_meta( $user_id, 'city',  $city );
+		create_or_update_moodle_user_data($user_id, ['city' => $city]);
+	} else {
+		create_or_update_moodle_user_data($user_id, ['city' => $user_city]);
+    }
 
-//		create_or_update_moodle_user_data($user_id, ['city' => $city]);
-	}
-
-	if ( (get_user_meta( $user_id, 'country', true ) === '' ) || empty( get_user_meta( $user_id, 'country', true ) )) {
+	if ( ( $user_country === '' ) || empty( $user_country ) ) {
 		update_user_meta( $user_id, 'country',  $country );
+		create_or_update_moodle_user_data($user_id, ['country' => $country]);
+	} else {
+		create_or_update_moodle_user_data($user_id, ['country' => $user_country]);
+    }
 
-//		create_or_update_moodle_user_data($user_id, ['country' => $country]);
-	}
 
 	if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
 		update_field('timezone', $timezone, 'user_' . $user_id);
 	}
+
+
+
+
 }
 
 
@@ -429,79 +506,9 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
 
 
 
-
-
-/**
- * Add user profile custom fields.
- *
- * @param $user
- */
-add_action('show_user_profile', 'custom_user_profile_fields');
-add_action('edit_user_profile', 'custom_user_profile_fields');
-function custom_user_profile_fields( $user ) {
-	?>
-    <table class="form-table">
-        <tr>
-            <th>
-                <label for="code"><?php _e( 'City' ); ?></label>
-            </th>
-            <td>
-                <input type="text" name="city" id="city" value="<?php echo esc_attr( get_user_meta($user->ID, 'city', true) ); ?>" class="regular-text" />
-            </td>
-        </tr>
-    </table>
-
-    <table class="form-table">
-        <tr>
-            <th>
-                <label for="code"><?php _e( 'Country' ); ?></label>
-            </th>
-            <td>
-                <input type="text" name="country" id="country" value="<?php echo esc_attr( get_user_meta($user->ID, 'country', true) ); ?>" class="regular-text" />
-
-            </td>
-        </tr>
-    </table>
-	<?php
-}
-
-
-
-
-
-/**
- * Save user custom fields.
- *
- * @param $user_id User id.
- */
-add_action( 'personal_options_update', 'update_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
-function update_extra_profile_fields( $user_id ) {
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'city', $_POST['city'] );
-	}
-
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'country', $_POST['country'] );
-	}
-}
-
-
-
-
-
-/**
- *  Remove "Change Payment Method" button from the "My Subscriptions" table.
- *
- * @param array $all_actions The $subscription_key => $actions array with all actions that will be displayed for a subscription on the "My Subscriptions" table.
- * @param array $subscriptions All of a given users subscriptions that will be displayed on the "My Subscriptions" table
- */
-add_filter( 'wcs_view_subscription_actions', 'remove_change_payment_from_subscription', 10, 2 );
-function remove_change_payment_from_subscription( $actions, $subscription ) {
-	unset($actions['change_payment_method']);
-
-	return $actions;
-}
+//$user = get_user_by('email', 'voodi.ua@gmail.com');
+//
+//create_or_update_moodle_user_data($user->ID, ['city' => 'test']);
 
 
 
