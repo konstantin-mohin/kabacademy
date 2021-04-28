@@ -523,15 +523,18 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
 add_action( 'personal_options_update', 'update_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
 function update_extra_profile_fields( $user_id ) {
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'city',  sanitize_text_field( $_POST['city'] ) );
-	}
+	$city = sanitize_text_field( $_POST['city'] );
+	$country = sanitize_text_field( $_POST['country'] );
 
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'country',  sanitize_text_field( $_POST['country'] ) );
-	}
+	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
+		update_user_meta( $user_id, 'city',  $city );
+		create_or_update_moodle_user_data($user_id, [ 'country' => $country ]);
+    }
 
-	create_or_update_moodle_user_data($user_id, [ 'city' => sanitize_text_field( $_POST['city'] ), 'country' => sanitize_text_field( $_POST['country'] ) ]);
+	if ( ( $country !== '' ) || ( !empty( $country )) && current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'country', $country );
+		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
+	}
 }
 
 
