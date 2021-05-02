@@ -337,101 +337,6 @@ function get_ipInfo_data($ip) {
 }
 
 /**
- * Update user and order meta when order is created
- *
- * @param string $order_id Order id we get from hook.
- */
-add_action( 'woocommerce_new_order', 'update_data_after_order' );
-function update_data_after_order( $order_id ) {
-	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
-	$user_id = get_post_meta( $order_id, '_customer_user', true );
-
-	$ipInfo = get_ipInfo_data($ip);
-	if ( is_null($ipInfo) ) {
-		return;
-	}
-
-	$city = sanitize_text_field( $ipInfo->city );
-	$state = sanitize_text_field( $ipInfo->region );
-	$timezone = sanitize_text_field( $ipInfo->timezone );
-	$country = sanitize_text_field( $ipInfo->country );
-
-//	update_post_meta($order_id, 'custom_order_ipinfo', $ipInfo);
-//	update_post_meta($order_id, 'custom_order_city', $city);
-//	update_post_meta($order_id, 'custom_order_country', $country);
-//	update_post_meta($order_id, 'custom_order_timezone', $timezone);
-
-
-	update_post_meta( $order_id, '_billing_city', $city );
-	update_post_meta( $order_id, '_billing_state', $state );
-	update_post_meta( $order_id, '_billing_timezone', $timezone );
-	update_post_meta( $order_id, '_billing_country', $country );
-
-
-	if ( ( get_user_meta( $user_id, 'city', true ) === '' ) || empty( get_user_meta( $user_id, 'city', true ) ) )  {
-		update_user_meta( $user_id, 'city',  $city );
-
-//		create_or_update_moodle_user_data($user_id, ['city' => $city]);
-	}
-
-	if ( (get_user_meta( $user_id, 'country', true ) === '' ) || empty( get_user_meta( $user_id, 'country', true ) )) {
-		update_user_meta( $user_id, 'country',  $country );
-
-//		create_or_update_moodle_user_data($user_id, ['country' => $country]);
-	}
-
-	if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
-		update_field('timezone', $timezone, 'user_' . $user_id);
-	}
-}
-
-
-/**
- * Create or update moodle user data
- *
- * @param $user_id wordpress user id.
- * @param array $data array of custom data to save.
- */
-function create_or_update_moodle_user_data( $user_id, $data = [] ) {
-	if ( empty($data) ) return;
-
-	try {
-		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
-		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id
-		if ( ! is_numeric( $moodle_user_id ) ) {
-			customDebug( 'Non numeric moodle user id' );
-			return;
-		}
-
-		$user_data = array(
-			'id'      => $moodle_user_id, // moodle user id
-			//'user_id'   => $user_id, // wordpress user id
-//			'country' => $country,
-		);
-
-		$user_data = array_merge($user_data, $data);
-		$moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
-
-		if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
-//			customDebug( 'Country successfully changed on moodle.' );
-		} else {
-			customDebug( 'There is a problem in changing user data on moodle. function.php' );
-		}
-
-	} catch ( Throwable $t ) {
-		ob_start();
-		var_dump($t);
-		$result = ob_get_clean();
-
-		customDebug( 'Exception' . $result );
-	}
-}
-
-
-
-
-
-/**
  * Add user profile custom fields.
  *
  * @param $user
@@ -468,28 +373,6 @@ function custom_user_profile_fields( $user ) {
 
 
 
-
-/**
- * Save user custom fields.
- *
- * @param $user_id User id.
- */
-add_action( 'personal_options_update', 'update_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
-function update_extra_profile_fields( $user_id ) {
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'city', $_POST['city'] );
-	}
-
-	if ( current_user_can( 'edit_user', $user_id ) ) {
-		update_user_meta( $user_id, 'country', $_POST['country'] );
-	}
-}
-
-
-
-
-
 /**
  *  Remove "Change Payment Method" button from the "My Subscriptions" table.
  *
@@ -501,6 +384,157 @@ function remove_change_payment_from_subscription( $actions, $subscription ) {
 	unset($actions['change_payment_method']);
 
 	return $actions;
+}
+
+/**
+ * Update user and order meta when order is created
+ *
+ * @param string $order_id Order id we get from hook.
+ */
+add_action( 'woocommerce_new_order', 'update_data_after_order' );
+function update_data_after_order( $order_id ) {
+	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
+	$user_id = get_post_meta( $order_id, '_customer_user', true );
+
+	$ipInfo = get_ipInfo_data($ip);
+	if ( is_null($ipInfo) ) {
+		return;
+	}
+
+	$city = sanitize_text_field( $ipInfo->city );
+	$state = sanitize_text_field( $ipInfo->region );
+	$timezone = sanitize_text_field( $ipInfo->timezone );
+	$country = sanitize_text_field( $ipInfo->country );
+	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
+	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
+
+//	update_post_meta($order_id, 'custom_order_ipinfo', $ipInfo);
+//	update_post_meta($order_id, 'custom_order_city', $city);
+//	update_post_meta($order_id, 'custom_order_country', $country);
+//	update_post_meta($order_id, 'custom_order_timezone', $timezone);
+
+
+	update_post_meta( $order_id, '_billing_city', $city );
+	update_post_meta( $order_id, '_billing_state', $state );
+	update_post_meta( $order_id, '_billing_timezone', $timezone );
+	update_post_meta( $order_id, '_billing_country', $country );
+
+
+	if ( ( $user_city === '' ) || empty( $user_city ) )  {
+		update_user_meta( $user_id, 'city',  $city );
+		create_or_update_moodle_user_data($user_id, ['city' => $city]);
+	} else {
+		create_or_update_moodle_user_data($user_id, ['city' => $user_city]);
+	}
+
+	if ( ( $user_country === '' ) || empty( $user_country ) ) {
+		update_user_meta( $user_id, 'country',  $country );
+		create_or_update_moodle_user_data($user_id, ['country' => $country]);
+	} else {
+		create_or_update_moodle_user_data($user_id, ['country' => $user_country]);
+	}
+
+
+	if ( ( get_field('timezone', 'user_' . $user_id) === '' ) || empty( get_field('timezone', 'user_' . $user_id) ) ) {
+		update_field('timezone', $timezone, 'user_' . $user_id);
+	}
+}
+
+
+/**
+ * Create or update moodle user data
+ *
+ * @param $user_id wordpress user id.
+ * @param array $data array of custom data to save.
+ */
+function create_or_update_moodle_user_data( $user_id, $data = [] ) {
+	if ( empty($data) ) return;
+
+	try {
+		$action = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance();
+		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id
+		if ( ! is_numeric( $moodle_user_id ) ) {
+			customDebug( 'Non numeric moodle user id' );
+			return;
+		}
+
+		$user_data = array(
+			'id'      => $moodle_user_id, // moodle user id
+			//'user_id'   => $user_id, // wordpress user id
+//			'country' => $country,
+		);
+
+		$user_data = array_merge($user_data, $data);
+		$moodle_user = $action->userManager()->create_moodle_user( $user_data, 1 );
+
+		if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
+//			customDebug( 'Country successfully changed on moodle.' );
+		} else {
+			customDebug( 'There is a problem in changing user data on moodle. function.php' );
+		}
+
+	} catch ( Throwable $t ) {
+		ob_start();
+		var_dump($t);
+		$result = ob_get_clean();
+
+		customDebug( 'Exception' . $result );
+	}
+}
+
+
+
+//$user = get_user_by('email', 'voodi.ua@gmail.com');
+//
+//create_or_update_moodle_user_data($user->ID, ['city' => 'test']);
+
+
+
+//echo '<div class="testt" style="display:none">';
+//var_dump(get_post_meta(150977, 'custom_order_city', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_country', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_ip', $ip));
+//var_dump(get_post_meta(150977, 'custom_order_ipinfo', $ip));
+
+//echo '</div>';
+
+
+/**
+ * Sync user data with moodle when update user from wordpress page.
+ * Fires immediately after an existing user is updated.
+ * @param $user_id
+ * @param $old_user_data
+ */
+//add_action( 'profile_update', 'my_profile_update', 10, 2 );
+//function my_profile_update($user_id, $old_user_data ) {
+//	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
+//	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
+//
+//	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country ]);
+//}
+
+
+
+/**
+ * Save user custom fields and sync additional data with moodle.
+ *
+ * @param $user_id User id.
+ */
+add_action( 'personal_options_update', 'update_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
+function update_extra_profile_fields( $user_id ) {
+	$city = sanitize_text_field( $_POST['city'] );
+	$country = sanitize_text_field( $_POST['country'] );
+
+	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
+		update_user_meta( $user_id, 'city',  $city );
+		create_or_update_moodle_user_data($user_id, [ 'country' => $country ]);
+    }
+
+	if ( ( $country !== '' ) || ( !empty( $country )) && current_user_can( 'edit_user', $user_id ) ) {
+		update_user_meta( $user_id, 'country', $country );
+		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
+	}
 }
 
 
@@ -532,16 +566,6 @@ function cartflow_assets() {
 
 
 //var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
-
-
-//echo '<div class="testt" style="display:none">';
-//var_dump(get_post_meta(150977, 'custom_order_city', $ip));
-//var_dump(get_post_meta(150977, 'custom_order_country', $ip));
-//var_dump(get_post_meta(150977, 'custom_order_ip', $ip));
-//var_dump(get_post_meta(150977, 'custom_order_ipinfo', $ip));
-
-//echo '</div>';
-
 
 
 
