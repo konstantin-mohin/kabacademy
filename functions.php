@@ -538,6 +538,12 @@ function update_extra_profile_fields( $user_id ) {
 }
 
 
+
+/**
+ * Add additional style and script to cartflow checkout
+ * Other hooks then wp_footer not working, and i don't know facking why
+ *
+ */
 add_action('wp_footer', 'cartflow_assets'); //other hook not working somehow.
 function cartflow_assets() {
     ?>
@@ -559,9 +565,12 @@ function cartflow_assets() {
         .single-cartflows_step .wc_payment_methods.payment_methods.methods {
             display: none;
         }
+        #account_password_field {
+            display: none;
+        }
     </style>
 <?php
-	wp_enqueue_script( 'nwjs-navigation', get_template_directory_uri() . '/js/nwjs.js', array( 'jquery' ),
+	wp_enqueue_script( 'cartflow-theme-js', get_template_directory_uri() . '/js/cartflow.js', array( 'jquery' ),
 		current_time( 'timestamp' ), true );
 }
 
