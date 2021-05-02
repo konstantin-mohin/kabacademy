@@ -504,6 +504,35 @@ function remove_change_payment_from_subscription( $actions, $subscription ) {
 }
 
 
+add_action('wp_footer', 'cartflow_assets'); //other hook not working somehow.
+function cartflow_assets() {
+    ?>
+    <style>
+        .single-cartflows_step #order_review_heading {
+            visibility: hidden !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        /*.single-cartflows_step .cart-final__agree {*/
+        /*    display: none;*/
+        /*}*/
+        .single-cartflows_step .woocommerce-additional-fields {
+            display: none;
+        }
+
+        .single-cartflows_step .wc_payment_methods.payment_methods.methods {
+            display: none;
+        }
+    </style>
+<?php
+	wp_enqueue_script( 'nwjs-navigation', get_template_directory_uri() . '/js/nwjs.js', array( 'jquery' ),
+		current_time( 'timestamp' ), true );
+}
+
+
+
+//var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
+
 
 //echo '<div class="testt" style="display:none">';
 //var_dump(get_post_meta(150977, 'custom_order_city', $ip));
@@ -515,4 +544,6 @@ function remove_change_payment_from_subscription( $actions, $subscription ) {
 
 
 
+
+require_once 'elementor-widgets-loader.php';
 
