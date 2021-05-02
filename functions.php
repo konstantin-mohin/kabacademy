@@ -546,10 +546,12 @@ function cartflow_assets() {
             visibility: hidden !important;
             margin: 0 !important;
             padding: 0 !important;
+            height: 0 !important;
+            display: flex !important;
         }
-        /*.single-cartflows_step .cart-final__agree {*/
-        /*    display: none;*/
-        /*}*/
+        .single-cartflows_step .cart-final__agree label {
+            display: inline-block !important;
+        }
         .single-cartflows_step .woocommerce-additional-fields {
             display: none;
         }
