@@ -31,7 +31,7 @@ class ThankYouWidget extends Widget_Base{
     }
     
     public function get_icon(){
-        return 'fa fa-camera';
+        return 'fa fa-file';
     }
     
     public function get_categories(){

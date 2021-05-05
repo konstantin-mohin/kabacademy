@@ -719,7 +719,7 @@ function product_button_name( $product ) {
 function is_user_in_club() {
 	$membership_plan = 'mak-club';
 
-	return '';
+	return wc_memberships_is_user_active_member( get_current_user_id(), $membership_plan ); ;
 }
 
 function is_members_area_page() {
@@ -731,7 +731,12 @@ function is_members_area_page() {
 }
 
 
-
+if ( ! is_admin() ) {
+	remove_filter( 'woocommerce_account_menu_items', array(
+		wc_memberships()->get_frontend_instance()->get_members_area_instance(),
+		'add_account_members_area_menu_item'
+	), 999 );
+}
 
 if ( is_user_in_club() ) {
 	add_filter( 'woocommerce_account_menu_items', 'mak_club_menu_items' );
