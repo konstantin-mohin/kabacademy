@@ -470,7 +470,7 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
 		if ( isset( $moodle_user['user_updated'] ) && $moodle_user['user_updated'] == 1 ) {
 //			customDebug( 'Country successfully changed on moodle.' );
 		} else {
-			customDebug( 'There is a problem in changing user data on moodle. function.php' );
+			customDebug( 'There is a problem in changing user data on moodle. function.php create_or_update_moodle_user_data()' );
 		}
 
 	} catch ( Throwable $t ) {
@@ -505,13 +505,15 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
  * @param $user_id
  * @param $old_user_data
  */
-//add_action( 'profile_update', 'my_profile_update', 10, 2 );
-//function my_profile_update($user_id, $old_user_data ) {
-//	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
-//	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
-//
-//	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country ]);
-//}
+add_action( 'updated_user_meta', 'my_profile_update', 10, 2 );
+function my_profile_update( $meta_id, $user_id ) {
+	remove_action( 'updated_user_meta', 'my_profile_update',10, 2);
+	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
+	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
+
+	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country ]);
+	add_action( 'updated_user_meta', 'my_profile_update',10, 2);
+}
 
 
 
@@ -520,8 +522,8 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
  *
  * @param $user_id User id.
  */
-add_action( 'personal_options_update', 'update_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
+//add_action( 'personal_options_update', 'update_extra_profile_fields' );
+//add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
 function update_extra_profile_fields( $user_id ) {
 	$city = sanitize_text_field( $_POST['city'] );
 	$country = sanitize_text_field( $_POST['country'] );
@@ -536,8 +538,14 @@ function update_extra_profile_fields( $user_id ) {
 		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
 	}
 }
+//create_or_update_moodle_user_data(get_user_by('email', 'voodi92@gmail.com')->ID, [ 'city' => 'test' ]);
+//var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
 
 
+
+
+
+require_once 'elementor-widgets-loader.php';
 
 /**
  * Add additional style and script to cartflow checkout
@@ -546,7 +554,7 @@ function update_extra_profile_fields( $user_id ) {
  */
 add_action('wp_footer', 'cartflow_assets'); //other hook not working somehow.
 function cartflow_assets() {
-    ?>
+	?>
     <style>
         .single-cartflows_step #order_review_heading {
             visibility: hidden !important;
@@ -575,10 +583,4 @@ function cartflow_assets() {
 }
 
 
-
-//var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
-
-
-
-require_once 'elementor-widgets-loader.php';
-
+//var_dump(get_user_by('email', 'voodi92@gmail.com')->ID);
