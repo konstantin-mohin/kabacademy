@@ -428,7 +428,7 @@ function myplugin_user_register( $customer_id, $data ) {
 
 		$user = get_userdata( $customer_id );
 
-		$action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+		$action = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance();
 
 		$user_data = array(
 			'username'  => $user->data->user_login,
@@ -662,28 +662,38 @@ add_filter( 'woocommerce_registration_error_email_exists', function ( $msg, $ema
  */
 add_filter( 'eb_moodle_user_profile_details', 'update_moodle_user_profile_details', 10, 2 );
 function update_moodle_user_profile_details( $user_data, $update ) {
-//  get user id from moodle user id.
-//  Considering we have only one to one relation wp user to moodle user.
-	$users = get_users(array(
-		'meta_key' => 'moodle_user_id',
-		'meta_value' => $user_data['id']
-	));
-	$user_id = $users[0]->ID;
+	global $current_user;
+
+//	if new user and not registered he do not have moodle id yet so we use global
+//  we can't use global user always because if admin edit other users data - admin data will be send to moodle,
+//  so we need to use proper user id
+	if ( isset($user_data['id']) ) {
+		//  Considering we have only one to one relation wp user to moodle user.
+		$users = get_users(array(
+			'meta_key' => 'moodle_user_id',
+			'meta_value' => $user_data['id']
+		));
+		$user_id = $users[0]->ID;
+	} else {
+		global $current_user;
+		$user_id = $current_user->ID;
+	}
 
 	if ( $update ) {
-		$user_data['phone1'] = get_user_meta( $user_id, 'billing_phone', true );
+		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
 	}
-//
-//	ob_start();
-//	var_dump($users[0]->ID);
-//	$result = ob_get_clean();
-//
-//	customDebug( 'Test users date' . $result );
 
-	$user_country = get_user_meta( $user_id, 'country', true );
+	$user_country = get_user_meta( $current_user->ID, 'country', true );
+
 	if ( ! empty( $user_country ) ) {
 		$user_data['country'] = $user_country;
 	}
+
+//	ob_start();
+//	var_dump($user_data);
+//	$result = ob_get_clean();
+//
+//	customDebug( 'Test users date' . $result );
 
 	return $user_data;
 }
@@ -786,21 +796,21 @@ function send_user_after_order( $order_id ) {
 /*Максимальное количество символов в имени при регистрации и заказе*/
 
 add_action( 'woocommerce_checkout_process', 'bbloomer_checkout_fields_custom_validation' );
-   
-function bbloomer_checkout_fields_custom_validation() { 
+
+function bbloomer_checkout_fields_custom_validation() {
    if ( isset( $_POST['billing_first_name'] ) && ! empty( $_POST['billing_first_name'] ) ) {
       if ( strlen( $_POST['billing_first_name'] ) > 20 ) {
          wc_add_notice( 'Максимальное количество символов в имени - 20', 'error' );
       }
-   }   
+   }
 }
 
 
 // styles for bbpress emails
 
 add_action( 'bbp_subscription_mail_message', 'format_bbpress_emails' );
-   
-function format_bbpress_emails( $mail ) { 
+
+function format_bbpress_emails( $mail ) {
 
   ob_start();
 	get_template_part("woocommerce/emails/email-header");
@@ -817,15 +827,15 @@ function format_bbpress_emails( $mail ) {
   $content_end = '</td></tr></tbody></table>';
 
   $mail = str_replace('-----------', '<br/><br/><br/>', $mail);
-  
+
 
 	return $header . $content_start . $mail . $content_end .$footer;
 }
 
 
 add_action( 'bbp_subscription_mail_headers', 'html_bbpress_emails' );
-   
-function html_bbpress_emails( $headers ) { 
+
+function html_bbpress_emails( $headers ) {
 
 	$headers[]  = 'Content-Type: ' . get_option( 'html_type' ) . '; charset=' . get_option( 'blog_charset' );;
 	return $headers;
@@ -835,7 +845,7 @@ add_action( 'user_profile_update_errors', 'my_moodle_change_pass_func', 10, 3);
 
 function my_moodle_change_pass_func($errors, $update, $user){
 
-    $action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+    $action = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance();
 
     $moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
 
