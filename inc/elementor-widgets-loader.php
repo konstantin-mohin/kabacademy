@@ -14,10 +14,10 @@ class Widget_Loader{
 
 
 	private function include_widgets_files(){
-	  require_once(__DIR__ . '/widgets/ThankYouWidget/ThankYouWidget.php');
+	  require_once(__DIR__ . '/widgets/elementor_widgets/ThankYouWidget/ThankYouWidget.php');
 	}
 
-	public function register_widgets(){
+	public function register_widgets() {
 
 	  $this->include_widgets_files();
 

@@ -64,5 +64,6 @@ class KabacedemyThemeHelper {
 		require_once 'classes/theme-settings.php';
 		require_once 'classes/forum-helper.php';
 		require_once 'classes/helper.php';
+		require_once 'elementor-widgets-loader.php';
 	}
 }

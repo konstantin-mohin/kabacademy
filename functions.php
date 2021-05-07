@@ -541,12 +541,6 @@ function update_extra_profile_fields( $user_id ) {
 //create_or_update_moodle_user_data(get_user_by('email', 'voodi92@gmail.com')->ID, [ 'city' => 'test' ]);
 //var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
 
-
-
-
-
-require_once 'elementor-widgets-loader.php';
-
 /**
  * Add additional style and script to cartflow checkout
  * Other hooks then wp_footer not working, and i don't know facking why

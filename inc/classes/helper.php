@@ -253,6 +253,7 @@ class KabacedemyHelper {
 
         update_user_meta( $user->ID, 'country',  $country );
         update_user_meta( $user->ID, 'billing_country',  $country );
+		create_or_update_moodle_user_data( $user->ID,  ['country' => $user_country]);
 
 //		customDebug($user->ID);
         $moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
@@ -260,7 +261,7 @@ class KabacedemyHelper {
             return;
         }
 
-        $action = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance();
+        $action = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance();
 
         $user_data = array(
             'id'      => $moodle_user_id, // moodle user id
