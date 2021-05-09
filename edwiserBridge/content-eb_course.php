@@ -42,7 +42,7 @@ if ( is_numeric( $course_price ) ) {
 $course_class = null;
 $user_id      = get_current_user_id();
 $logged_in    = ! empty( $user_id );
-$enrollManag  = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager();
+$enrollManag  = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollmentManager();
 $has_access   = $enrollManag->userHasCourseAccess( $user_id, $post->ID );
 
 /*
@@ -63,7 +63,7 @@ $course_id = $post_id;
 
 
 if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
-	$courseMang     = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
+	$courseMang     = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->courseManager();
 	$mdl_course_id  = $courseMang->getMoodleCourseId( $course_id );
 	$moodle_user_id = get_user_meta( get_current_user_id(), 'moodle_user_id', true );
 
