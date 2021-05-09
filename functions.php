@@ -407,6 +407,8 @@ function update_data_after_order( $order_id ) {
 	$country = sanitize_text_field( $ipInfo->country );
 	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
 	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
+	$user_phone = sanitize_text_field( get_user_meta( $user_id, 'billing_phone', true ) );
+	$order_phone = sanitize_text_field(get_post_meta( $order_id, '_billing_phone', true ) );
 
 //	update_post_meta($order_id, 'custom_order_ipinfo', $ipInfo);
 //	update_post_meta($order_id, 'custom_order_city', $city);
@@ -432,6 +434,13 @@ function update_data_after_order( $order_id ) {
 		create_or_update_moodle_user_data($user_id, ['country' => $country]);
 	} else {
 		create_or_update_moodle_user_data($user_id, ['country' => $user_country]);
+	}
+
+	if ( ( $user_phone === '' ) || empty( $user_phone ) ) {
+		update_user_meta( $user_id, 'billing_phone',  $order_phone );
+		create_or_update_moodle_user_data($user_id, ['phone1' => $order_phone]);
+	} else {
+		create_or_update_moodle_user_data($user_id, ['phone1' => $user_phone]);
 	}
 
 
