@@ -456,7 +456,7 @@ function myplugin_user_register( $customer_id, $data ) {
 
 		// create a moodle user with above details
 		if ( EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '' ) {
-			$moodle_user = $action->userManager()->createMoodleUser( $user_data );
+			$moodle_user = $action->userManager()->create_moodle_user( $user_data );
 
 			customDebug( "Request info ==" . serialize( $moodle_user ) );
 
@@ -854,7 +854,7 @@ function my_moodle_change_pass_func($errors, $update, $user){
         'password' => $user->user_pass,
     );
 
-    $moodle_user = $action->userManager()->createMoodleUser( $user_data, 1 );
+    $moodle_user = $action->userManager()->create_moodle_user( $user_data, 1 );
 
 }
 
