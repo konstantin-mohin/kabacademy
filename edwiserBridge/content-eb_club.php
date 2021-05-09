@@ -13,7 +13,7 @@ $course_options = get_post_meta( $course->ID, 'product_options', true );
 $course_class = null;
 $user_id      = get_current_user_id();
 $logged_in    = ! empty( $user_id );
-$enrollManag  = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager();
+$enrollManag  = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollmentManager();
 $has_access   = $enrollManag->userHasCourseAccess( $user_id, $course_options["moodle_post_course_id"][0] );
 
 $course_id = $course_options["moodle_post_course_id"][0];
@@ -21,7 +21,7 @@ $course_id = $course_options["moodle_post_course_id"][0];
 //Shortcode eb_my_courses.
 
 if ( isset( $has_access ) && $has_access ) {
-	$courseMang     = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
+	$courseMang     = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->courseManager();
 	$mdl_course_id  = $courseMang->getMoodleCourseId( $course_id );
 	$moodle_user_id = get_user_meta( get_current_user_id(), 'moodle_user_id', true );
 
