@@ -679,15 +679,15 @@ function update_moodle_user_profile_details( $user_data, $update ) {
 		$user_id = $current_user->ID;
 	}
 
-	if ( $update ) {
-		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
-	}
-
-	$user_country = get_user_meta( $current_user->ID, 'country', true );
-
-	if ( ! empty( $user_country ) ) {
-		$user_data['country'] = $user_country;
-	}
+//	if ( $update ) {
+//		$user_data['phone1'] = get_user_meta( $current_user->ID, 'billing_phone', true );
+//	}
+//
+//	$user_country = get_user_meta( $current_user->ID, 'country', true );
+//
+//	if ( ! empty( $user_country ) ) {
+//		$user_data['country'] = $user_country;
+//	}
 
 //	ob_start();
 //	var_dump($user_data);
