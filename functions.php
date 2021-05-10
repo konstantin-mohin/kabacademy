@@ -518,16 +518,16 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
  * @param $user_id
  * @param $old_user_data
  */
-add_action( 'updated_user_meta', 'my_profile_update', 10, 2 );
-function my_profile_update( $meta_id, $user_id ) {
-	remove_action( 'updated_user_meta', 'my_profile_update',10, 2);
-	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
-	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
-	$user_phone = sanitize_text_field( get_user_meta( $user_id, 'billing_phone', true ) );
-
-	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country, 'phone1' => $user_phone ]);
-	add_action( 'updated_user_meta', 'my_profile_update',10, 2);
-}
+//add_action( 'updated_user_meta', 'my_profile_update', 10, 2 );
+//function my_profile_update( $meta_id, $user_id ) {
+//	remove_action( 'updated_user_meta', 'my_profile_update',10, 2);
+//	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
+//	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
+//	$user_phone = sanitize_text_field( get_user_meta( $user_id, 'billing_phone', true ) );
+//
+//	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country, 'phone1' => $user_phone ]);
+//	add_action( 'updated_user_meta', 'my_profile_update',10, 2);
+//}
 
 
 
@@ -536,21 +536,26 @@ function my_profile_update( $meta_id, $user_id ) {
  *
  * @param $user_id int id.
  */
-//add_action( 'personal_options_update', 'update_extra_profile_fields' );
-//add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
+add_action( 'personal_options_update', 'update_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'update_extra_profile_fields' );
 function update_extra_profile_fields( $user_id ) {
 	$city = sanitize_text_field( $_POST['city'] );
 	$country = sanitize_text_field( $_POST['country'] );
+	$user_phone = sanitize_text_field( $_POST['billing_phone'] );
 
 	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
 		update_user_meta( $user_id, 'city',  $city );
-		create_or_update_moodle_user_data($user_id, [ 'country' => $country ]);
+		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
     }
 
 	if ( ( $country !== '' ) || ( !empty( $country )) && current_user_can( 'edit_user', $user_id ) ) {
 		update_user_meta( $user_id, 'country', $country );
-		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
+		create_or_update_moodle_user_data($user_id, [ 'country' => $country ]);
 	}
+	if ( ( $user_phone !== '' ) || ( !empty( $user_phone )) && current_user_can( 'edit_user', $user_phone ) )  {
+		update_user_meta( $user_id, 'billing_phone', $user_phone );
+		create_or_update_moodle_user_data($user_id, [ 'phone1' => $user_phone ]);
+    }
 }
 //create_or_update_moodle_user_data(get_user_by('email', 'voodi92@gmail.com')->ID, [ 'city' => 'test' ]);
 //var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
