@@ -393,6 +393,10 @@ function remove_change_payment_from_subscription( $actions, $subscription ) {
  */
 add_action( 'woocommerce_new_order', 'update_data_after_order' );
 function update_data_after_order( $order_id ) {
+	if ( is_admin() ) {
+		return;
+	}
+
 	$ip = get_post_meta( $order_id, '_customer_ip_address', true );
 	$user_id = get_post_meta( $order_id, '_customer_user', true );
 
