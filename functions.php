@@ -599,3 +599,11 @@ function cartflow_assets() {
 //var_dump(get_user_by('email', 'voodi92@gmail.com')->ID);
 
 //var_dump(get_post_meta( 151488, '_billing_phone', true ));
+
+
+//add_filter( 'woocommerce_product_get_price', 'double_price', 10, 2 );
+//function double_price( $price, $product )
+//{
+////	if( is_shop() || is_product_category() || is_product_tag() || is_product() )
+//	return $price * 2;
+//}
