@@ -2,9 +2,7 @@
 /*
 Template Name: Crowdfunding
 */
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +10,7 @@ Template Name: Crowdfunding
 	<title>Внести свой вклад</title>
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+	<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/static/css/donation.css  ">
 <!--		<link rel="stylesheet" href="./style.css">-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php wp_head(); ?>
@@ -19,203 +18,10 @@ Template Name: Crowdfunding
 <body>
 
 
-<style>
-    form {
-        background: none !important;
-    }
-    /* The Modal (background) */
-    .donation-modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4);
-    }
-
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
-
-
-
-
-
-<style>
-    html, body {
-        height: 100%;
-        font-family: Montserrat, serif;
-        font-style: normal;
-        margin: 0;
-        padding: 0;
-        font-size: 100%;
-    }
-
-    body {
-        background: rgb(255, 255, 255);
-        /*background: linear-gradient(180deg, rgba(180, 213, 224, 1) 0%, rgba(255, 255, 255, 1) 34%, rgba(255, 255, 255, 1) 100%);*/
-        background: no-repeat center 0 url("<?php echo get_template_directory_uri() ?>/static/img/donation/top.png");
-    }
-
-    .container {
-        max-width: 1234px
-    }
-
-    h3 {
-        color: #52B0D8;
-        font-family: Montserrat, serif;
-        font-size: 40px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 48px;
-        letter-spacing: -0.05em;
-        text-align: left;
-        margin-bottom: 1.5em;
-
-    }
-
-    h6 {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 24px;
-        color: #A42BB9;
-    }
-
-    p {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 24px;
-
-
-    }
-
-    .btn {
-        background: #A42BB9;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 32px;
-        text-align: center;
-        outline: none;
-    }
-
-
-    .logo {
-        display: block;
-        margin: 100px 0 80px 0;
-        max-width: 300px;
-    }
-
-    .progress-block {
-        margin: 1.5em 0 2.5em;
-    }
-
-    .progress {
-        margin-top: 1em;
-    }
-
-    .info {
-        border: #A42BB9 solid 20px;
-        padding: 2em;
-        border-bottom: none;
-    }
-
-    .info span {
-        display: block;
-        margin-top: 1.5em;
-        color: #A42BB9;
-    }
-
-
-    .clip .btn {
-        margin-top: 2em;
-        width: 336px;
-        line-height: 45px;
-        border: 0;
-    }
-
-
-    @media (min-width: 768px) {
-        .clip {
-            left: 4em;
-        }
-    }
-
-    div.embed-responsive {
-        position: relative;
-        display: block;
-        width: 100%;
-        padding: 0;
-        overflow: hidden;
-        border: 5px solid white;
-    }
-
-    /*.custom_progress_bar progress {*/
-    /*    display: flex;*/
-    /*    -ms-flex-direction: column;*/
-    /*    flex-direction: column;*/
-    /*    -ms-flex-pack: center;*/
-    /*    justify-content: center;*/
-    /*    overflow: hidden;*/
-    /*    color: #fff;*/
-    /*    text-align: center;*/
-    /*    white-space: nowrap;*/
-    /*    background-color: #007bff;*/
-    /*    transition: width .6s ease;*/
-    /*}*/
-
-
-    .custom_progress_bar progress {
-        border-radius: .25rem;
-        width: 100%;
-
-    }
-    .custom_progress_bar progress::-webkit-progress-bar {
-        background-color: #e9ecef;
-        border-radius: .25rem;
-    }
-    .custom_progress_bar progress::-webkit-progress-value {
-        background-color: #007bff;
-        border-radius: .25rem;
-    }
-    .custom_progress_bar progress::-moz-progress-bar {
-        /* style rules */
-    }
-
-</style>
 <div class="container">
 	<a href="/" class="logo"><img src="<?php echo get_template_directory_uri() ?>/static/img/donation/logo.png" alt="logo"></a>
 
-
 	<?php
-
-
 	$args = array(
 		'post_type' => 'product',
 		'posts_per_page' => -1,
@@ -270,14 +76,14 @@ Template Name: Crowdfunding
 
 										<?php
 										foreach ( $product->get_visible_children() as $variation_id ) {
-											$variation = wc_get_product( $variation_id );
-//                                    $product_variation = new WC_Product_Variation($variation_id);
-											?>
-                                            <div>
-                                                <input type="radio" id="huey-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>"
-                                                       checked>
-                                                <label for="huey-<?php echo $variation_id; ?>"><?php echo $variation->price ?? ''; ?></label>
+											$variation = wc_get_product( $variation_id ); ?>
+                                            <div class="price-wrapper">
+                                                <label>
+                                                    <input type="radio" class="variation-price" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>"
+                                                           <?php if ( $variation->price === '5' ) echo 'checked'; ?>> <div class="variation-price-text"><?php echo $variation->price ?? ''; ?>$</div>
+                                                </label>
                                             </div>
+
 
 										<?php } ?>
 
@@ -288,23 +94,15 @@ Template Name: Crowdfunding
                             </div>
                         </div>
 					<?php } ?>
-
-
-
-
 				</div>
 				<div class="col-7 progress-block">
 
 					Текущий взнос: <strong><?php echo do_shortcode('[wcj_product_total_orders_sum hide_currency="yes"]') . ' / ' .  do_shortcode('[wcj_product_crowdfunding_goal hide_currency="yes"]') ?> USD</strong>
 					<div class="custom_progress_bar">
                         <?php echo do_shortcode('[wcj_product_crowdfunding_goal_remaining_progress_bar]'); ?>
-<!--						<div class="progress-bar" style="width: 15%"></div>-->
 					</div>
 				</div>
-
 			</div>
-
-
 
 			<?php
 		}
@@ -332,16 +130,14 @@ Template Name: Crowdfunding
 
 <script>
 
+jQuery( document ).on( 'click', '.modal-button',  function( event ) {
+    jQuery(this).parents('.modal-wrapper').find('.donation-modal').show();
+});
 
-    jQuery( document ).on( 'click', '.modal-button',  function( event ) {
-        jQuery(this).parents('.modal-wrapper').find('.donation-modal').show();
-    });
 
-
-    jQuery( document ).on( 'click', '.close',  function( event ) {
-        jQuery('.donation-modal').hide();
-    });
-
+jQuery( document ).on( 'click', '.close',  function( event ) {
+    jQuery('.donation-modal').hide();
+});
 
 </script>
 
