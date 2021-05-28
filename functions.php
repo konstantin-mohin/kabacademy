@@ -518,16 +518,27 @@ function create_or_update_moodle_user_data( $user_id, $data = [] ) {
  * @param $user_id
  * @param $old_user_data
  */
-//add_action( 'updated_user_meta', 'my_profile_update', 10, 2 );
-//function my_profile_update( $meta_id, $user_id ) {
-//	remove_action( 'updated_user_meta', 'my_profile_update',10, 2);
+add_action( 'updated_user_meta', 'my_profile_update', 10, 2 );
+function my_profile_update( $meta_id, $user_id ) {
+	remove_action( 'updated_user_meta', 'my_profile_update',10, 2);
 //	$user_city = sanitize_text_field( get_user_meta( $user_id, 'city', true ) );
 //	$user_country = sanitize_text_field( get_user_meta( $user_id, 'country', true ) );
-//	$user_phone = sanitize_text_field( get_user_meta( $user_id, 'billing_phone', true ) );
+	$user = get_userdata( $user_id );
+	if ( in_array( 'administrator', (array) $user->roles ) ) {
+		return;
+	}
+	$user_phone = sanitize_text_field( get_user_meta( $user_id, 'billing_phone', true ) );
+	$user_email = get_user_by( 'id', $user_id )->user_email;
 //
-//	create_or_update_moodle_user_data($user_id, [ 'city' =>  $user_city, 'country' => $user_country, 'phone1' => $user_phone ]);
-//	add_action( 'updated_user_meta', 'my_profile_update',10, 2);
-//}
+//	ob_start();
+//	var_dump($user_phone );
+//	$result = ob_get_clean();
+
+	customDebug( 'Phone and email' . $user_phone . ' ' . $user_email );
+
+	create_or_update_moodle_user_data($user_id, ['phone1' => $user_phone ]);
+	add_action( 'updated_user_meta', 'my_profile_update',10, 2);
+}
 
 
 
@@ -542,6 +553,12 @@ function update_extra_profile_fields( $user_id ) {
 	$city = sanitize_text_field( $_POST['city'] );
 	$country = sanitize_text_field( $_POST['country'] );
 	$user_phone = sanitize_text_field( $_POST['billing_phone'] );
+
+	ob_start();
+	var_dump($country);
+	$result = ob_get_clean();
+
+	customDebug( 'Phone' . $result );
 
 	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
 		update_user_meta( $user_id, 'city',  $city );
@@ -607,3 +624,5 @@ function cartflow_assets() {
 ////	if( is_shop() || is_product_category() || is_product_tag() || is_product() )
 //	return $price * 2;
 //}
+
+
