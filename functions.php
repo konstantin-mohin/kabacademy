@@ -554,11 +554,11 @@ function update_extra_profile_fields( $user_id ) {
 	$country = sanitize_text_field( $_POST['country'] );
 	$user_phone = sanitize_text_field( $_POST['billing_phone'] );
 
-	ob_start();
-	var_dump($country);
-	$result = ob_get_clean();
-
-	customDebug( 'Phone' . $result );
+//	ob_start();
+//	var_dump($country);
+//	$result = ob_get_clean();
+//
+//	customDebug( 'Phone' . $result );
 
 	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
 		update_user_meta( $user_id, 'city',  $city );
