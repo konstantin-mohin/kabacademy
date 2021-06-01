@@ -194,6 +194,7 @@ div.embed-responsive {
 .price-wrapper label {
   /*padding: 20px;*/
   margin-bottom: 0;
+  display: block;
 }
 
 .price-wrapper label .variation-price-text {
@@ -206,11 +207,13 @@ div.embed-responsive {
   line-height: 70px;
 }
 
-.price-wrapper label input {
+
+
+.price-wrapper label input[type='radio'] {
   display: none;
 }
 
-.price-wrapper input:checked + .variation-price-text {
+.price-wrapper input[type='radio']:checked + .variation-price-text {
   color: #3C5D90;
   transform: scale(0.8, 0.6);
   font-size: 22px;
@@ -270,7 +273,6 @@ div.embed-responsive {
 .form-tabs {
   display: flex;
   flex-flow: wrap;
-  justify-content: center;
   justify-content: space-between;
 }
 .btn.btn-small.button.add-to.form {
@@ -281,36 +283,36 @@ div.embed-responsive {
   border: 0;
   padding: 0
 }
-.form-tabs div:nth-child(1) {
-  order: 4;
-}
+/*.form-tabs div:nth-child(1) {*/
+/*  order: 4;*/
+/*}*/
 
-.form-tabs div:nth-child(2) {
-  order: 3;
-}
+/*.form-tabs div:nth-child(2) {*/
+/*  order: 3;*/
+/*}*/
 
-.form-tabs div:nth-child(3) {
-  order: 0;
-}
+/*.form-tabs div:nth-child(3) {*/
+/*  order: 0;*/
+/*}*/
 
-.form-tabs div:nth-child(4) {
-  order: 2;
-}
+/*.form-tabs div:nth-child(4) {*/
+/*  order: 2;*/
+/*}*/
 
-.form-tabs div:nth-child(5) {
-  order: 1;
-}
-.price-wrapper input:checked + .variation-price-text > p {
+/*.form-tabs div:nth-child(5) {*/
+/*  order: 1;*/
+/*}*/
+.price-wrapper input[type='radio']:checked + .variation-price-text > p {
   transform: scale(1.25, 1.73);
   line-height: 70px;
 }
-.price-wrapper input + .variation-price-text > p {
+.price-wrapper input[type='radio'] + .variation-price-text > p {
   line-height: 70px;
 }
 
 /* media */
 @media (min-width: 1650px) {
-  .price-wrapper input + .variation-price-text > p {
+  .price-wrapper input[type='radio'] + .variation-price-text > p {
     line-height: 95px;
     font-size: 20px;
   }
@@ -318,7 +320,7 @@ div.embed-responsive {
     width: 165px;
     height: 95px;
   }
-  .price-wrapper input:checked + .variation-price-text > p {
+  .price-wrapper input[type='radio']:checked + .variation-price-text > p {
     line-height: 95px;
   }
   .modal-title {
@@ -351,6 +353,28 @@ div.embed-responsive {
   }
 }
 
+@media (max-width: 767px) {
+  .button-wrapper {
+    width: 100%;
+    float: none;
+
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+
+  .price-wrapper {
+    max-width: 200px;
+    width: auto;
+  }
+
+}
+
+
+
+
+
 @media (max-width: 550px) {
   .modal-title {
     font-size: 21px;
@@ -360,12 +384,12 @@ div.embed-responsive {
     letter-spacing: 0.11em;
   }
   .form-tabs {
-    flex-direction: column;
+    flex-direction: row;
   }
   .price-wrapper {
     margin-bottom: 20px;
   }
-  .price-wrapper input:checked + .variation-price-text {
+  .price-wrapper input[type='radio']:checked + .variation-price-text {
     transform: scale(0.9, 0.7);
   }
   .price-wrapper label .variation-price-text {
@@ -373,7 +397,6 @@ div.embed-responsive {
   }
   .btn.btn-small.button.add-to.form {
     font-size: 12px;
-    margin-right: -300px;
     height: 50px;
     line-height: 50px;
     width: 200px;
@@ -396,15 +419,12 @@ div.embed-responsive {
   .price-wrapper {
     margin-bottom: 20px;
   }
-  .price-wrapper input:checked + .variation-price-text {
+  .price-wrapper input[type='radio']:checked + .variation-price-text {
     transform: scale(0.9, 0.7);
   }
-  .price-wrapper label .variation-price-text {
-    width: 180px;
-  }
+
   .btn.btn-small.button.add-to.form {
     font-size: 12px;
-    margin-right: -338px;
     height: 50px;
     line-height: 50px;
     width: 180px;
@@ -412,4 +432,32 @@ div.embed-responsive {
   .button-wrapper {
     margin-top: 0px;
   }
+
+}
+
+
+.variation-price-text-custom {
+  background: linear-gradient(57.38deg, rgba(154, 215, 238, 0.1) 0%, rgba(209, 149, 220, 0.1) 92.86%);
+  text-align:center;
+  width: 130px;
+  height: 70px;
+  line-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.price-custom {
+  font-size: 15px !important;
+  display: block;
+  width: 70px;
+  height: 27px;
+  text-align: center;
+  margin-top: 5px;
+ background: #fff;
+}
+
+.custom-text {
+  line-height: 1;
 }
