@@ -563,7 +563,7 @@ function update_extra_profile_fields( $user_id ) {
 	if ( ( $city !== '' ) || ( !empty( $city )) && current_user_can( 'edit_user', $user_id ) )  {
 		update_user_meta( $user_id, 'city',  $city );
 		create_or_update_moodle_user_data($user_id, [ 'city' => $city ]);
-    }
+	}
 
 	if ( ( $country !== '' ) || ( !empty( $country )) && current_user_can( 'edit_user', $user_id ) ) {
 		update_user_meta( $user_id, 'country', $country );
@@ -572,7 +572,7 @@ function update_extra_profile_fields( $user_id ) {
 	if ( ( $user_phone !== '' ) || ( !empty( $user_phone )) && current_user_can( 'edit_user', $user_phone ) )  {
 		update_user_meta( $user_id, 'billing_phone', $user_phone );
 		create_or_update_moodle_user_data($user_id, [ 'phone1' => $user_phone ]);
-    }
+	}
 }
 //create_or_update_moodle_user_data(get_user_by('email', 'voodi92@gmail.com')->ID, [ 'city' => 'test' ]);
 //var_dump(get_user_meta( get_user_by('email', 'voodi92@gmail.com')->ID, 'moodle_user_id', true ));
@@ -607,7 +607,7 @@ function cartflow_assets() {
             display: none;
         }
     </style>
-<?php
+	<?php
 	wp_enqueue_script( 'cartflow-theme-js', get_template_directory_uri() . '/js/cartflow.js', array( 'jquery' ),
 		current_time( 'timestamp' ), true );
 }
@@ -638,10 +638,10 @@ function add_custom_price( $cart_object ) {
 //    wp_die();
 	foreach ( $cart_object->cart_contents as $key => $value ) {
 
-	    $product_id = $value['data']->parent_id;
+		$product_id = $value['data']->parent_id;
 
-	    if ( $_COOKIE[$product_id] && ( $value['data']->price === '1' ) ) {
-	        $price = intval( $_COOKIE[$product_id] );
+		if ( $_COOKIE[$product_id] && ( $value['data']->price === '1' ) ) {
+			$price = intval( $_COOKIE[$product_id] );
 
 			$value['data']->set_price($price);
 
@@ -650,7 +650,7 @@ function add_custom_price( $cart_object ) {
 			$pieces[$index] = $price;
 			$value['data']->set_name(implode(' ', $pieces));
 
-        }
+		}
 
 //	    if ( $value['data']->price === '1' ) {
 //            var_dump('teac');
@@ -659,5 +659,52 @@ function add_custom_price( $cart_object ) {
 	}
 }
 
-//var_dump($_REQUEST['price-custom']);
 
+
+// Add a hidden input field (With a value of 20 for testing purpose)
+add_action( 'woocommerce_before_add_to_cart_button', 'custom_hidden_product_field', 11 );
+function custom_hidden_product_field() {
+	echo '<input type="hidden" id="hidden_field" name="custom_price" class="custom_price" value="22">'; // Price is 20 for testing
+}
+
+
+// Save custom calculated price as custom cart item data
+add_action( 'woocommerce_add_cart_item_data', 'save_custom_fields_data_to_cart', 10, 2 );
+function save_custom_fields_data_to_cart( $cart_item_data, $product_id ) {
+
+	if( isset( $_POST['custom_price'] ) && ! empty( $_POST['custom_price'] )  ) {
+		// Set the custom data in the cart item
+		$cart_item_data['custom_price'] = (float) sanitize_text_field( $_POST['custom_price'] );
+
+		// Make each item as a unique separated cart item
+		$cart_item_data['unique_key'] = md5( microtime().rand() );
+	}
+	return $cart_item_data;
+}
+
+// Updating cart item price
+add_action( 'woocommerce_before_calculate_totals', 'change_cart_item_price', 30, 1 );
+function change_cart_item_price( $cart ) {
+	if ( ( is_admin() && ! defined( 'DOING_AJAX' ) ) )
+		return;
+
+	if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 )
+		return;
+
+	// Loop through cart items
+	foreach ( $cart->get_cart() as $cart_item ) {
+		// Set the new price
+		if( isset($cart_item['custom_price']) ){
+			$cart_item['data']->set_price($cart_item['custom_price']);
+		}
+	}
+}
+
+
+function remove_item_from_cart() {
+	global $woocommerce;
+	$woocommerce->cart->empty_cart();
+}
+
+add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
+add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');

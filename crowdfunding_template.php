@@ -3,6 +3,16 @@
 Template Name: Crowdfunding
 */
 ?>
+
+<?php
+global $woocommerce;
+$woocommerce->cart->empty_cart();
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +57,6 @@ Template Name: Crowdfunding
 			$id = $product->get_id(); ?>
 
 
-
             <div class="row">
                 <div class="col-12">
                     <h3><?php echo the_title(); ?></h3>
@@ -64,52 +73,164 @@ Template Name: Crowdfunding
                     </div>
 					<?php if( $product->is_type( 'variable' ) ) { ?>
                         <div class="modal-wrapper">
-                            <a class="btn btn-primary modal-button">внести свой вклад</a>
+                            <a class="btn btn-primary modal-button wlmodalgo">внести свой вклад</a>
                             <div class="donation-modal">
                                 <div class="modal-content">
                                     <span class="close">&times;</span>
-                                    <div class="modal-title">
+                                    <div class="modal-title wllab">
                                         Внести пожертвование
                                     </div>
-                                    <div class="modal-label">
+                                    <div class="modal-label wllab">
                                         сумма вложения
                                     </div>
-                                    <form action="/cart/?add-to-cart=<?php echo get_the_ID() ?>" class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="<?php get_the_ID(); ?>">
-                                        <input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />
-                                        <input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>" />
 
-                                        <div class="form-tabs" id="tabs">
+                                    <div class="variations_form0" style="text-align: center;"></div>
+                                    <form name="checkout" method="post" class="wlcheckoutf checkout woocommerce-checkout" action="https://dev.kabacademy.com/checkout/" enctype="multipart/form-data" novalidate="novalidate" style="position: static;">
+                                    </form>
+                                    <form action="/checkout" class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="150236">
+                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>
+                                            <ul class="woocommerce-error" role="alert">
+                                                <li style='display: none;'>
+                                                    Неверный адрес эл. почты для выставления счета</li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="wlalert" style='display: none;'>
+                                            Заказ обрабатывается....пожалуйста, подождите несколько секунд...
+
+                                        </div>
+
+
+                                        <input type="hidden" name="add-to-cart" value="150398" />
+                                        <input type="hidden" name="product_id" value="150398" />
+                                        <input type="hidden" name="variation_id" value="90" />
+                                        <input type="hidden" value="15" name="change-product-price">
+                                        <input type="hidden" id="hidden_field" name="custom_price" class="custom_price" value="22">
+                                        <div class="cart__payments cart-payments wlcart-payments2" id="tabs">
 											<?php
 											foreach ( $product->get_visible_children() as $variation_id ) {
 												$variation = wc_get_product( $variation_id ); ?>
 
-                                                <?php
-                                                    if ( $variation->price === '1' ) { ?>
-                                                        <div class="price-wrapper" id="tab-<?php echo $variation_id; ?>">
-                                                            <label>
-                                                                <input type="radio" class="variation-price" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>">
-                                                                <div class="variation-price-text-custom"><div class="custom-text">Другая</div>  <input type="text" id="price-custom" class="price-custom" name="price-custom" value=""> </div>
-                                                            </label>
-                                                        </div>
-                                                 <?php
-                                                    continue;
-                                                    } ?>
+												<?php
+												if ( $variation->price === '1' ) { ?>
+                                                    <label class="cart-payments__item cart-payment wlcart-payment2" id="tab-<?php echo $variation_id; ?>" >
 
-                                                <div class="price-wrapper  <?php if ( $variation->price === '5' ) echo 'active'; ?>" id="tab-<?php echo $variation_id; ?>">
-                                                    <label>
-                                                        <input type="radio" class="variation-price" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>"
-															<?php if ( $variation->price === '5' ) echo 'checked'; ?>> <div class="variation-price-text"> <p>$ <?php echo $variation->price ?? ''; ?></p> </div>
+                                                        <input type="radio" class="cart-payment__input wlcart-payment__input" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>">
+
+                                                        <div class="cart-payment__card wlcart-payment__card">
+                                                            <div class="custom-text" style='margin-top: -12px; margin-bottom: 5px; font-size: 80%; '>другая:</div> <input type="text" id="price-custom" class="price-custom" name="price-custom" value="" >
+                                                        </div>
+
                                                     </label>
-                                                </div>
+
+													<?php
+													continue;
+												} ?>
+
+                                                <label class="cart-payments__item cart-payment wlcart-payment2  <?php if ( $variation->price === '5' ) echo 'active'; ?>" id="tab-<?php echo $variation_id; ?>">
+
+                                                    <input type="radio" class="cart-payment__input wlcart-payment__input" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>"
+														<?php if ( $variation->price === '5' ) echo 'checked'; ?>>
+
+                                                    <div class="cart-payment__card wlcart-payment__card">
+                                                        <div class="cart-payment__title">$ <?php echo $variation->price ?? ''; ?></div>
+                                                    </div>
+
+
+                                                </label>
 
 
 											<?php } ?>
 
                                         </div>
-                                        <div class="button-wrapper">
-                                            <button type="submit" class="btn btn-small button add-to form" type="button">Отправить пожертвование</button>
+
+
+
+                                        <div class="modal-label wllab" style="text-align: left; margin-bottom: 20px;">
+                                            Информация о вкладчике
+                                        </div>
+
+                                        <div class="cart__contacts wlcart__contacts">
+                                            <label for="billing_first_name_donation" class="form-label">
+                                                <input type="" id="billing_first_name_donation" class = 'wlbil' name="billing_first_name" value="">
+
+                                                <!--? if (!$hidePass) {?--><span>Имя</span><!--? }?-->
+                                                <!--? if (!$hidePass) :?-->
+                                            </label>
+
+
+                                            <label for="billing_last_name_donation" class="form-label">
+                                                <input type="" id="billing_last_name_donation" class = 'wlbil' name="billing_last_name" value="">
+                                                <span>Фамилия</span>
+                                            </label>
+
+
+                                            <label for="billing_phone_donation" class="form-label">
+                                                <input type="tel" id="billing_phone_donation" class = 'wlbil' name="billing_phone" value="">
+                                                <span>Телефон</span>
+                                            </label>
+
+
+                                            <label for="billing_email_donation" class="form-label">
+                                                <input type="email" id="billing_email_donation" class = 'wlbil' name="billing_email" value="">
+                                                <span>Email</span>
+                                            </label>
+
+
+                                            <label for="billing_country" class="form-label">
+                                                <input type="email" id="billing_country" name="billing_country" value="">
+                                                <span>Страна</span>
+                                            </label>
+                                        </div>
+
+                                        <div class="modal-label wllab" style="text-align: left;">
+                                            Способ оплаты
+                                        </div>
+
+
+                                        <div class="cart__payments cart-payments wlcart-payments">
+                                            <label class="cart-payments__item cart-payment wlcart-payment">
+                                                <input id="payment_method_pelecard2" type="radio" name="payment_method" class="cart-payment__input wlcart-payment__input" value="pelecard" checked="checked" data-order_button_text="перейти к оплате">
+                                                <div class="cart-payment__card wlcart-payment__card">
+                                                    <div class="cart-payment__title">Кредитная карта</div>
+                                                </div>
+
+                                            </label>
+
+                                            <label class="cart-payments__item cart-payment wlcart-payment">
+                                                <input id="payment_method_paypal2" type="radio" name="payment_method" class="cart-payment__input wlcart-payment__input" value="paypal" data-order_button_text="Дальше на PayPal">
+                                                <div class="cart-payment__card wlcart-payment__card">
+                                                    <div class="cart-payment__title">Система PayPal</div>
+                                                </div>
+
+                                            </label>
+
+
+
+                                            <div class="wlbutton-wrapper">
+                                                <div class="btn btn-small button add-to form wlsubmit" style= 'margin-top: 10px;'>Отправить пожертвование</div>
+                                                <div class="wlwarninglab"><span>!</span>Не заполнены обязательные поля</div>
+                                            </div>
+
+
                                         </div>
                                     </form>
+
+
+
+                                    <script>
+                                        jQuery(function() {
+                                            var input = jQuery('.form-label').find('input');
+                                            input.each(function () {
+                                                jQuery(this).toggleClass('is-filled', jQuery(this).val().length > 0);
+                                            });
+                                            input.on('blur', function (e) {
+                                                jQuery(e.currentTarget).toggleClass('is-filled', jQuery(this).val().length > 0);
+                                            });
+                                        });
+                                    </script>
+
+
 
                                 </div>
                             </div>
@@ -146,6 +267,11 @@ Template Name: Crowdfunding
         </div>
     </div>
 </div>
+<div class='wloverlay'></div>
+<div class="wltempform" style='display: none;'></div>
+
+<script src="/wp-content/themes/kabacedemy/js/crowdfunding.js"></script>
+
 </body>
 </html>
 
