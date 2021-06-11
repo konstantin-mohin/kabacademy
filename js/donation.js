@@ -215,6 +215,33 @@ jQuery(function() {
 			}
 		});
 	});
+
+
+
+	jQuery( document ).on( 'submit', '.review_form',  function( e ) {
+		e.preventDefault();
+		let name = $(this).find('.review_name').val();
+		let email = $(this).find('.review_email').val();
+		let content = $(this).find('.review_content').val();
+		let post_id = $(this).attr('id');
+
+		$.ajax({
+			type: "POST",
+			url: ajax.url,
+			data: {
+				action  : 'add_comment',
+				nonce   :  ajax.nonce,
+				name    :   name,
+				email   :   email,
+				content :  content,
+				post_id :  post_id
+			},
+			success: function (res) {
+				// alert(res);
+			}
+		});
+
+	});
 	
 
 }); 	

@@ -202,6 +202,16 @@ function kabacedemy_scripts() {
 		null, true );
 
 	wp_enqueue_script( 'kabacedemy-tracking-js', get_template_directory_uri() . '/js/tracking.js', array(), current_time( 'timestamp' ), true );
+
+
+//	TODO: restrict it only to donation page
+	wp_enqueue_script( 'donation-theme-js', get_template_directory_uri() . '/js/donation.js', array( 'jquery' ),
+		current_time( 'timestamp' ), true );
+
+	wp_localize_script( 'donation-theme-js', 'ajax', array(
+		'url'     => admin_url( 'admin-ajax.php' ),
+		'nonce' => wp_create_nonce('ajax-nonce')
+	) );
 }
 
 add_action( 'wp_enqueue_scripts', 'kabacedemy_scripts' );
@@ -708,3 +718,31 @@ function remove_item_from_cart() {
 
 add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
 add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');
+
+
+
+
+
+
+add_action('wp_ajax_add_comment', 'add_ajax_comment');
+add_action('wp_ajax_nopriv_add_comment', 'add_ajax_comment');
+function add_ajax_comment() {
+	check_ajax_referer( 'ajax-nonce', 'nonce' );
+
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$content = $_POST['content'];
+	$post_id = $_POST['post_id'];
+
+	$data = [
+		'comment_post_ID'      => $post_id,
+		'comment_content'      => $content,
+		'comment_type'         => 'comment',
+		'comment_parent'       => 0,
+//		'comment_approved'     => 1,
+	];
+
+	wp_insert_comment( wp_slash($data) );
+
+    wp_die();
+}

@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Crowdfunding
+Template Name: Donation
 */
 ?>
 
@@ -25,7 +25,7 @@ header('Expires: 0');
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php wp_head(); ?>
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/static/css/donation.css  ">
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
 </head>
 <body>
 
@@ -54,8 +54,36 @@ header('Expires: 0');
 
 //			WC()->cart->add_to_cart( $product_id, $quantity, $variation_id );
 
-			$id = $product->get_id(); ?>
+			$id = $product->get_id();
 
+
+			$comment_args = array(
+				'comment_post_ID' => $id,
+			);
+
+			$comments = get_comments( array(
+				'post_id' => $id,
+				'orderby' => 'comment_date_gmt',
+				'status' => 'approve',
+			) );
+
+
+
+            foreach( $comments as $comment ) {
+                echo $comment->comment_content;
+//                echo $comment->comment_author;
+//                echo $comment->comment_date_gmt;
+            }
+
+?>
+
+
+            <form class="review_form" id="<?php echo $id ?>">
+                <input type="text" class="review_name">
+                <input type="text" class="review_email">
+                <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
+                <input type="submit" class="review_submit" value="оставить свой комментарий">
+            </form>
 
             <div class="row">
                 <div class="col-12">
@@ -252,6 +280,8 @@ header('Expires: 0');
 	wp_reset_postdata();
 	?>
 
+
+
     <div class="row">
         <div class="col-md-7">
             <div class="info">
@@ -269,9 +299,7 @@ header('Expires: 0');
 </div>
 <div class='wloverlay'></div>
 <div class="wltempform" style='display: none;'></div>
-
-<script src="/wp-content/themes/kabacedemy/js/crowdfunding.js"></script>
-
+<?php wp_footer(); ?>
 </body>
 </html>
 
@@ -286,7 +314,6 @@ header('Expires: 0');
 
         jQuery(this).parents('.modal-wrapper').find('.donation-modal').find('.price-wrapper:first-child').addClass('active');
         jQuery(this).parents('.modal-wrapper').find('.donation-modal').find('.price-wrapper:first-child').find('.variation-price').prop("checked", true);
-
 
 
         function sayHi() {
@@ -317,18 +344,7 @@ header('Expires: 0');
     jQuery( document ).on( 'keyup', '.price-custom',  function( e ) {
         this.value = this.value.replace(/\D/g,'');
     });
-
-
-    jQuery( document ).on( 'click', '.add-to',  function( e ) {
-        $product_id = jQuery(this).parents('.variations_form').find("input[name=product_id]").val();
-        let price =  jQuery(this).parents('.variations_form').find(".price-custom").val();
-
-        Cookies.set($product_id, price);
-    });
-
-
-
-
+    
 </script>
 
 
