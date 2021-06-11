@@ -461,3 +461,13 @@ div.embed-responsive {
 .custom-text {
   line-height: 1;
 }
+
+
+.comment_link {
+  color: #3C5D90 !important;
+}
+
+
+.review_form input[type='text'], .review_form textarea {
+  border: 1px solid grey;
+}

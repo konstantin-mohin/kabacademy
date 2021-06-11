@@ -20,6 +20,8 @@ header('Expires: 0');
     <title>Внести свой вклад</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
 
     <!--		<link rel="stylesheet" href="./style.css">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +29,7 @@ header('Expires: 0');
     <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/static/css/donation.css  ">
 
 </head>
+
 <body>
 
 
@@ -52,39 +55,10 @@ header('Expires: 0');
 			$the_query->the_post();
 			global $product;
 
-//			WC()->cart->add_to_cart( $product_id, $quantity, $variation_id );
 
 			$id = $product->get_id();
 
-
-			$comment_args = array(
-				'comment_post_ID' => $id,
-			);
-
-			$comments = get_comments( array(
-				'post_id' => $id,
-				'orderby' => 'comment_date_gmt',
-				'status' => 'approve',
-			) );
-
-
-
-            foreach( $comments as $comment ) {
-                echo $comment->comment_content;
-//                echo $comment->comment_author;
-//                echo $comment->comment_date_gmt;
-            }
-
 ?>
-
-
-            <form class="review_form" id="<?php echo $id ?>">
-                <input type="text" class="review_name">
-                <input type="text" class="review_email">
-                <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
-                <input type="submit" class="review_submit" value="оставить свой комментарий">
-            </form>
-
             <div class="row">
                 <div class="col-12">
                     <h3><?php echo the_title(); ?></h3>
@@ -100,7 +74,57 @@ header('Expires: 0');
 						<?php echo  get_field( 'youtube_link',  $id); ?>
                     </div>
 					<?php if( $product->is_type( 'variable' ) ) { ?>
+
+
+
+                        <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link">Комментариев</a>
+                        </p>
+
+                        <div style="display: none;max-width:600px;" id="comment-modal-<?php echo $id; ?>">
+
+                            <p><button data-fancybox-close class="btn">Close me</button></p>
+
+
+							<?php
+							$comment_args = array(
+								'comment_post_ID' => $id,
+							);
+
+							$comments = get_comments( array(
+								'post_id' => $id,
+								'orderby' => 'comment_date_gmt',
+								'status' => 'approve',
+							) );
+
+
+
+							foreach( $comments as $comment ) { ?>
+
+                                <div class="comment_name">
+                                    <span> <?php echo $comment->comment_author; ?> </span> <span><?php echo $comment->comment_date_gmt; ?></span>
+                                </div>
+
+                                <div class="comment_content">
+									<?php echo $comment->comment_content; ?>
+                                </div>
+						<?php	} ?>
+
+
+
+
+
+                            <form class="review_form" id="<?php echo $id ?>">
+                                <input type="text" class="review_name">
+                                <input type="text" class="review_email">
+                                <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
+                                <input type="submit" class="review_submit" value="оставить свой комментарий">
+                            </form>
+
+
+                        </div>
+
                         <div class="modal-wrapper">
+
                             <a class="btn btn-primary modal-button wlmodalgo">внести свой вклад</a>
                             <div class="donation-modal">
                                 <div class="modal-content">
@@ -116,13 +140,13 @@ header('Expires: 0');
                                     <form name="checkout" method="post" class="wlcheckoutf checkout woocommerce-checkout" action="https://dev.kabacademy.com/checkout/" enctype="multipart/form-data" novalidate="novalidate" style="position: static;">
                                     </form>
                                     <form action="/checkout" class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="150236">
-                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>
-                                            <ul class="woocommerce-error" role="alert">
-                                                <li style='display: none;'>
-                                                    Неверный адрес эл. почты для выставления счета</li>
-                                            </ul>
-
-                                        </div>
+<!--                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>-->
+<!--                                            <ul class="woocommerce-error" role="alert">-->
+<!--                                                <li style='display: none;'>-->
+<!--                                                    Неверный адрес эл. почты для выставления счета</li>-->
+<!--                                            </ul>-->
+<!---->
+<!--                                        </div>-->
                                         <div class="wlalert" style='display: none;'>
                                             Заказ обрабатывается....пожалуйста, подождите несколько секунд...
 
@@ -300,6 +324,7 @@ header('Expires: 0');
 <div class='wloverlay'></div>
 <div class="wltempform" style='display: none;'></div>
 <?php wp_footer(); ?>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </body>
 </html>
 
@@ -344,7 +369,7 @@ header('Expires: 0');
     jQuery( document ).on( 'keyup', '.price-custom',  function( e ) {
         this.value = this.value.replace(/\D/g,'');
     });
-    
+
 </script>
 
 
