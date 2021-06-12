@@ -61,6 +61,59 @@ jQuery(function() {
 	});
 
 
+	//Check e-mail for correct filling
+	//emailReg - Regular expression
+	function validateEmail(email) {
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		if( !emailReg.test( email ) ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+
+	//Calling the basket through ajax and sending
+	function wlcheckout() {
+
+		jQuery('.wloverlay').show();
+		jQuery.ajax({
+			url: '/?wc-ajax=checkout',
+			method: 'post',
+			dataType: 'html',
+			data: jQuery('.variations_form').serialize(),
+			success: function(data){
+
+				// A variable named date avoids unnecessary scrolling
+				data = data.replace("main.css","main1.css");
+				jQuery('.wltempform').html(data);
+
+				// Filling in the cart fields
+				jQuery('.wltempform #billing_first_name').val(jQuery('#billing_first_name_donation').val());
+				jQuery('.wltempform #billing_last_name').val(jQuery('#billing_last_name_donation').val());
+				jQuery('.wltempform #billing_phone').val(jQuery('#billing_phone_donation').val());
+				jQuery('.wltempform #billing_email').val(jQuery('#billing_email_donation').val());
+
+				jQuery(".wltempform #cart-agree").prop('checked', true);
+
+				// Filling in the payment field
+				if(document.getElementById('payment_method_paypal2').checked) {
+					jQuery(".wltempform #payment_method_paypal").prop('checked', true);
+				}else if(document.getElementById('payment_method_pelecard2').checked) {
+					jQuery(".wltempform #payment_method_pelecard").prop('checked', true);
+				}
+
+				// sending basket
+				jQuery(function() {
+					jQuery('#place_order').trigger("click");
+				});
+
+
+			}
+		});
+
+	}
+
 
 	// Clearing a full form when opening a modal form 
 
@@ -72,6 +125,9 @@ jQuery(function() {
 		jQuery('#hidden_field').val("");
 
 	});
+
+
+
 
 
 	// Validating and submitting a form for payment
@@ -90,63 +146,11 @@ jQuery(function() {
 		jQuery('.container').addClass('wlcontainer');
 		jQuery('h6').addClass('wlh6');
 
-		//Check e-mail for correct filling 
-		//emailReg - Regular expression
-		function validateEmail(email) {
-			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-			if( !emailReg.test( email ) ) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		//Calling the basket through ajax and sending
-		function wlcheckout() {
-
-			jQuery('.wloverlay').show();
-			jQuery.ajax({
-				url: '/?wc-ajax=checkout',
-				method: 'post',
-				dataType: 'html',
-				data: jQuery('.variations_form').serialize(),
-				success: function(data){
-
-					// A variable named date avoids unnecessary scrolling
-					data = data.replace("main.css","main1.css");
-					jQuery('.wltempform').html(data);
-
-					// Filling in the cart fields
-					jQuery('.wltempform #billing_first_name').val(jQuery('#billing_first_name_donation').val());
-					jQuery('.wltempform #billing_last_name').val(jQuery('#billing_last_name_donation').val());
-					jQuery('.wltempform #billing_phone').val(jQuery('#billing_phone_donation').val());
-					jQuery('.wltempform #billing_email').val(jQuery('#billing_email_donation').val());
-
-					jQuery(".wltempform #cart-agree").prop('checked', true);
-
-					// Filling in the payment field
-					if(document.getElementById('payment_method_paypal2').checked) {
-						jQuery(".wltempform #payment_method_paypal").prop('checked', true);
-					}else if(document.getElementById('payment_method_pelecard2').checked) {
-						jQuery(".wltempform #payment_method_pelecard").prop('checked', true);
-					}
-
-					// sending basket
-					jQuery(function() {
-						jQuery('#place_order').trigger("click");
-					});
-
-
-				}
-			});
-
-		}
-
-
 		/*
             Checking fields for emptiness,
             if the field is not filled, then it is outlined with a red border
         */
+
 
 		if (jQuery('#billing_first_name_donation').val() == '') {
 			jQuery('#billing_first_name_donation').addClass('wlred');

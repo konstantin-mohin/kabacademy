@@ -435,7 +435,6 @@ div.embed-responsive {
 
 }
 
-
 .variation-price-text-custom {
   background: linear-gradient(57.38deg, rgba(154, 215, 238, 0.1) 0%, rgba(209, 149, 220, 0.1) 92.86%);
   text-align:center;
@@ -470,4 +469,12 @@ div.embed-responsive {
 
 .review_form input[type='text'], .review_form textarea {
   border: 1px solid grey;
+}
+
+.comment_name {
+  display: inline-block;
+}
+
+.comment_date {
+  display: inline-block;
 }

@@ -99,9 +99,8 @@ header('Expires: 0');
 
 
 							foreach( $comments as $comment ) { ?>
-
-                                <div class="comment_name">
-                                    <span> <?php echo $comment->comment_author; ?> </span> <span><?php echo $comment->comment_date_gmt; ?></span>
+                                <div class="comment_meta">
+                                    <span class="comment_name"> <?php echo $comment->comment_author; ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
                                 </div>
 
                                 <div class="comment_content">
