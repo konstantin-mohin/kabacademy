@@ -713,10 +713,10 @@ add_action('wp_ajax_nopriv_add_comment', 'add_ajax_comment');
 function add_ajax_comment() {
 	check_ajax_referer( 'ajax-nonce', 'nonce' );
 
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$content = $_POST['content'];
-	$post_id = $_POST['post_id'];
+	$name = sanitize_title($_POST['name']);
+	$email = sanitize_email($_POST['email']);
+	$content = sanitize_title($_POST['content']);
+	$post_id = intval($_POST['post_id']);
 	$date = date("j F Y", time());
 
 	$data = [
@@ -725,12 +725,13 @@ function add_ajax_comment() {
 		'comment_type'         => 'comment',
 		'comment_parent'       => 0,
 		'comment_author'       => $name,
+		'comment_author_email' => $email,
 //		'comment_approved'     => 1,
 	];
 
 	$output = "<div class='donation_comment_block'>
                 <div class='comment_meta'>
-                    <span class='comment_name'> {$name}  </span> <span class='comment_date'>{$date}</span>
+                    <span class='comment_name'> {$name} </span> <span class='comment_date'>{$date}</span>
                 </div>
 
                 <div class='comment_content'>

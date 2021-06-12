@@ -107,6 +107,17 @@ p {
   outline: none;
 }
 
+.comment_button {
+    background: #A42BB9;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    outline: none;
+    color: #fff;
+}
+
 
 .logo {
   display: block;
@@ -454,7 +465,7 @@ div.embed-responsive {
   height: 27px;
   text-align: center;
   margin-top: 5px;
- background: #fff;
+  background: #fff;
 }
 
 .custom-text {
@@ -468,7 +479,23 @@ div.embed-responsive {
 
 
 .review_form input[type='text'], .review_form textarea {
-  border: 1px solid grey;
+    border: 1px solid #BED6E1;
+    background-color : #fff;
+}
+
+.review_form input[type='text'] {
+    height: 46px;
+    width: 100%;
+}
+
+.review_form textarea {
+  display: inline-block;
+  width: 50%;
+}
+
+.review_form_input_block {
+  width: 30%;
+  display: inline-block;
 }
 
 .comment_name {
@@ -483,5 +510,58 @@ div.embed-responsive {
 .comment_content {
     margin-top: 23px;
     margin-bottom: 35px;
+}
+
+
+.comment_form_block {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    background: #F6F6F6 !important;
+    z-index: -1;
+}
+
+.comment_form_close {
+    cursor: pointer;
+}
+
+.comment_close {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.comment_form_close {
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+
+.open_comment_form_button {
+    width: 373px;
+    height: 53px;
+    margin-top: 30px;
+}
+
+
+.review_popup {
+  display: none;
+  max-width: 1230px;
+  width: 50%;
+}
+
+.donation_comments {
+  height: 300px;
+  overflow: scroll;
 }
 

@@ -220,6 +220,15 @@ jQuery(function() {
 	});
 
 
+    var input = jQuery('.form-label').find('input');
+    input.each(function () {
+        jQuery(this).toggleClass('is-filled', jQuery(this).val().length > 0);
+    });
+    input.on('blur', function (e) {
+        jQuery(e.currentTarget).toggleClass('is-filled', jQuery(this).val().length > 0);
+    });
+
+
 
 	jQuery( document ).on( 'submit', '.review_form',  function( e ) {
 		e.preventDefault();
@@ -241,22 +250,38 @@ jQuery(function() {
 			},
 			success: function (res) {
 			    $('.donation_comments').append(res);
-
 			}
 		});
-
 	});
 
+    jQuery( document ).on( 'click', '.open_comment_form_button',  function( e ) {
+        $( ".comment_form_block" ).fadeTo( "fast", 1 );
+        $( ".comment_form_block" ).css( "z-index", 10 );
+    });
+
+    jQuery( document ).on( 'click', '.comment_form_close',  function( e ) {
+        $( ".comment_form_block" ).fadeTo( "fast", 0 );
+        $( ".comment_form_block" ).css( "z-index", -1 );
+    });
 
 
 
-	var input = jQuery('.form-label').find('input');
-	input.each(function () {
-		jQuery(this).toggleClass('is-filled', jQuery(this).val().length > 0);
-	});
-	input.on('blur', function (e) {
-		jQuery(e.currentTarget).toggleClass('is-filled', jQuery(this).val().length > 0);
-	});
+
+
+
+    // jQuery( document ).on( 'click', 'body',  function( e ) {
+    //     if(!$(e.target).is('.comment_form_block')) {
+    //         $( ".comment_form_block" ).fadeTo( "fast", 0 );
+    //     }
+    // });
+
+
+
+
+
+
+
+
 
 
 }); 	

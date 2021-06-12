@@ -80,10 +80,8 @@ header('Expires: 0');
                         <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link">Комментариев</a>
                         </p>
 
-                        <div style="display: none;max-width:600px;" id="comment-modal-<?php echo $id; ?>">
-
-                            <p><button data-fancybox-close class="btn">Close me</button></p>
-
+                        <div class="review_popup" id="comment-modal-<?php echo $id; ?>">
+                            <div data-fancybox-close class="comment_close">&#x2715</div>
 
 							<?php
 							$comment_args = array(
@@ -101,25 +99,27 @@ header('Expires: 0');
                                 <?php foreach( $comments as $comment ) { ?>
                                      <div class="donation_comment_block">
                                         <div class="comment_meta">
-                                            <span class="comment_name"> <?php echo $comment->comment_author; ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
+                                            <span class="comment_name"> <?php echo sanitize_title($comment->comment_author); ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
                                         </div>
 
-                                        <div class="comment_content">
-                                            <?php echo $comment->comment_content; ?>
-                                        </div>
+                                        <div class="comment_content"><?php echo sanitize_title($comment->comment_content); ?></div>
                                      </div>
                                 <?php } ?>
                             </div>
 
 
-
-                            <form class="review_form" id="<?php echo $id ?>">
-                                <input type="text" class="review_name">
-                                <input type="text" class="review_email">
-                                <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
-                                <input type="submit" class="review_submit" value="оставить свой комментарий">
-                            </form>
-
+                            <div class="comment_form_block">
+                                <form class="review_form" id="<?php echo $id ?>">
+                                    <div class="review_form_input_block">
+                                        <input type="text" class="review_name">
+                                        <input type="text" class="review_email">
+                                    </div>
+                                    <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
+                                    <input type="submit" class="comment_button review_submit open_comment_form_button" value="оставить свой комментарий">
+                                </form>
+                                <div class="comment_form_close comment_form_close">&#x2715</div>
+                            </div>
+                            <button class="comment_button open_comment_form_button">оставить свой комментарий</button>
 
                         </div>
 
