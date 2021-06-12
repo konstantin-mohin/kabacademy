@@ -476,5 +476,12 @@ div.embed-responsive {
 }
 
 .comment_date {
-  display: inline-block;
+    display: inline-block;
+    color: #777;
 }
+
+.comment_content {
+    margin-top: 23px;
+    margin-bottom: 35px;
+}
+

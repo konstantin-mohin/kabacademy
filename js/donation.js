@@ -240,7 +240,8 @@ jQuery(function() {
 				post_id :  post_id
 			},
 			success: function (res) {
-				// alert(res);
+			    $('.donation_comments').append(res);
+
 			}
 		});
 

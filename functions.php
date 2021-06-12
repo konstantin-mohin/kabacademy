@@ -699,16 +699,12 @@ function change_cart_item_price( $cart ) {
 }
 
 
+add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
+add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');
 function remove_item_from_cart() {
 	global $woocommerce;
 	$woocommerce->cart->empty_cart();
 }
-
-add_action('wp_ajax_remove_item_from_cart', 'remove_item_from_cart');
-add_action('wp_ajax_nopriv_remove_item_from_cart', 'remove_item_from_cart');
-
-
-
 
 
 
@@ -721,16 +717,30 @@ function add_ajax_comment() {
 	$email = $_POST['email'];
 	$content = $_POST['content'];
 	$post_id = $_POST['post_id'];
+	$date = date("j F Y", time());
 
 	$data = [
 		'comment_post_ID'      => $post_id,
 		'comment_content'      => $content,
 		'comment_type'         => 'comment',
 		'comment_parent'       => 0,
+		'comment_author'       => $name,
 //		'comment_approved'     => 1,
 	];
 
+	$output = "<div class='donation_comment_block'>
+                <div class='comment_meta'>
+                    <span class='comment_name'> {$name}  </span> <span class='comment_date'>{$date}</span>
+                </div>
+
+                <div class='comment_content'>
+                   {$content}
+                </div>
+             </div>";
+
 	wp_insert_comment( wp_slash($data) );
+
+	echo $output;
 
     wp_die();
 }

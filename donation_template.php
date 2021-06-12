@@ -94,21 +94,22 @@ header('Expires: 0');
 								'post_id' => $id,
 								'orderby' => 'comment_date_gmt',
 								'status' => 'approve',
-							) );
+							) ); ?>
 
 
+                            <div class="donation_comments">
+                                <?php foreach( $comments as $comment ) { ?>
+                                     <div class="donation_comment_block">
+                                        <div class="comment_meta">
+                                            <span class="comment_name"> <?php echo $comment->comment_author; ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
+                                        </div>
 
-							foreach( $comments as $comment ) { ?>
-                                <div class="comment_meta">
-                                    <span class="comment_name"> <?php echo $comment->comment_author; ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
-                                </div>
-
-                                <div class="comment_content">
-									<?php echo $comment->comment_content; ?>
-                                </div>
-							<?php	} ?>
-
-
+                                        <div class="comment_content">
+                                            <?php echo $comment->comment_content; ?>
+                                        </div>
+                                     </div>
+                                <?php } ?>
+                            </div>
 
 
 
