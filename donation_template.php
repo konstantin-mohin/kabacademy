@@ -58,7 +58,7 @@ header('Expires: 0');
 
 			$id = $product->get_id();
 
-?>
+			?>
             <div class="row">
                 <div class="col-12">
                     <h3><?php echo the_title(); ?></h3>
@@ -107,7 +107,7 @@ header('Expires: 0');
                                 <div class="comment_content">
 									<?php echo $comment->comment_content; ?>
                                 </div>
-						<?php	} ?>
+							<?php	} ?>
 
 
 
@@ -140,13 +140,13 @@ header('Expires: 0');
                                     <form name="checkout" method="post" class="wlcheckoutf checkout woocommerce-checkout" action="https://dev.kabacademy.com/checkout/" enctype="multipart/form-data" novalidate="novalidate" style="position: static;">
                                     </form>
                                     <form action="/checkout" class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="150236">
-<!--                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>-->
-<!--                                            <ul class="woocommerce-error" role="alert">-->
-<!--                                                <li style='display: none;'>-->
-<!--                                                    Неверный адрес эл. почты для выставления счета</li>-->
-<!--                                            </ul>-->
-<!---->
-<!--                                        </div>-->
+                                        <!--                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>-->
+                                        <!--                                            <ul class="woocommerce-error" role="alert">-->
+                                        <!--                                                <li style='display: none;'>-->
+                                        <!--                                                    Неверный адрес эл. почты для выставления счета</li>-->
+                                        <!--                                            </ul>-->
+                                        <!---->
+                                        <!--                                        </div>-->
                                         <div class="wlalert" style='display: none;'>
                                             Заказ обрабатывается....пожалуйста, подождите несколько секунд...
 
@@ -270,17 +270,7 @@ header('Expires: 0');
 
 
 
-                                    <script>
-                                        jQuery(function() {
-                                            var input = jQuery('.form-label').find('input');
-                                            input.each(function () {
-                                                jQuery(this).toggleClass('is-filled', jQuery(this).val().length > 0);
-                                            });
-                                            input.on('blur', function (e) {
-                                                jQuery(e.currentTarget).toggleClass('is-filled', jQuery(this).val().length > 0);
-                                            });
-                                        });
-                                    </script>
+
 
 
 
