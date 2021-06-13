@@ -1,5 +1,4 @@
 jQuery(function() {
-
 	// Switch to work with custom price 
 	jQuery(".wlcart-payment2").on("click", function(){
 		jQuery("input[name=add-to-cart]").val(jQuery(this).find('input').val());
@@ -12,38 +11,26 @@ jQuery(function() {
 		jQuery(this).parent().trigger("click");
 	});
 
-
 	// Checking fields for emptiness when unpressing a key
-	jQuery( "#billing_first_name_donation" ).keyup(function(){
-		if (jQuery('#billing_first_name_donation').val() == '') {
-			jQuery('#billing_first_name_donation').addClass('wlred');
-		}
-		else {jQuery('#billing_first_name_donation').removeClass('wlred'); }
+	$('.billing_first_name_donation').keyup(function() {
+		if ($(this).val() === '') $(this).addClass('wlred');
+		else $(this).removeClass('wlred');
 	});
 
-
-	jQuery( "#billing_last_name_donation" ).keyup(function(){
-		if (jQuery('#billing_last_name_donation').val() == '') {
-			jQuery('#billing_last_name_donation').addClass('wlred');
-		}
-		else {jQuery('#billing_last_name_donation').removeClass('wlred'); }
+	$('.billing_last_name_donation').keyup(function(){
+		if ($(this).val() === '') $(this).addClass('wlred');
+		else $(this).removeClass('wlred');
 	});
 
-	jQuery( "#billing_phone_donation" ).keyup(function(){
-		if (jQuery('#billing_phone_donation').val() == '') {
-			jQuery('#billing_phone_donation').addClass('wlred');
-		}
-		else {jQuery('#billing_phone_donation').removeClass('wlred'); }
+	$('.billing_phone_donation').keyup(function(){
+		if ($(this).val() === '') $(this).addClass('wlred');
+		else $(this).removeClass('wlred');
 	});
 
-
-	jQuery( "#billing_email_donation" ).keyup(function(){
-		if (jQuery('#billing_email_donation').val() == '') {
-			jQuery('#billing_email_donation').addClass('wlred');
-		}
-		else {jQuery('#billing_email_donation').removeClass('wlred'); }
+	$('.billing_email_donation').keyup(function(){
+		if ($(this).val() === '') $(this).addClass('wlred');
+		else $(this).removeClass('wlred');
 	});
-
 
 	/* 
 		Checking the correctness of filling in the phone field in real time.
@@ -53,7 +40,7 @@ jQuery(function() {
 
 	var phoneRegExp = new RegExp(/^(?=.*[0-9])[+0-9]+$/);
 
-	jQuery('#billing_phone_donation').keyup(function() {
+	jQuery('.billing_phone_donation').keyup(function() {
 		var val = jQuery(this).val();
 		if ( !phoneRegExp.test( val ) ) {
 			jQuery(this).val( val.replace(/([^+0-9]+)/gi, '') );
@@ -74,7 +61,7 @@ jQuery(function() {
 
 
 	//Calling the basket through ajax and sending
-	function wlcheckout() {
+	function wlcheckout(first_name, last_name, phone, email) {
 
 		jQuery('.wloverlay').show();
 		jQuery.ajax({
@@ -84,15 +71,15 @@ jQuery(function() {
 			data: jQuery('.variations_form').serialize(),
 			success: function(data){
 
-				// A variable named date avoids unnecessary scrolling
+				//Avoids unnecessary scrolling
 				data = data.replace("main.css","main1.css");
 				jQuery('.wltempform').html(data);
 
 				// Filling in the cart fields
-				jQuery('.wltempform #billing_first_name').val(jQuery('#billing_first_name_donation').val());
-				jQuery('.wltempform #billing_last_name').val(jQuery('#billing_last_name_donation').val());
-				jQuery('.wltempform #billing_phone').val(jQuery('#billing_phone_donation').val());
-				jQuery('.wltempform #billing_email').val(jQuery('#billing_email_donation').val());
+				jQuery('.wltempform #billing_first_name').val(first_name.val());
+				jQuery('.wltempform #billing_last_name').val(last_name.val());
+				jQuery('.wltempform #billing_phone').val(phone.val());
+				jQuery('.wltempform #billing_email').val(email.val());
 
 				jQuery(".wltempform #cart-agree").prop('checked', true);
 
@@ -137,23 +124,22 @@ jQuery(function() {
 		//Hiding fields if the form was open, then closed again and reopened 
 		window.onbeforeunload = null;
 		e.preventDefault();
-		jQuery(window).off('beforeunload');
-		jQuery('.woocommerce-NoticeGroup li').hide();
-		jQuery("input[name=custom_price]").val(jQuery("#price-custom").val());
+		$(window).off('beforeunload');
+		$('.woocommerce-NoticeGroup li').hide();
+		$("input[name=custom_price]").val(jQuery("#price-custom").val());
 
-
-		let first_name = jQuery(this).parents('.variations_form').find('.billing_first_name_donation');
-		let last_name = jQuery(this).parents('.variations_form').find('.billing_last_name_donation');
-		let phone = jQuery(this).parents('.variations_form').find('.billing_phone_donation');
-		let email = jQuery(this).parents('.variations_form').find('.billing_email_donation');
+		let first_name = $(this).parents('.variations_form').find('.billing_first_name_donation');
+		let last_name = $(this).parents('.variations_form').find('.billing_last_name_donation');
+		let phone = $(this).parents('.variations_form').find('.billing_phone_donation');
+		let email = $(this).parents('.variations_form').find('.billing_email_donation');
 
 
 		//To avoid unnecessary scrolling 
 		// jQuery('body').addClass('bodypadding');
 		// jQuery('body').addClass('wlfixed');
-		jQuery('h3').addClass('wlh3');
-		jQuery('.container').addClass('wlcontainer');
-		jQuery('h6').addClass('wlh6');
+		$('h3').addClass('wlh3');
+		$('.container').addClass('wlcontainer');
+		$('h6').addClass('wlh6');
 
 		/*
             Checking fields for emptiness,
@@ -163,8 +149,12 @@ jQuery(function() {
 
 		if ( first_name.val() === '' ) {
 			first_name.addClass('wlred');
+			// $('.wlwarninglab').css('display', 'block');
 			return false;
-		} else first_name.removeClass('wlred');
+		} else {
+			first_name.removeClass('wlred');
+			$('.wlwarninglab').css('display', 'none');
+		}
 
 		if ( last_name.val() === '' ) {
 			last_name.addClass('wlred');
@@ -187,18 +177,18 @@ jQuery(function() {
 		if (!validateEmail(email.val()))
 		{
 			email.addClass('wlred');
-			jQuery('.woocommerce-NoticeGroup').show();
-			jQuery('.woocommerce-NoticeGroup li:eq(0)').show();
+			$('.woocommerce-NoticeGroup').show();
+			$('.woocommerce-NoticeGroup li:eq(0)').show();
 			return false;
 		}
 		else
 		{
-			jQuery('.woocommerce-NoticeGroup').hide();
+			$('.woocommerce-NoticeGroup').hide();
 			email.removeClass('wlred');
 		}
 
 		// Calling cart function via ajax 
-		wlcheckout();
+		wlcheckout(first_name, last_name, phone, email);
 
 
 	});
@@ -210,15 +200,15 @@ jQuery(function() {
 		The product_id argument can be filled with any value, 
 		if you remove it, the hook may not work stably 
 	*/
-	jQuery('.wlcheckoutf').on("DOMNodeInserted", function (event) {
-		jQuery('.wloverlay').hide();
+	$('.wlcheckoutf').on("DOMNodeInserted", function (event) {
+		$('.wloverlay').hide();
 		$.ajax({
 			type: "POST",
 			url: '/wp-admin/admin-ajax.php',
 			data: {action : 'remove_item_from_cart','product_id' : '4'},
 			success: function (res) {
 				if (res) {
-					jQuery('body').removeClass('wlfixed');
+					$('body').removeClass('wlfixed');
 				}
 			}
 		});
