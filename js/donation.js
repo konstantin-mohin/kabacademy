@@ -236,6 +236,11 @@ jQuery(function() {
 		let email = $(this).find('.review_email').val();
 		let content = $(this).find('.review_content').val();
 		let post_id = $(this).attr('id');
+		let current = $(this);
+
+		// if ( name || email || content ) {
+		// 	return;
+		// }
 
 		$.ajax({
 			type: "POST",
@@ -249,7 +254,7 @@ jQuery(function() {
 				post_id :  post_id
 			},
 			success: function (res) {
-			    $('.donation_comments').append(res);
+				current.parents('.review_popup').find('.donation_comments').append(res);
 			}
 		});
 	});

@@ -110,11 +110,13 @@ header('Expires: 0');
 
                             <div class="comment_form_block">
                                 <form class="review_form" id="<?php echo $id ?>">
-                                    <div class="review_form_input_block">
-                                        <input type="text" class="review_name">
-                                        <input type="text" class="review_email">
+                                    <div class="comment_block_fields">
+                                        <div class="review_form_input_block">
+                                            <input type="text" class="review_name" placeholder="Ваше имя">
+                                            <input type="text" class="review_email" placeholder="E-mail">
+                                        </div>
+                                        <textarea name="comment" class="review_content" cols="40" rows="3" placeholder="Текст комментария"></textarea>
                                     </div>
-                                    <textarea name="comment" class="review_content" cols="40" rows="3"></textarea>
                                     <input type="submit" class="comment_button review_submit open_comment_form_button" value="оставить свой комментарий">
                                 </form>
                                 <div class="comment_form_close comment_form_close">&#x2715</div>
