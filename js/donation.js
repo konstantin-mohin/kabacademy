@@ -131,7 +131,9 @@ jQuery(function() {
 
 
 	// Validating and submitting a form for payment
-	jQuery(".wlsubmit").on("click", function(e){
+	jQuery(".wlsubmit").on("click", function(e) {
+
+
 		//Hiding fields if the form was open, then closed again and reopened 
 		window.onbeforeunload = null;
 		e.preventDefault();
@@ -139,9 +141,16 @@ jQuery(function() {
 		jQuery('.woocommerce-NoticeGroup li').hide();
 		jQuery("input[name=custom_price]").val(jQuery("#price-custom").val());
 
+
+		let first_name = jQuery(this).parents('.variations_form').find('.billing_first_name_donation');
+		let last_name = jQuery(this).parents('.variations_form').find('.billing_last_name_donation');
+		let phone = jQuery(this).parents('.variations_form').find('.billing_phone_donation');
+		let email = jQuery(this).parents('.variations_form').find('.billing_email_donation');
+
+
 		//To avoid unnecessary scrolling 
-		jQuery('body').addClass('bodypadding');
-		jQuery('body').addClass('wlfixed');
+		// jQuery('body').addClass('bodypadding');
+		// jQuery('body').addClass('wlfixed');
 		jQuery('h3').addClass('wlh3');
 		jQuery('.container').addClass('wlcontainer');
 		jQuery('h6').addClass('wlh6');
@@ -152,36 +161,32 @@ jQuery(function() {
         */
 
 
-		if (jQuery('#billing_first_name_donation').val() == '') {
-			jQuery('#billing_first_name_donation').addClass('wlred');
+		if ( first_name.val() === '' ) {
+			first_name.addClass('wlred');
 			return false;
-		}
-		else {jQuery('#billing_first_name_donation').removeClass('wlred'); }
+		} else first_name.removeClass('wlred');
 
-		if (jQuery('#billing_last_name_donation').val() == '') {
-			jQuery('#billing_last_name_donation').addClass('wlred');
+		if ( last_name.val() === '' ) {
+			last_name.addClass('wlred');
 			return false;
-		}
-		else {jQuery('#billing_last_name_donation').removeClass('wlred'); }
+		} else last_name.removeClass('wlred');
 
 
-		if (jQuery('#billing_phone_donation').val() == '') {
-			jQuery('#billing_phone_donation').addClass('wlred');
+		if ( phone.val() === '' ) {
+			phone.addClass('wlred');
 			return false;
-		}
-		else {jQuery('#billing_phone_donation').removeClass('wlred'); }
+		} else phone.removeClass('wlred');
 
 
-		if (jQuery('#billing_email_donation').val() == '') {
-			jQuery('#billing_email_donation').addClass('wlred');
+		if ( email.val() === '' ) {
+			email.addClass('wlred');
 			return false;
-		}
-		else {jQuery('#billing_email_donation').removeClass('wlred'); }
+		} else email.removeClass('wlred');
 
 		// Validating the correct email address
-		if (!validateEmail(jQuery('#billing_email_donation').val()))
+		if (!validateEmail(email.val()))
 		{
-			jQuery('#billing_email_donation').addClass('wlred');
+			email.addClass('wlred');
 			jQuery('.woocommerce-NoticeGroup').show();
 			jQuery('.woocommerce-NoticeGroup li:eq(0)').show();
 			return false;
@@ -189,7 +194,7 @@ jQuery(function() {
 		else
 		{
 			jQuery('.woocommerce-NoticeGroup').hide();
-			jQuery('#billing_email_donation').removeClass('wlred');
+			email.removeClass('wlred');
 		}
 
 		// Calling cart function via ajax 

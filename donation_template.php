@@ -206,33 +206,33 @@ header('Expires: 0');
 
                                         <div class="cart__contacts wlcart__contacts">
                                             <label for="billing_first_name_donation" class="form-label">
-                                                <input type="" id="billing_first_name_donation" class = 'wlbil' name="billing_first_name" value="">
+                                                <input type="" class = 'billing_first_name_donation wlbil' name="billing_first_name" value="">
 
                                                 <!--? if (!$hidePass) {?--><span>Имя</span><!--? }?-->
                                                 <!--? if (!$hidePass) :?-->
                                             </label>
 
 
-                                            <label for="billing_last_name_donation" class="form-label">
-                                                <input type="" id="billing_last_name_donation" class = 'wlbil' name="billing_last_name" value="">
+                                            <label for="billing_last_name_donation-<?php echo $id; ?>" class="form-label">
+                                                <input type="" id="billing_last_name_donation-<?php echo $id; ?>" class='billing_last_name_donation wlbil' name="billing_last_name" value="">
                                                 <span>Фамилия</span>
                                             </label>
 
 
-                                            <label for="billing_phone_donation" class="form-label">
-                                                <input type="tel" id="billing_phone_donation" class = 'wlbil' name="billing_phone" value="">
+                                            <label for="billing_phone_donation-<?php echo $id; ?>" class="form-label">
+                                                <input type="tel" id="billing_phone_donation-<?php echo $id; ?>" class = 'billing_phone_donation wlbil' name="billing_phone" value="">
                                                 <span>Телефон</span>
                                             </label>
 
 
-                                            <label for="billing_email_donation" class="form-label">
-                                                <input type="email" id="billing_email_donation" class = 'wlbil' name="billing_email" value="">
+                                            <label for="billing_email_donation-<?php echo $id; ?>" class="form-label">
+                                                <input type="email" id="billing_email_donation-<?php echo $id; ?>" class = 'billing_email_donation wlbil' name="billing_email" value="">
                                                 <span>Email</span>
                                             </label>
 
 
-                                            <label for="billing_country" class="form-label">
-                                                <input type="email" id="billing_country" name="billing_country" value="">
+                                            <label for="billing_country-<?php echo $id; ?>" class="form-label">
+                                                <input type="email" id="billing_country-<?php echo $id; ?>" name="billing_country billing_country" value="">
                                                 <span>Страна</span>
                                             </label>
                                         </div>

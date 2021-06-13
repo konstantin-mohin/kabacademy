@@ -623,42 +623,6 @@ function cartflow_assets() {
 }
 
 
-
-
-add_action( 'woocommerce_before_calculate_totals', 'add_custom_price' );
-
-function add_custom_price( $cart_object ) {
-//    var_dump($_REQUEST['custom_price']);
-//    var_dump($_COOKIE['price']);
-//    wp_die();
-
-//    var_dump($cart_object->cart_contents);
-//    wp_die();
-	foreach ( $cart_object->cart_contents as $key => $value ) {
-
-		$product_id = $value['data']->parent_id;
-
-		if ( $_COOKIE[$product_id] && ( $value['data']->price === '1' ) ) {
-			$price = intval( $_COOKIE[$product_id] );
-
-			$value['data']->set_price($price);
-
-			$pieces = explode(' ', $value['data']->name);
-			$index = count( $pieces ) - 1;
-			$pieces[$index] = $price;
-			$value['data']->set_name(implode(' ', $pieces));
-
-		}
-
-//	    if ( $value['data']->price === '1' ) {
-//            var_dump('teac');
-//        }
-
-	}
-}
-
-
-
 // Add a hidden input field (With a value of 20 for testing purpose)
 add_action( 'woocommerce_before_add_to_cart_button', 'custom_hidden_product_field', 11 );
 function custom_hidden_product_field() {
@@ -679,6 +643,37 @@ function save_custom_fields_data_to_cart( $cart_item_data, $product_id ) {
 	}
 	return $cart_item_data;
 }
+
+
+
+add_action( 'woocommerce_before_calculate_totals', 'add_custom_price' );
+
+function add_custom_price( $cart_object ) {
+//    var_dump($_REQUEST['custom_price']);
+//    var_dump($_COOKIE['price']);
+//    wp_die();
+
+//    var_dump($cart_object->cart_contents);
+//    wp_die();
+//	foreach ( $cart_object->cart_contents as $key => $value ) {
+//
+//		$product_id = $value['data']->parent_id;
+//
+//		if ( $_COOKIE[$product_id] && ( $value['data']->price === '1' ) ) {
+//			$price = intval( $_COOKIE[$product_id] );
+//
+//			$value['data']->set_price($price);
+//
+//			$pieces = explode(' ', $value['data']->name);
+//			$index = count( $pieces ) - 1;
+//			$pieces[$index] = $price;
+//			$value['data']->set_name(implode(' ', $pieces));
+//
+//		}
+//
+//	}
+}
+
 
 // Updating cart item price
 add_action( 'woocommerce_before_calculate_totals', 'change_cart_item_price', 30, 1 );

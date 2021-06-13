@@ -61,6 +61,7 @@ body {
   background: rgb(255, 255, 255);
   /*background: linear-gradient(180deg, rgba(180, 213, 224, 1) 0%, rgba(255, 255, 255, 1) 34%, rgba(255, 255, 255, 1) 100%);*/
   background: no-repeat center 0 url("../img/donation/top.png");
+  background-size: cover;
 }
 
 .container {
@@ -1021,5 +1022,16 @@ div.embed-responsive {
 .donation_comments {
   height: 300px;
   overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
