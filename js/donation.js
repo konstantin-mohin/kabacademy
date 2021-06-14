@@ -114,13 +114,8 @@ jQuery(function() {
 	});
 
 
-
-
-
 	// Validating and submitting a form for payment
 	jQuery(".wlsubmit").on("click", function(e) {
-
-
 		//Hiding fields if the form was open, then closed again and reopened 
 		window.onbeforeunload = null;
 		e.preventDefault();

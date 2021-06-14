@@ -77,7 +77,7 @@ header('Expires: 0');
 
 
 
-                        <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link">Комментариев</a>
+                        <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link">Комментарии</a>
                         </p>
 
                         <div class="review_popup" id="comment-modal-<?php echo $id; ?>">
@@ -142,18 +142,6 @@ header('Expires: 0');
                                     <form name="checkout" method="post" class="wlcheckoutf checkout woocommerce-checkout" action="https://dev.kabacademy.com/checkout/" enctype="multipart/form-data" novalidate="novalidate" style="position: static;">
                                     </form>
                                     <form action="/checkout" class="variations_form cart" method="post" enctype="multipart/form-data" data-product_id="150236">
-                                        <!--                                        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout wlww" style='display: none;'>-->
-                                        <!--                                            <ul class="woocommerce-error" role="alert">-->
-                                        <!--                                                <li style='display: none;'>-->
-                                        <!--                                                    Неверный адрес эл. почты для выставления счета</li>-->
-                                        <!--                                            </ul>-->
-                                        <!---->
-                                        <!--                                        </div>-->
-                                        <div class="wlalert" style='display: none;'>
-                                            Заказ обрабатывается....пожалуйста, подождите несколько секунд...
-
-                                        </div>
-
 
                                         <input type="hidden" name="add-to-cart" value="150398" />
                                         <input type="hidden" name="product_id" value="150398" />
@@ -269,11 +257,6 @@ header('Expires: 0');
 
                                         </div>
                                     </form>
-
-
-
-
-
 
 
                                 </div>

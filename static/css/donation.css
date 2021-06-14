@@ -145,8 +145,8 @@ p {
 
 .clip .btn {
   margin-top: 2em;
-  width: 336px;
-  line-height: 45px;
+  width: 300px;
+  line-height: 18px;
   border: 0;
 }
 
@@ -169,7 +169,7 @@ div.embed-responsive {
 .custom_progress_bar progress {
   border-radius: .25rem;
   width: 100%;
-
+  margin-top: 20px;
 }
 .custom_progress_bar progress::-webkit-progress-bar {
   background-color: #e9ecef;
@@ -349,8 +349,8 @@ div.embed-responsive {
 }
 @media (min-width: 1200px) {
   .btn.btn-small.button.add-to.form {
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     font-size: 16px;
   }
   .button-wrapper {
@@ -549,20 +549,20 @@ div.embed-responsive {
   transform: none;
 }
 
-.wlalert
-{
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  position: relative;
-  padding: .75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: .25rem;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  text-align: left;
-}
+/*.wlalert*/
+/*{*/
+/*  color: #155724;*/
+/*  background-color: #d4edda;*/
+/*  border-color: #c3e6cb;*/
+/*  position: relative;*/
+/*  padding: .75rem 1.25rem;*/
+/*  margin-bottom: 1rem;*/
+/*  border: 1px solid transparent;*/
+/*  border-radius: .25rem;*/
+/*  margin-top: 40px;*/
+/*  margin-bottom: 40px;*/
+/*  text-align: left;*/
+/*}*/
 
 
 
@@ -742,7 +742,7 @@ div.embed-responsive {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, .5);
-  z-index: 100;
+  z-index: 10000;
   background: rgba(0, 0, 0, .5) url(/wp-content/themes/kabacedemy/three-dots.svg) no-repeat center center;
 }
 
@@ -1024,16 +1024,16 @@ div.embed-responsive {
   overflow: scroll;
 }
 
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
+/*::-webkit-scrollbar {*/
+/*  -webkit-appearance: none;*/
+/*  width: 7px;*/
+/*}*/
 
-::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-}
+/*::-webkit-scrollbar-thumb {*/
+/*  border-radius: 4px;*/
+/*  background-color: rgba(0, 0, 0, .5);*/
+/*  box-shadow: 0 0 1px rgba(255, 255, 255, .5);*/
+/*}*/
 
 .wlwarninglab {
   display: none;
