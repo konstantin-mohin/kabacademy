@@ -54,8 +54,6 @@ header('Expires: 0');
 		while ($the_query->have_posts()) {
 			$the_query->the_post();
 			global $product;
-
-
 			$id = $product->get_id();
 
 			?>
@@ -75,25 +73,32 @@ header('Expires: 0');
                     </div>
 					<?php if( $product->is_type( 'variable' ) ) { ?>
 
+						<?php
+						$comment_args = array(
+							'comment_post_ID' => $id,
+						);
 
+						$comments = get_comments( array(
+							'post_id' => $id,
+							'orderby' => 'comment_date_gmt',
+							'status' => 'approve',
+						) ); ?>
 
-                        <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link">Комментарии</a>
-                        </p>
+                        <div class="comments_link">
+                            <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.5565 11.7914C16.5565 13.2952 15.3339 14.5132 13.8244 14.5132H7.22161L3.74947 18.7659L4.77403 14.5132H4.20483C2.6953 14.5132 1.47266 13.2952 1.47266 11.7914V4.19318C1.47266 2.68942 2.6953 1.47144 4.20483 1.47144H13.8244C15.3339 1.47144 16.5565 2.68942 16.5565 4.19318V11.7914Z" stroke="#3C5D90" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21.59 14.4224C21.59 15.6495 21.253 16.7994 20.6656 17.7838L21.7197 20.5668L18.6802 19.8772C17.626 20.5872 16.3556 21 14.9895 21C11.342 21 8.38672 18.0559 8.38672 14.4224C8.38672 10.7889 11.342 7.84485 14.9895 7.84485C18.6369 7.84485 21.59 10.7889 21.59 14.4224Z" stroke="#3C5D90" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <a data-fancybox data-src="#comment-modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="comment_link"><?php echo count($comments) ?> комментариев </a>
+                            </p>
+                        </div>
 
                         <div class="review_popup" id="comment-modal-<?php echo $id; ?>">
                             <div data-fancybox-close class="comment_close">&#x2715</div>
 
-							<?php
-							$comment_args = array(
-								'comment_post_ID' => $id,
-							);
-
-							$comments = get_comments( array(
-								'post_id' => $id,
-								'orderby' => 'comment_date_gmt',
-								'status' => 'approve',
-							) ); ?>
-
+                            <div class="comment_popup_top_block">
+                                <h4 class="donation_comment_title"><?php the_title(); ?></h4>
+                            </div>
 
                             <div class="donation_comments">
                                 <?php foreach( $comments as $comment ) { ?>
@@ -109,6 +114,7 @@ header('Expires: 0');
 
 
                             <div class="comment_form_block">
+
                                 <form class="review_form" id="<?php echo $id ?>">
                                     <div class="comment_block_fields">
                                         <div class="review_form_input_block">
@@ -160,7 +166,8 @@ header('Expires: 0');
                                                         <input type="radio" class="cart-payment__input wlcart-payment__input" id="price-<?php echo $variation_id; ?>" name="variation_id" value="<?php echo $variation_id; ?>">
 
                                                         <div class="cart-payment__card wlcart-payment__card">
-                                                            <div class="custom-text" style='margin-top: -12px; margin-bottom: 5px; font-size: 80%; '>другая:</div> <input type="text" id="price-custom" class="price-custom" name="price-custom" value="" >
+<!--                                                            <div class="custom-text" style='margin-top: -12px; margin-bottom: 5px; font-size: 80%; '>другая:</div> -->
+                                                            <input type="text" id="price-custom" class="price-custom" name="price-custom" value="" placeholder="другая" >
                                                         </div>
 
                                                     </label>

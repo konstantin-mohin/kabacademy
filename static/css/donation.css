@@ -26,8 +26,10 @@ form {
   margin: 15% auto;
   padding: 40px;
   border: 1px solid #888;
-  width: 60%;
+  width: 1000px;
+  /*max-width: 1000px;*/
 }
+
 .close {
   color: #A42BB9;
   font-size: 20px;
@@ -128,6 +130,14 @@ p {
 
 .progress-block {
   margin: 1.5em 0 2.5em;
+}
+
+@media (max-width: 768px) {
+  .progress-block {
+    width: 90% !important;
+    max-width: 90% !important;
+    flex: 0 0 100% !important;
+  }
 }
 
 .info {
@@ -261,7 +271,7 @@ div.embed-responsive {
   font-family: Montserrat;
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 26px;
   letter-spacing: 0.25em; /* FIGMA 0.3em */
   text-transform: uppercase;
@@ -365,6 +375,14 @@ div.embed-responsive {
   }
 }
 
+
+@media (max-width: 1050px) {
+  .modal-content {
+    width: 90%;
+  }
+}
+
+
 @media (max-width: 767px) {
   .button-wrapper {
     width: 100%;
@@ -372,9 +390,6 @@ div.embed-responsive {
 
   }
 
-  .modal-content {
-    width: 90%;
-  }
 
   .price-wrapper {
     max-width: 200px;
@@ -382,6 +397,7 @@ div.embed-responsive {
   }
 
 }
+
 
 
 
@@ -462,11 +478,18 @@ div.embed-responsive {
 .price-custom {
   font-size: 15px !important;
   display: block;
-  width: 70px;
+  width: 80px;
   height: 27px;
   text-align: center;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   background: #fff;
+  position: absolute;
+  left: 19%;
+  top: 29%;
+}
+
+.price-custom::placeholder {
+  color: #666;
 }
 
 .custom-text {
@@ -664,11 +687,34 @@ div.embed-responsive {
 .wlcart-payments2 {
   margin-top: -20px;
   margin-bottom: 0;
+
+   display: flex;
+  /* flex-direction: row; */
+  /* flex-wrap: wrap; */
+  /*justify-content: stretch;*/
+  justify-content: space-between;
 }
 
+@media (max-width: 720px) {
+  .wlcart-payments2 {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 400px) {
+  .wlcart-payments2 {
+    justify-content: space-around;
+  }
+}
+
+
+
+
 .wlcart-payment2 {
-  width: 15%;
+  /*width: 15%;*/
   margin-right: 12px !important;
+  min-width: 110px;
+  max-width: 140px;
 }
 
 
@@ -724,12 +770,10 @@ div.embed-responsive {
 
 .wlcart-payment2 .price-custom
 {
-  font-size: 19px !important;
-  height: 47px;
-  width: 70px;
+  font-size: 19px;
   border: 1px solid #98DEFF;
   z-index: 222;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 
 }
 
@@ -760,22 +804,22 @@ div.embed-responsive {
 
 @media (max-width: 1342px) {
 
-  .wlcart-payment2 {
-    width: 14%;
-  }
+  /*.wlcart-payment2 {*/
+  /*  width: 14%;*/
+  /*}*/
 
-  .wlcart-payment2 .cart-payment__title {
-    font-size: 12px;
-  }
+  /*.wlcart-payment2 .cart-payment__title {*/
+  /*  font-size: 12px;*/
+  /*}*/
 
-  .wlcart-payment2 .price-custom {
-    width: 100%;
-  }
+  /*.wlcart-payment2 .price-custom {*/
+  /*  width: 100%;*/
+  /*}*/
 
-  .wlcart-payment2 .custom-text {
-    margin-left: -10px;
+  /*.wlcart-payment2 .custom-text {*/
+  /*  margin-left: -10px;*/
 
-  }
+  /*}*/
   .wlcart__contacts .form-label {
     width: 17%;
   }
@@ -806,6 +850,10 @@ div.embed-responsive {
 
 @media (max-width: 900px) {
 
+  /*.wlcart-payment2 {*/
+  /*  width: 25%;*/
+  /*}*/
+
   .wlcart-payment2 .cart-payment__title {
     font-size: 17px;
   }
@@ -835,21 +883,14 @@ div.embed-responsive {
     display: none;
   }
 
-
-  .wlcart-payment2 {
-    width: 100%;
-  }
-
-
-
   .wlcart__contacts .form-label {
     width: 100%;
   }
 
-  .wlcart-payment__card .price-custom
-  {
-    width: 50%;
-  }
+  /*.wlcart-payment__card .price-custom*/
+  /*{*/
+  /*  width: 50%;*/
+  /*}*/
 
   .wlcart-payment__card  .custom-text
   {
@@ -857,11 +898,11 @@ div.embed-responsive {
   }
 
 
-  .wlcart-payment2 .price-custom {
+  /*.wlcart-payment2 .price-custom {*/
 
-    margin-left: 10px;
-    width: 70%;
-  }
+  /*  !*margin-left: 10px;*!*/
+  /*  width: 80px;*/
+  /*}*/
 
 
   .wlcart-payment__card {
@@ -882,11 +923,11 @@ div.embed-responsive {
     margin-bottom: -30px !important;
   }
 
-  .wlcart-payment2 .price-custom {
+  /*.wlcart-payment2 .price-custom {*/
 
-    margin-left: 10px;
-    height: 27px;
-  }
+  /*  !*margin-left: 10px;*!*/
+  /*  height: 27px;*/
+  /*}*/
 
 
 }
@@ -952,22 +993,40 @@ div.embed-responsive {
   display: inline-block;
 }
 
+.donation_comment_block {
+  margin-left: 27px;
+}
+
 .comment_block_fields {
   position: relative;
 }
 
 .comment_name {
   display: inline-block;
+  position: relative;
+}
+
+.comment_name:before {
+  content:url('../img/donation/comment-icon.svg');
+  position: absolute;
+  left: -27px;
 }
 
 .comment_date {
     display: inline-block;
     color: #777;
+  margin-top: 10px;
 }
+/*@media (max-width: 600px) {*/
+/*  .comment_date {*/
+/*    margin-top: 10px;*/
+/*  }*/
+/*}*/
 
 .comment_content {
     margin-top: 23px;
     margin-bottom: 35px;
+    color: #222;
 }
 
 
@@ -1019,22 +1078,76 @@ div.embed-responsive {
   width: 60%;
 }
 
+@media (max-width: 768px) {
+  .review_popup {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  .open_comment_form_button {
+    width: 100%;
+  }
+}
+
+
 .donation_comments {
   height: 300px;
   overflow: scroll;
 }
 
-/*::-webkit-scrollbar {*/
-/*  -webkit-appearance: none;*/
-/*  width: 7px;*/
-/*}*/
+.donation_comments::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
 
-/*::-webkit-scrollbar-thumb {*/
-/*  border-radius: 4px;*/
-/*  background-color: rgba(0, 0, 0, .5);*/
-/*  box-shadow: 0 0 1px rgba(255, 255, 255, .5);*/
-/*}*/
+.donation_comments::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
 
 .wlwarninglab {
   display: none;
+}
+
+.donation_comment_title {
+  font-size: 26px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .comment_block_fields {
+    text-align: center;
+  }
+  .review_form_input_block {
+    width: 70%;
+  }
+  .review_form textarea {
+    position: static;
+    width: 70%;
+    margin-top: 20px;
+  }
+  .review_form {
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .review_form_input_block {
+    width: 100%;
+  }
+  .review_form textarea {
+    width: 100%;
+  }
+}
+
+.comments_link {
+  margin-top: 30px;
+  margin-left: 5px;
+}
+
+.comments_link svg {
+  color: transparent;
+  width: 19px;
 }

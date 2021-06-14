@@ -244,7 +244,7 @@ jQuery(function() {
 				post_id :  post_id
 			},
 			success: function (res) {
-				current.parents('.review_popup').find('.donation_comments').append(res);
+				// current.parents('.review_popup').find('.donation_comments').append(res);
 			}
 		});
 	});

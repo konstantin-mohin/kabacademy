@@ -721,22 +721,22 @@ function add_ajax_comment() {
 		'comment_parent'       => 0,
 		'comment_author'       => $name,
 		'comment_author_email' => $email,
-//		'comment_approved'     => 1,
+		'comment_approved'     => 0,
 	];
 
-	$output = "<div class='donation_comment_block'>
-                <div class='comment_meta'>
-                    <span class='comment_name'> {$name} </span> <span class='comment_date'>{$date}</span>
-                </div>
-
-                <div class='comment_content'>
-                   {$content}
-                </div>
-             </div>";
+//	$output = "<div class='donation_comment_block'>
+//                <div class='comment_meta'>
+//                    <span class='comment_name'> {$name} </span> <span class='comment_date'>{$date}</span>
+//                </div>
+//
+//                <div class='comment_content'>
+//                   {$content}
+//                </div>
+//             </div>";
 
 	wp_insert_comment( wp_slash($data) );
 
-	echo $output;
+//	echo $output;
 
     wp_die();
 }
