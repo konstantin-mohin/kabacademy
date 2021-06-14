@@ -218,13 +218,26 @@ jQuery(function() {
         jQuery(e.currentTarget).toggleClass('is-filled', jQuery(this).val().length > 0);
     });
 
+    $('.review_name').keyup(function(){
+        if ($(this).val() === '') $(this).addClass('review_red');
+        else $(this).removeClass('review_red');
+    });
 
+    $('.review_email').keyup(function(){
+        if ($(this).val() === '') $(this).addClass('review_red');
+        else $(this).removeClass('review_red');
+    });
+
+    $('.review_content').keyup(function(){
+        if ($(this).val() === '') $(this).addClass('review_red');
+        else $(this).removeClass('review_red');
+    });
 
 	jQuery( document ).on( 'submit', '.review_form',  function( e ) {
 		e.preventDefault();
-		let name = $(this).find('.review_name').val();
-		let email = $(this).find('.review_email').val();
-		let content = $(this).find('.review_content').val();
+		let name = $(this).find('.review_name');
+		let email = $(this).find('.review_email');
+		let content = $(this).find('.review_content');
 		let post_id = $(this).attr('id');
 		let current = $(this);
 
@@ -232,19 +245,46 @@ jQuery(function() {
 		// 	return;
 		// }
 
+        // alert(validateEmail(email.val()));
+
+        if ( name.val() === '' ) {
+            name.addClass('review_red');
+            return;
+        }
+
+
+        if ( email.val() === '' ) {
+            email.addClass('review_red');
+            return;
+        }
+
+        if ( !validateEmail(email.val()) ) {
+            email.addClass('review_red');
+            return;
+        }
+
+        if ( content.val() === '' ) {
+            content.addClass('review_red');
+            return;
+        }
+
 		$.ajax({
 			type: "POST",
 			url: ajax.url,
 			data: {
 				action  : 'add_comment',
 				nonce   :  ajax.nonce,
-				name    :   name,
-				email   :   email,
-				content :  content,
+				name    :   name.val(),
+				email   :   email.val(),
+				content :  content.val(),
 				post_id :  post_id
 			},
 			success: function (res) {
 				// current.parents('.review_popup').find('.donation_comments').append(res);
+                $('.success_comment_message').show();
+                name.val('');
+                email.val('');
+                content.val('');
 			}
 		});
 	});

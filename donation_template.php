@@ -115,6 +115,7 @@ header('Expires: 0');
 
                             <div class="comment_form_block">
 
+                                <div class="success_comment_message">Спасибо за ваш комментарий! Он будет опубликован как только пройдет модерацию</div>
                                 <form class="review_form" id="<?php echo $id ?>">
                                     <div class="comment_block_fields">
                                         <div class="review_form_input_block">
@@ -200,8 +201,8 @@ header('Expires: 0');
                                         </div>
 
                                         <div class="cart__contacts wlcart__contacts">
-                                            <label for="billing_first_name_donation" class="form-label">
-                                                <input type="" class = 'billing_first_name_donation wlbil' name="billing_first_name" value="">
+                                            <label for="billing_first_name_donation-<?php echo $id; ?>" class="form-label">
+                                                <input type="" class = 'billing_first_name_donation wlbil' id="billing_first_name_donation-<?php echo $id; ?>" name="billing_first_name" value="">
 
                                                 <!--? if (!$hidePass) {?--><span>Имя</span><!--? }?-->
                                                 <!--? if (!$hidePass) :?-->
