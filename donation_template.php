@@ -46,7 +46,7 @@ header('Expires: 0');
     $products = get_field('donation',  $post->ID);
     if ( $products ) {
 
-    foreach ( $products as $product ) {
+    foreach ( $products as $item ) {
 //        var_dump($product);
 //        var_dump($product->ID);
 //        var_dump($product->post_content);
@@ -73,9 +73,11 @@ header('Expires: 0');
 //			global $product;
 //			$id = $product->get_id();
 
-			$id = $product->ID;
-			$content = $product->post_content;
-			$title = $product->post_title;
+			$id = $item->ID;
+			$title = $item->post_title;
+            $content = $item->post_content;
+            $content = apply_filters('the_content', $content);
+            $content = str_replace(']]>', ']]&gt;', $content);
 		    $product = wc_get_product( $id );
 
 			?>
