@@ -960,6 +960,7 @@ div.embed-responsive {
 
 .comment_link {
   color: #3C5D90 !important;
+    margin-left: 10px;
 }
 
 .review_form {

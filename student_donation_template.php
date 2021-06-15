@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Donation
+Template Name: Student Donation
 */
 ?>
 
@@ -37,56 +37,37 @@ header('Expires: 0');
     <a href="/" class="logo"><img src="<?php echo get_template_directory_uri() ?>/static/img/donation/logo.png" alt="logo"></a>
 
 	<?php
+	$args = array(
+		'post_type' => 'product',
+		'posts_per_page' => -1,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'product_cat',
+				'field' => 'slug',
+				'terms' => 'donation',
+			),
+		),
+	);
+	$the_query = new WP_Query($args);
 
-	global $post;
-
-//	var_dump($post->ID);
 
 
-    $products = get_field('donation',  $post->ID);
-    if ( $products ) {
 
-    foreach ( $products as $product ) {
-//        var_dump($product);
-//        var_dump($product->ID);
-//        var_dump($product->post_content);
-//        var_dump($product->post_title);
-//    }
-//
-//
-//	$args = array(
-//		'post_type' => 'product',
-//		'posts_per_page' => -1,
-//		'tax_query' => array(
-//			array(
-//				'taxonomy' => 'product_cat',
-//				'field' => 'slug',
-//				'terms' => 'donation',
-//			),
-//		),
-//	);
-//	$the_query = new WP_Query($args);
-//
-//	if ($the_query->have_posts()) {
-//		while ($the_query->have_posts()) {
-//			$the_query->the_post();
-//			global $product;
-//			$id = $product->get_id();
-
-			$id = $product->ID;
-			$content = $product->post_content;
-			$title = $product->post_title;
-		    $product = wc_get_product( $id );
+	if ($the_query->have_posts()) {
+		while ($the_query->have_posts()) {
+			$the_query->the_post();
+			global $product;
+			$id = $product->get_id();
 
 			?>
             <div class="row">
                 <div class="col-12">
-                    <h3><?php echo $title; ?></h3>
+                    <h3><?php echo the_title(); ?></h3>
                 </div>
                 <div class="col-md-7 col-sm-12">
                     <h6>Дорогие друзья!</h6>
 
-					<?php echo $content; ?>
+					<?php echo the_content(); ?>
 
                 </div>
                 <div class="col-md-5 clip">
@@ -119,7 +100,7 @@ header('Expires: 0');
                             <div data-fancybox-close class="comment_close">&#x2715</div>
 
                             <div class="comment_popup_top_block">
-                                <h4 class="donation_comment_title"><?php echo $title; ?></h4>
+                                <h4 class="donation_comment_title"><?php the_title(); ?></h4>
                             </div>
 
                             <div class="donation_comments">
