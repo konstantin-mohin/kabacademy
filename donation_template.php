@@ -81,7 +81,7 @@ header('Expires: 0');
 		    $product = wc_get_product( $id );
 
 			?>
-            <div class="row">
+            <div class="row donation_raw">
                 <div class="col-12">
                     <h3><?php echo $title; ?></h3>
                 </div>
@@ -298,9 +298,9 @@ header('Expires: 0');
                 </div>
                 <div class="col-7 progress-block">
 
-                    Текущий взнос: <strong><?php echo do_shortcode('[wcj_product_total_orders_sum hide_currency="yes"]') . ' / ' .  do_shortcode('[wcj_product_crowdfunding_goal hide_currency="yes"]') ?> USD</strong>
+                    Текущий взнос: <strong><?php echo do_shortcode('[wcj_product_total_orders_sum hide_currency="yes" product_id="' . $id . '"]') . ' / ' .  do_shortcode('[wcj_product_crowdfunding_goal hide_currency="yes" product_id="' . $id . '"]') ?> USD</strong>
                     <div class="custom_progress_bar">
-						<?php echo do_shortcode('[wcj_product_crowdfunding_goal_remaining_progress_bar]'); ?>
+						<?php echo do_shortcode('[wcj_product_crowdfunding_goal_remaining_progress_bar product_id="' . $id . '"]'); ?>
                     </div>
                 </div>
             </div>
