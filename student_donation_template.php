@@ -76,7 +76,7 @@ header('Expires: 0');
                             <div class="modal-content">
                                 <span class="close">&times;</span>
                                 <div class="modal-title wllab">
-                                    Внести пожертвование
+                                    Внести свой вклад
                                 </div>
                                 <div class="modal-label wllab">
                                     сумма вложения
@@ -137,41 +137,50 @@ header('Expires: 0');
                                         Информация о вкладчике
                                     </div>
 
+									<?php
+									if ( is_user_logged_in() ) {
+										$email = wp_get_current_user()->user_email;
+										$phone = get_user_meta(wp_get_current_user()->ID, 'billing_phone');
+										$city = get_user_meta(wp_get_current_user()->ID, 'billing_city');
+										$first_name = get_user_meta(wp_get_current_user()->ID, 'first_name');
+										$last_name = get_user_meta(wp_get_current_user()->ID, 'last_name');
+									}
+
+									?>
+
                                     <div class="cart__contacts wlcart__contacts">
                                         <label for="billing_first_name_donation-<?php echo $id; ?>" class="form-label">
-                                            <input type="" class = 'billing_first_name_donation wlbil' id="billing_first_name_donation-<?php echo $id; ?>" name="billing_first_name" value="">
-
-                                            <!--? if (!$hidePass) {?--><span>Имя</span><!--? }?-->
-                                            <!--? if (!$hidePass) :?-->
+                                            <input type="" class = 'billing_first_name_donation wlbil first_name_donation' id="billing_first_name_donation-<?php echo $id; ?>" name="billing_first_name" value="<?php echo $first_name[0] ?? '' ?>">
+                                            <span>Имя</span>
                                         </label>
 
 
                                         <label for="billing_last_name_donation-<?php echo $id; ?>" class="form-label">
-                                            <input type="" id="billing_last_name_donation-<?php echo $id; ?>" class='billing_last_name_donation wlbil' name="billing_last_name" value="">
+                                            <input type="" id="billing_last_name_donation-<?php echo $id; ?>" class='billing_last_name_donation wlbil' name="billing_last_name" value="<?php echo $last_name[0] ?? '' ?>">
                                             <span>Фамилия</span>
                                         </label>
 
 
                                         <label for="billing_phone_donation-<?php echo $id; ?>" class="form-label">
-                                            <input type="tel" id="billing_phone_donation-<?php echo $id; ?>" class = 'billing_phone_donation wlbil' name="billing_phone" value="">
+                                            <input type="tel" id="billing_phone_donation-<?php echo $id; ?>" class = 'billing_phone_donation wlbil' name="billing_phone" value="<?php echo $phone[0] ?? '' ?>">
                                             <span>Телефон</span>
                                         </label>
 
 
                                         <label for="billing_email_donation-<?php echo $id; ?>" class="form-label">
-                                            <input type="email" id="billing_email_donation-<?php echo $id; ?>" class = 'billing_email_donation wlbil' name="billing_email" value="">
+                                            <input type="email" id="billing_email_donation-<?php echo $id; ?>" class = 'billing_email_donation wlbil' name="billing_email" value="<?php echo $email ?? '' ?>">
                                             <span>Email</span>
                                         </label>
 
 
                                         <label for="billing_country-<?php echo $id; ?>" class="form-label">
-                                            <input type="email" id="billing_country-<?php echo $id; ?>" name="billing_country billing_country" value="">
+                                            <input type="text" id="billing_country-<?php echo $id; ?>" class="billing_country_donation wlbil" name="billing_country billing_country" value="<?php echo $city[0] ?? '' ?>">
                                             <span>Страна</span>
                                         </label>
                                     </div>
 
                                     <div class="modal-label wllab" style="text-align: left;">
-                                        Способ оплаты
+                                        Способ платежа
                                     </div>
 
 
@@ -195,7 +204,7 @@ header('Expires: 0');
 
 
                                         <div class="wlbutton-wrapper">
-                                            <div class="d-btn btn-small button add-to form wlsubmit" style= 'margin-top: 10px;'>Отправить пожертвование</div>
+                                            <div class="d-btn btn-small button add-to form wlsubmit" style= 'margin-top: 10px;'>Отправить</div>
                                             <div class="wlwarninglab"><span>!</span>Не заполнены обязательные поля</div>
                                         </div>
 
@@ -238,6 +247,8 @@ header('Expires: 0');
         jQuery(this).parents('.donation_main_content_block').find('.donation-modal').find('.price-wrapper:first-child').addClass('active');
         jQuery(this).parents('.donation_main_content_block').find('.donation-modal').find('.price-wrapper:first-child').find('.variation-price').prop("checked", true);
 
+        jQuery('.wlbil').focus(); // need because of placeholder not working with default value
+        jQuery('.first_name_donation').focus();
 
         function sayHi() {
             jQuery(this).parents('.donation_main_content_block').find('.donation-modal').find('.price-wrapper').trigger('click');

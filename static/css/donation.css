@@ -61,6 +61,7 @@ html, body {
 }
 
 body {
+  padding-top: 0;
   background: rgb(255, 255, 255);
   /*background: linear-gradient(180deg, rgba(180, 213, 224, 1) 0%, rgba(255, 255, 255, 1) 34%, rgba(255, 255, 255, 1) 100%);*/
   background: no-repeat center 0 url("../img/donation/top.png");
@@ -822,6 +823,7 @@ div.embed-responsive {
 {
   padding-top: 10px;
   padding-left: 10px;
+  padding-right: 10px;
   font-size: 16px;
 }
 
