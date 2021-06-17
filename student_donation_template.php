@@ -21,40 +21,10 @@ header('Expires: 0');
 
 	<?php
 	global $post;
-
-	//	var_dump($post->ID);
-
-
 	$products = get_field('donation',  $post->ID);
 	if ( $products ) {
 
 		foreach ( $products as $item ) {
-//        var_dump($product);
-//        var_dump($product->ID);
-//        var_dump($product->post_content);
-//        var_dump($product->post_title);
-//    }
-//
-//
-//	$args = array(
-//		'post_type' => 'product',
-//		'posts_per_page' => -1,
-//		'tax_query' => array(
-//			array(
-//				'taxonomy' => 'product_cat',
-//				'field' => 'slug',
-//				'terms' => 'donation',
-//			),
-//		),
-//	);
-//	$the_query = new WP_Query($args);
-//
-//	if ($the_query->have_posts()) {
-//		while ($the_query->have_posts()) {
-//			$the_query->the_post();
-//			global $product;
-//			$id = $product->get_id();
-
 			$id = $item->ID;
 			$title = $item->post_title;
 			$content = $item->post_content;
@@ -72,7 +42,33 @@ header('Expires: 0');
 
 					<?php echo $content; ?>
                     <a class="d-btn btn-primary modal-button wlmodalgo">оказать помощь</a>
-                    <a class="d-btn btn-primary ask_donation">попросить помощь</a>
+                    <a data-fancybox data-src="#get_help_modal-<?php echo $id; ?>" data-modal="true" href="javascript:;" class="d-btn btn-primary ask_donation">попросить помощь</a>
+                    <div class="review_popup" id="get_help_modal-<?php echo $id; ?>">
+                        <div data-fancybox-close class="comment_close">&#x2715</div>
+                        <form action="" class="ask_donation_form">
+                            <div class="ask_donation_input">
+    <!--                                <label for="first_name_donation---><?php //echo $id; ?><!--" class="">-->
+                                        <input type="" id="first_name_donation-<?php echo $id; ?>" class = 'first_name_donation wlbil' name="first_name" value="" placeholder="Имя">
+    <!--                                    <span>Имя</span>-->
+    <!--                                </label>-->
+
+    <!--                                <label for="email_donation---><?php //echo $id; ?><!--" class="">-->
+                                        <input type="email" id="email_donation-<?php echo $id; ?>" class = 'billing_email_donation wlbil' name="email" value="" placeholder="Email">
+    <!--                                    <span>Email</span>-->
+    <!--                                </label>-->
+                            </div>
+
+                            <div class="ask_donation_textarea">
+
+                                <!--                                    <label for="content_donation---><?php //echo $id; ?><!--" class="form-label">-->
+                                <textarea name="" id="content_donation-<?php echo $id; ?>" cols="30" rows="10" class ='content_donation wlbil' placeholder="Сообщения"></textarea>
+                                <!--                                        <span>Текст</span>-->
+                                <!--                                    </label>-->
+                            </div>
+
+                            <button class="ask_donation_button d-btn">Отправить</button>
+                        </form>
+                    </div>
                 </div>
 				<?php if( $product->is_type( 'variable' ) ) { ?>
                     <div class="modal-wrapper">
@@ -275,7 +271,7 @@ header('Expires: 0');
 </script>
 
 <?php get_footer(); ?>
-
-
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
 

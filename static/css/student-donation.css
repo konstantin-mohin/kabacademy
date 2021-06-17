@@ -1118,8 +1118,7 @@ div.embed-responsive {
 
 .review_popup {
   display: none;
-  max-width: 1230px;
-  width: 60%;
+  width: 700px;
 }
 
 @media (max-width: 768px) {
@@ -1235,3 +1234,69 @@ div.embed-responsive {
     margin-bottom: 30px;
   }
 }
+
+.ask_donation_form {
+  text-align: center;
+}
+
+.ask_donation_form input {
+  height: 40px;
+  padding-left: 10px;
+  width: 260px;
+}
+
+.ask_donation_form input, .ask_donation_form textarea {
+  border: 1px solid #98DEFF;
+}
+
+
+.ask_donation_form input:focus, .ask_donation_form textarea:focus {
+  box-shadow: none;
+}
+
+.ask_donation_input {
+  display: flex;
+  width: 550px;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.ask_donation_input input::placeholder {
+  color: #777;
+}
+
+
+.ask_donation_textarea {
+  width: 550px;
+  margin: 30px auto;
+}
+
+.ask_donation_textarea textarea {
+  width: 100%;
+  padding: 20px;
+}
+
+.ask_donation_textarea textarea::placeholder {
+  color: #777;
+}
+
+.ask_donation_button {
+  border: 1px solid #98DEFF;;
+  background: transparent;
+  display: inline-block;
+  /*margin-left: 50px;*/
+  width: 300px;
+  color: #555;
+
+}
+
+
+@media (max-width: 700px) {
+  .review_popup {
+    display: none;
+    width: 90%;
+  }
+}
+
+
+

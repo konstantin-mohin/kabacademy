@@ -39,40 +39,10 @@ header('Expires: 0');
 	<?php
 
 	global $post;
-
-//	var_dump($post->ID);
-
-
     $products = get_field('donation',  $post->ID);
     if ( $products ) {
 
     foreach ( $products as $item ) {
-//        var_dump($product);
-//        var_dump($product->ID);
-//        var_dump($product->post_content);
-//        var_dump($product->post_title);
-//    }
-//
-//
-//	$args = array(
-//		'post_type' => 'product',
-//		'posts_per_page' => -1,
-//		'tax_query' => array(
-//			array(
-//				'taxonomy' => 'product_cat',
-//				'field' => 'slug',
-//				'terms' => 'donation',
-//			),
-//		),
-//	);
-//	$the_query = new WP_Query($args);
-//
-//	if ($the_query->have_posts()) {
-//		while ($the_query->have_posts()) {
-//			$the_query->the_post();
-//			global $product;
-//			$id = $product->get_id();
-
 			$id = $item->ID;
 			$title = $item->post_title;
             $content = $item->post_content;
