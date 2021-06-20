@@ -803,7 +803,7 @@ div.embed-responsive {
   width: 100%;
   background: rgba(0, 0, 0, .5);
   z-index: 10000;
-  background: rgba(0, 0, 0, .5) url(../static/img/donation/three-dots.svg) no-repeat center center;
+  background: rgba(0, 0, 0, .5) url(../img/donation/three-dots.svg) no-repeat center center;
 }
 
 .wlred
