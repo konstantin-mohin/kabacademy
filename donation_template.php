@@ -44,7 +44,7 @@ header('Expires: 0');
 
     foreach ( $products as $item ) {
 			$id = $item->ID;
-			$title = $item->post_title;
+			$title = sanitize_text_field($item->post_title);
             $content = $item->post_content;
             $content = apply_filters('the_content', $content);
             $content = str_replace(']]>', ']]&gt;', $content);
@@ -98,10 +98,10 @@ header('Expires: 0');
                                 <?php foreach( $comments as $comment ) { ?>
                                      <div class="donation_comment_block">
                                         <div class="comment_meta">
-                                            <span class="comment_name"> <?php echo sanitize_title($comment->comment_author); ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
+                                            <span class="comment_name"> <?php echo sanitize_text_field($comment->comment_author); ?> </span> <span class="comment_date"><?php echo date("j F Y", strtotime($comment->comment_date_gmt)); ?></span>
                                         </div>
 
-                                        <div class="comment_content"><?php echo sanitize_title($comment->comment_content); ?></div>
+                                        <div class="comment_content"><?php echo sanitize_text_field($comment->comment_content); ?></div>
                                      </div>
                                 <?php } ?>
                             </div>

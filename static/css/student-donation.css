@@ -149,7 +149,7 @@ p {
 }
 
 .progress-block {
-  margin: 1.5em 0 2.5em;
+  margin: 60px 0 2.5em;
 }
 
 @media (max-width: 768px) {

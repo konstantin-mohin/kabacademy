@@ -708,9 +708,9 @@ add_action('wp_ajax_nopriv_add_comment', 'add_ajax_comment');
 function add_ajax_comment() {
 	check_ajax_referer( 'ajax-nonce', 'nonce' );
 
-	$name = sanitize_title($_POST['name']);
+	$name = sanitize_text_field($_POST['name']);
 	$email = sanitize_email($_POST['email']);
-	$content = sanitize_title($_POST['content']);
+	$content = sanitize_text_field($_POST['content']);
 	$post_id = intval($_POST['post_id']);
 	$date = date("j F Y", time());
 
