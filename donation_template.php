@@ -245,7 +245,7 @@ header('Expires: 0');
                                             <label class="cart-payments__item cart-payment wlcart-payment">
                                                 <input id="payment_method_pelecard2" type="radio" name="payment_method" class="cart-payment__input wlcart-payment__input" value="pelecard" checked="checked" data-order_button_text="перейти к оплате">
                                                 <div class="cart-payment__card wlcart-payment__card">
-                                                    <div class="cart-payment__title">Кредитная карта</div>
+                                                    <div class="cart-payment__title cart-payment__title_bottom">Кредитная карта</div>
                                                 </div>
 
                                             </label>
@@ -253,7 +253,7 @@ header('Expires: 0');
                                             <label class="cart-payments__item cart-payment wlcart-payment">
                                                 <input id="payment_method_paypal2" type="radio" name="payment_method" class="cart-payment__input wlcart-payment__input" value="paypal" data-order_button_text="Дальше на PayPal">
                                                 <div class="cart-payment__card wlcart-payment__card">
-                                                    <div class="cart-payment__title">Система PayPal</div>
+                                                    <div class="cart-payment__title cart-payment__title_bottom">Система PayPal</div>
                                                 </div>
 
                                             </label>

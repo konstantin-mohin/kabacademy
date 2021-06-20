@@ -883,6 +883,10 @@ div.embed-responsive {
     /*width: 200px !important;*/
   }
 
+  .cart-payment__title_bottom {
+    width: 200px !important;
+  }
+
   .wlcart-payment2 .cart-payment__title {
     font-size: 17px;
   }
