@@ -15,7 +15,7 @@ header('Expires: 0');
 
 <?php get_header(); ?>
 
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/static/css/student-donation.css  ">
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ?>/static/css/student-donation.css">
 <div class="container">
     <!--    <a href="/" class="logo"><img src="--><?php //echo get_template_directory_uri() ?><!--/static/img/donation/logo.png" alt="logo"></a>-->
 
@@ -46,16 +46,21 @@ header('Expires: 0');
                     <div class="review_popup" id="get_help_modal-<?php echo $id; ?>">
                         <div data-fancybox-close class="comment_close">&#x2715</div>
                         <form action="" class="ask_donation_form">
+                            <div class="ask_success_comment_message">Спасибо, Ваше сообщение было отправлено. Мы свяжемся с вами в ближайшее время. </div>
                             <div class="ask_donation_input">
-    <!--                                <label for="first_name_donation---><?php //echo $id; ?><!--" class="">-->
-                                        <input type="" id="first_name_donation-<?php echo $id; ?>" class = 'first_name_donation wlbil' name="first_name" value="" placeholder="Имя">
-    <!--                                    <span>Имя</span>-->
-    <!--                                </label>-->
+                                    <label for="first_name_donation-<?php echo $id; ?>" class="form-label">
+<!--                                        <input type="" id="first_name_donation---><?php //echo $id; ?><!--" class = 'first_name_donation wlbil' name="first_name" value="" placeholder="Имя">-->
+                                        <input type="" id="first_name_donation-<?php echo $id; ?>" class = 'first_name_donation wlbil' name="first_name" value="" >
+                                        <span>Имя</span>
+                                    </label>
 
-    <!--                                <label for="email_donation---><?php //echo $id; ?><!--" class="">-->
-                                        <input type="email" id="email_donation-<?php echo $id; ?>" class = 'billing_email_donation wlbil' name="email" value="" placeholder="Email">
-    <!--                                    <span>Email</span>-->
-    <!--                                </label>-->
+                                    <label for="email_donation-<?php echo $id; ?>" class="form-label">
+<!--                                        <input type="email" id="email_donation---><?php //echo $id; ?><!--" class = 'billing_email_donation wlbil' name="email" value="" placeholder="Email">-->
+                                        <input type="text" id="email_donation-<?php echo $id; ?>" class = 'email_donation wlbil' name="email" value="">
+                                        <span>Email</span>
+                                    </label>
+
+
                             </div>
 
                             <div class="ask_donation_textarea">

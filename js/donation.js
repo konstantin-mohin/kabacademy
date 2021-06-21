@@ -32,6 +32,12 @@ jQuery(function() {
 		else $(this).removeClass('wlred');
 	});
 
+	$('.email_donation').keyup(function(){
+		if ($(this).val() === '') $(this).addClass('review_red');
+		else $(this).removeClass('review_red');
+	});
+
+
 	/* 
 		Checking the correctness of filling in the phone field in real time.
 		phoneRegExp - Regular expression,
@@ -241,12 +247,6 @@ jQuery(function() {
 		let post_id = $(this).attr('id');
 		let current = $(this);
 
-		// if ( name || email || content ) {
-		// 	return;
-		// }
-
-        // alert(validateEmail(email.val()));
-
         if ( name.val() === '' ) {
             name.addClass('review_red');
             return;
@@ -301,6 +301,69 @@ jQuery(function() {
 
 
 
+
+	jQuery( document ).on( 'submit', '.ask_donation_form',  function( e ) {
+		e.preventDefault();
+
+		let email = $(this).find('.email_donation');
+		let name = $(this).find('.first_name_donation');
+		let message = $(this).find('.content_donation');
+
+		if ( name.val() === '' ) {
+			name.addClass('review_red');
+			return false;
+		} else name.removeClass('review_red');
+
+
+		if ( email.val() === '' ) {
+			email.addClass('review_red');
+			return false;
+		} else email.removeClass('review_red');
+
+
+		// Validating the correct email address
+		if (!validateEmail(email.val()))
+		{
+			email.addClass('review_red');
+			$('.woocommerce-NoticeGroup').show();
+			$('.woocommerce-NoticeGroup li:eq(0)').show();
+			return false;
+		}
+		else
+		{
+			$('.woocommerce-NoticeGroup').hide();
+			email.removeClass('review_red');
+		}
+
+		if ( message.val() === '' ) {
+			message.addClass('review_red');
+			return false;
+		} else message.removeClass('review_red');
+
+		$.ajax({
+			type: "POST",
+			url: ajax.url,
+			data: {
+				action  : 'send_mail',
+				nonce   :  ajax.nonce,
+				name    :   name.val(),
+				email   :   email.val(),
+				message :  message.val(),
+			},
+			success: function (res) {
+				$('.ask_success_comment_message').show();
+
+				name.val('');
+				email.val('');
+				message.val('');
+				name.blur();
+				email.blur();
+			}
+		});
+
+
+
+	});
 
 
 

@@ -740,3 +740,22 @@ function add_ajax_comment() {
 
     wp_die();
 }
+
+
+
+add_action('wp_ajax_send_mail', 'ask_send_mail');
+add_action('wp_ajax_nopriv_send_mail', 'ask_send_mail');
+function ask_send_mail() {
+	check_ajax_referer( 'ajax-nonce', 'nonce' );
+
+
+	$name = sanitize_text_field($_POST['name']);
+	$email = sanitize_email($_POST['email']);
+	$message = sanitize_text_field($_POST['message']);
+
+
+	echo $message;
+
+
+	wp_die();
+}

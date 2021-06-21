@@ -323,7 +323,9 @@ div.embed-responsive {
   width: 336px;
   line-height: 45px;
   border: 0;
-  padding: 0
+  padding: 0;
+  cursor: pointer;
+
 }
 /*.form-tabs div:nth-child(1) {*/
 /*  order: 4;*/
@@ -814,7 +816,7 @@ div.embed-responsive {
   width: 100%;
   background: rgba(0, 0, 0, .5);
   z-index: 10000;
-  background: rgba(0, 0, 0, .5) url(/wp-content/themes/kabacedemy/three-dots.svg) no-repeat center center;
+  background: rgba(0, 0, 0, .5) url(../img/donation/three-dots.svg) no-repeat center center;
 }
 
 .wlred
@@ -828,6 +830,7 @@ div.embed-responsive {
 
 .form-label {
     display: flex;
+  flex: 0 0 0;
 }
 
 .form-label input
@@ -909,6 +912,7 @@ div.embed-responsive {
   .wlbutton-wrapper .wlsubmit
   {
     width: 100% !important;
+    cursor: pointer;
   }
 
   .wlbutton-wrapper
@@ -1210,6 +1214,12 @@ div.embed-responsive {
     text-align: center;
 }
 
+.ask_success_comment_message {
+  display: none;
+  line-height: 25px;
+  margin-bottom: 20px;
+}
+
 .donation_content_block {
   max-width: 700px;
   padding-bottom: 80px;
@@ -1241,9 +1251,9 @@ div.embed-responsive {
 }
 
 .ask_donation_form input {
-  height: 40px;
+  height: 42px;
   padding-left: 10px;
-  width: 260px;
+  width: 300px;
 }
 
 .ask_donation_form input, .ask_donation_form textarea {
@@ -1257,10 +1267,31 @@ div.embed-responsive {
 
 .ask_donation_input {
   display: flex;
-  width: 550px;
+  width: 100%;
   justify-content: space-between;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
 }
+
+@media (max-width: 768px) {
+  .ask_donation_input {
+    flex-direction: column;
+  }
+  .ask_donation_input label {
+    margin-top: 20px;
+  }
+
+  .ask_donation_form input {
+    width: 100%;
+  }
+
+}
+
+/*@media (max-width: 450px) {*/
+/*  .ask_donation_input {*/
+/*    width: 300px;*/
+/*    flex-direction: column;*/
+/*  }*/
+/*}*/
 
 .ask_donation_input input::placeholder {
   color: #777;
@@ -1268,7 +1299,7 @@ div.embed-responsive {
 
 
 .ask_donation_textarea {
-  width: 550px;
+  width: 100%;
   margin: 30px auto;
 }
 
@@ -1297,6 +1328,13 @@ div.embed-responsive {
     display: none;
     width: 90%;
   }
+}
+
+.ask_donation_input .form-label span {
+  left: 10px;
+  font-size: 16px;
+  color: #777;
+  font-weight: 400;
 }
 
 
