@@ -14,6 +14,6 @@ jQuery(document).ready(function($) {
 
     $('#account_password').val(generatePassword());
 
-    $('.woocommerce-billing-fields h3').text('Контактная информация');
+    $('.woocommerce-billing-fields h3').text('Шаг #1 Контактная информация');
 
   });
