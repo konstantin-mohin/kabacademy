@@ -253,6 +253,7 @@ header('Expires: 0');
                                         </div>
 
 
+
                                         <div class="cart__payments cart-payments wlcart-payments">
                                             <label class="cart-payments__item cart-payment wlcart-payment">
                                                 <input id="payment_method_pelecard2" type="radio" name="payment_method" class="cart-payment__input wlcart-payment__input" value="pelecard" checked="checked" data-order_button_text="перейти к оплате">
