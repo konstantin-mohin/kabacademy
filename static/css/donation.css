@@ -27,7 +27,7 @@ form {
   padding: 40px;
   border: 1px solid #888;
   width: 1000px;
-    position: relative;
+  position: relative;
   /*max-width: 1000px;*/
 }
 
@@ -120,14 +120,14 @@ p {
 }
 
 .comment_button {
-    background: #A42BB9;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 14px;
-    text-align: center;
-    outline: none;
-    color: #fff;
+  background: #A42BB9;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  outline: none;
+  color: #fff;
 }
 
 
@@ -485,7 +485,7 @@ div.embed-responsive {
 }
 
 .cart__contacts .form-label:not(:last-child) {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .price-custom {
@@ -701,7 +701,7 @@ div.embed-responsive {
   margin-top: -20px;
   margin-bottom: 0;
 
-   display: flex;
+  display: flex;
   /* flex-direction: row; */
   /* flex-wrap: wrap; */
   /*justify-content: stretch;*/
@@ -769,7 +769,7 @@ div.embed-responsive {
   font-weight: 600 !important;
 }
 .cart-payment__title {
-    /*width: 200px !important;*/
+  /*width: 200px !important;*/
 }
 
 .wlcart-payment2 .cart-payment__title
@@ -812,11 +812,11 @@ div.embed-responsive {
 }
 
 .review_red {
-    border: 1px solid #F00 !important;
+  border: 1px solid #F00 !important;
 }
 
 .form-label {
-    display: flex;
+  display: flex;
 }
 
 .form-label input
@@ -920,9 +920,9 @@ div.embed-responsive {
     display: block;
   }
 
-    .cart__contacts .form-label:not(:last-child) {
-        margin-right: 0;
-    }
+  .cart__contacts .form-label:not(:last-child) {
+    margin-right: 0;
+  }
 
   /*.wlcart-payment__card .price-custom*/
   /*{*/
@@ -978,24 +978,24 @@ div.embed-responsive {
 
 .comment_link {
   color: #3C5D90 !important;
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .review_form {
-   padding: 44px;
+  padding: 44px;
 
 }
 
 .review_form input[type='text'], .review_form textarea {
-    border: 1px solid #BED6E1;
-    background-color : #fff;
+  border: 1px solid #BED6E1;
+  background-color : #fff;
 }
 
 .review_form input[type='text'] {
-    height: 40px;
-    width: 100%;
-    margin: 10px 0;
-    padding: 0 10px;
+  height: 40px;
+  width: 100%;
+  margin: 10px 0;
+  padding: 0 10px;
 }
 
 .review_form input[type='text']:nth-child(1) {
@@ -1051,8 +1051,8 @@ div.embed-responsive {
 }
 
 .comment_date {
-    display: inline-block;
-    color: #777;
+  display: inline-block;
+  color: #777;
   margin-top: 10px;
 }
 /*@media (max-width: 600px) {*/
@@ -1062,51 +1062,51 @@ div.embed-responsive {
 /*}*/
 
 .comment_content {
-    margin-top: 23px;
-    margin-bottom: 35px;
-    color: #222;
+  margin-top: 23px;
+  margin-bottom: 35px;
+  color: #222;
 }
 
 
 .comment_form_block {
   width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    background: #F6F6F6 !important;
-    z-index: -1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  background: #F6F6F6 !important;
+  z-index: -1;
 }
 
 .comment_form_close {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .comment_close {
-    cursor: pointer;
-    text-align: center;
-    display: block;
-    width: 20px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  width: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 .comment_form_close {
-    cursor: pointer;
-    text-align: center;
-    display: block;
-    width: 20px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  width: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 
 .open_comment_form_button {
-    width: 373px;
-    height: 53px;
-    margin-top: 30px;
+  width: 373px;
+  height: 53px;
+  margin-top: 30px;
 }
 
 
@@ -1191,13 +1191,13 @@ div.embed-responsive {
 }
 
 .success_comment_message {
-    display: none;
-    position: absolute;
-    top: 5%;
-    /*left: 50%;*/
-    /*transform: translate(-50%, 0);*/
-    width: 100%;
-    text-align: center;
+  display: none;
+  position: absolute;
+  top: 5%;
+  /*left: 50%;*/
+  /*transform: translate(-50%, 0);*/
+  width: 100%;
+  text-align: center;
 }
 
 .donation_raw {
