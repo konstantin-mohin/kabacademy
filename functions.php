@@ -216,6 +216,12 @@ function kabacedemy_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'kabacedemy_scripts' );
 
+
+function custom_style_admin(){
+	wp_enqueue_style("style_admin", get_template_directory_uri() . "/style-admin.css");
+}
+add_action('admin_head', 'custom_style_admin');
+
 function kabacedemy_scripts_footer() {
 	?>
     <script>
